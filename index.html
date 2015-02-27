@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="mcgApp">
+<head>
+    <meta charset="utf-8">
+    <title>Knizia.biz Material Color Generator</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--
+        ### Stylesheets ###
+    -->
+    <!-- 3rd-Party Libraries -->
+	<link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
+	<link rel="stylesheet" href="styles/reset.css">
+	
+	<!-- Fonts -->
+	
+	<!-- Material Color Generator Application -->
+	<link rel="stylesheet" href="styles/main.css">
+</head>
+<body style="">
+	<header id="header">
+	</header>
+	
+	<div class="mcg-content"  ng-view layout="row" layout-align="center center" style="height:100%;">
+	</div>
+	<!--
+		### Scripts ###
+	-->
+	<!-- 3rd-Party Libraries -->
+	<script src="lib/jquery/jquery-1.10.2.min.js"></script>
+	<script src="lib/angular/angular.min.js"></script>
+	<script src="lib/angular-animate/angular-animate.min.js"></script>
+	<script src="lib/angular-route/angular-route.js"></script>
+	<script src="lib/angular-aria/angular-aria.min.js"></script>
+	<script src="lib/hammer/hammer.min.js"></script>
+	<script src="lib/angular-material/angular-material.min.js"></script>
+	
+	<!-- Material Color Generator Application -->
+	<script src="scripts/app.js"></script>
+	<script src="scripts/controllers/color_generator.js"></script>
+</body>
+</html>

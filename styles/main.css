@@ -1,0 +1,43 @@
+body{
+	color: #222;
+	background-color: #444444;
+}
+
+html{
+	background-color: #444444;
+}
+
+div{
+}
+
+h1{
+	font-size: 70pt;
+}
+
+h2{
+	font-weight: 300;
+	font-size: 20pt;
+	margin-bottom: 20px;
+}
+
+input{
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #999;
+	color: #999;
+	font-size: 20pt;
+	font-weight: 300;
+}
+
+a{
+	text-decoration: none;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	-o-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+	color: #777;
+}
+
+a:hover{
+	color: #aaa;
+}
