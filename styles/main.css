@@ -1,43 +1,43 @@
-body{
-	color: #222;
-	background-color: #444444;
+body {
+	font-family : "Open Sans", Arial, sans-serif;
 }
 
-html{
-	background-color: #444444;
+.spaced {
+	margin-top : 40px;
 }
 
-div{
+/*
+ * Palette Color List CSS
+ */
+.palette-colors {
+
 }
 
-h1{
-	font-size: 70pt;
+.palette-colors md-list-item {
+
 }
 
-h2{
-	font-weight: 300;
-	font-size: 20pt;
-	margin-bottom: 20px;
+.palette-color {
+	font-weight           : 200;
+	padding               : 20px;
+	font-size             : 24px;
+	line-height           : 24px;
+	width                 : 360px;
+	background-blend-mode : multiply;
+	color                 : #000;
+	text-shadow           : 1px 1px 0px rgba(255, 255, 255, 0.1);
 }
 
-input{
-	background-color: transparent;
-	border: none;
-	border-bottom: 1px solid #999;
-	color: #999;
-	font-size: 20pt;
-	font-weight: 300;
+.palette-color-hex {
+	position  : relative;
+	top       : -4px;
+	font-size : 10px;
 }
 
-a{
-	text-decoration: none;
-	-webkit-transition: all 0.2s linear;
-	-moz-transition: all 0.2s linear;
-	-o-transition: all 0.2s linear;
-	transition: all 0.2s linear;
-	color: #777;
+.dark-canvas {
+	background-color : rgb(0, 0, 0);
 }
 
-a:hover{
-	color: #aaa;
+.light-canvas {
+	background-color : rgb(255, 255, 255);
 }
