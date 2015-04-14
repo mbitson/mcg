@@ -1,21 +1,23 @@
-<div style="height: 100%;">
-	<div layout="column" layout-align="center center"><h1>MCG</h1><h2>Material Color Generator</h2></div>
-	<div layout="row" layout-align="center center" style="margin-bottom:20px;"><center>This tool is far from finished.
-													<br/> An external tool like <a href="http://www.colorzilla.com/" target="_blank">ColorZilla</a> is needed to get the color values.
-													<br/> The colors below 500 (400, 300,...) are exactly the ones Google used as Material Color Palettes
-													<br/> The ones greater than 500 are a little off from the ones Google used.
-													</center></div>
-	<div layout="row" layout-align="center center" style=""><input type="text" label="#HEX-CODE Base Color" placeholder="HEX-CODE Base Color" ng-model="baseColor"/></div>
-	<div layout="column" layout-align="center center" style="margin-top:25px; margin-bottom: 25px;">
-		<div  ng-repeat="color in mColors.lighterColors" style="background-color: rgb(255,255,255);">
-			<div style="width: 360px; height: 46px; background-color:rgba({{color.r}}, {{color.g}}, {{color.b}}, {{color.a}});background-blend-mode: multiply;"><span class="name" ng-bind="color.name"></span><span ng-bind="color.hex" class="hex"></span></div>
-		</div>
-		<div  ng-repeat="color in mColors.darkerColors" style="background-color: rgb(0,0,0);">
-			<div style="width: 360px; height: 46px; background-color:rgba({{color.r}}, {{color.g}}, {{color.b}}, {{color.a}});background-blend-mode: multiply;"><span class="name" ng-bind="color.name"></span><span ng-bind="color.hex" class="hex"></span></div>
-		</div>
-	</div>
-	
-	<div layout="row" layout-align="center center" style="">
-				<center>Feel free to contact me with questions or contributions <a href="mailto: kniziadavid@gmail.com">kniziadavid@gmail.com</a>
-				<br/> Copyright by Dave Knizia&nbsp;<a href="http://knizia.biz" target="_blank">knizia.biz</a></center></div>
-</div>
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        Material Design Color Generator
+    </div>
+</md-toolbar>
+<md-content layout="row">
+	<md-list class="palette-colors spaced" layout="column" layout-align="center center">
+		<md-list-item>
+			<input type="text" label="#HEX-CODE Base Color" placeholder="HEX-CODE Base Color" ng-model="baseColor" />
+		</md-list-item>
+	    <md-list-item class="light-canvas" ng-repeat="color in mColors">
+	        <div class="palette-color" style="background-color:{{color.hex}};">
+	            <span class="name" ng-bind="color.name"></span>
+	            <span ng-bind="color.hex" class="palette-color-hex"></span>
+	        </div>
+	    </md-list-item>
+	</md-list>
+	<md-content>
+		<pre>
+			{{mColorsExportable}}
+		</pre>
+	</md-content>
+</md-content>

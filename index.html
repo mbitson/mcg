@@ -2,13 +2,13 @@
 <html ng-app="mcgApp">
 <head>
     <meta charset="utf-8">
-    <title>Knizia.biz Material Color Generator</title>
+    <title>Material Design Color Generator</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!--
         ### Stylesheets ###
     -->
     <!-- 3rd-Party Libraries -->
-	<link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">a
+	<link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
 	<link rel="stylesheet" href="styles/reset.css">
 	
 	<!-- Fonts -->
@@ -17,16 +17,13 @@
 	<link rel="stylesheet" href="styles/main.css">
 </head>
 <body style="">
-	<header id="header">
-	</header>
-	
-	<div class="mcg-content"  ng-view layout="row" layout-align="center center" style="height:100%;">
+	<div ng-view layout="column">
 	</div>
 	<!--
 		### Scripts ###
 	-->
 	<!-- 3rd-Party Libraries -->
-	<script src="bower_components/jquery/jquery-1.10.2.min.js"></script>
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="bower_components/angular/angular.min.js"></script>
 	<script src="bower_components/angular-animate/angular-animate.min.js"></script>
 	<script src="bower_components/angular-route/angular-route.js"></script>
@@ -36,6 +33,6 @@
 	
 	<!-- Material Color Generator Application -->
 	<script src="scripts/app.js"></script>
-	<script src="scripts/controllers/color_generator.js"></script>
+	<script src="scripts/controllers/ColorGeneratorCtrl.js"></script>
 </body>
 </html>
