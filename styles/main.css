@@ -2,30 +2,70 @@ body {
 	font-family : "Open Sans", Arial, sans-serif;
 }
 
-.spaced {
+.spaced-top {
 	margin-top : 40px;
+}
+
+.spaced-bottom {
+	margin-bottom : 40px;
+}
+
+.spaced-left {
+	margin-left : 40px;
+}
+
+.spaced-right {
+	margin-right : 40px;
+}
+
+.spaced-horizontal {
+	padding-left  : 20px;
+	padding-right : 20px;
+}
+
+.spaced-vertical {
+	margin-top    : 20px;
+	margin-bottom : 20px;
+}
+
+.padded {
+	padding : 15px;
+}
+
+pre {
+	background : #eee;
+	padding    : 50px;
+}
+
+.bright-text, .bright-text input{
+	color: #fff !important;
 }
 
 /*
  * Palette Color List CSS
  */
+.palette {
+	box-shadow : 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
+	margin: 10px;
+}
+
 .palette-colors {
 
 }
 
 .palette-colors md-list-item {
-
+	width: 100%;
 }
 
 .palette-color {
-	font-weight           : 200;
-	padding               : 20px;
-	font-size             : 24px;
-	line-height           : 24px;
-	width                 : 360px;
-	background-blend-mode : multiply;
-	color                 : #000;
-	text-shadow           : 1px 1px 0px rgba(255, 255, 255, 0.1);
+	font-weight : 200;
+	padding     : 20px;
+	font-size   : 24px;
+	line-height : 24px;
+	width       : 100%;
+	display     : block;
+	color       : #000;
+	text-shadow : 1px 1px 0px rgba(255, 255, 255, 0.1);
 }
 
 .palette-color-hex {
@@ -40,4 +80,11 @@ body {
 
 .light-canvas {
 	background-color : rgb(255, 255, 255);
+}
+
+/*
+ * MD Style Overrides
+ */
+md-input-container {
+	padding : 0px !important;
 }

@@ -1,23 +1,47 @@
-<md-toolbar>
-    <div class="md-toolbar-tools">
+<md-toolbar layout="row" layout-align="center center">
+    <div flex class="md-toolbar-tools">
         Material Design Color Generator
     </div>
+	<span flex></span>
+	<div class="md-accent bright-text" flex layout="row">
+		<md-input-container class="md-accent">
+			<input class="md-accent" ng-model="theme.name">
+		</md-input-container>
+		<md-button class="md-accent" ng-click="addBasePalette()" style="position: relative; right: 15px;">
+			<ng-md-icon icon="add_box" size="34" style="fill:#ffffff;"></ng-md-icon>
+		</md-button>
+	</div>
+	<span flex></span>
+	<md-button flex href="https://github.com/mbitson/mcg" class="spaced-horizontal md-raised md-accent" style="position: relative; right: 15px;">GitHub</md-button>
 </md-toolbar>
 <md-content layout="row">
-	<md-list class="palette-colors spaced" layout="column" layout-align="center center">
-		<md-list-item>
-			<input type="text" label="#HEX-CODE Base Color" placeholder="HEX-CODE Base Color" ng-model="baseColor" />
-		</md-list-item>
-	    <md-list-item class="light-canvas" ng-repeat="color in mColors">
-	        <div class="palette-color" style="background-color:{{color.hex}};">
-	            <span class="name" ng-bind="color.name"></span>
-	            <span ng-bind="color.hex" class="palette-color-hex"></span>
-	        </div>
-	    </md-list-item>
-	</md-list>
-	<md-content>
-		<pre>
-			{{mColorsExportable}}
-		</pre>
+	<md-content flex class="palette" layout="column" ng-repeat="(paletteKey, palette) in palettes">
+		<md-toolbar class="md-accent" layout="row" layout-align="center center" style="padding-right: 15px;">
+			<div class="md-toolbar-tools">
+				<md-input-container>
+					<input ng-model="palette.name">
+				</md-input-container>
+			</div>
+			<span flex></span>
+			<md-button ng-click="showPaletteCode(palette)">
+				<ng-md-icon icon="content_paste" size="34"></ng-md-icon>
+			</md-button>
+			<md-button ng-click="deletePalette(key)">
+				<ng-md-icon icon="remove_circle" size="34"></ng-md-icon>
+			</md-button>
+		</md-toolbar>
+		<md-list flex class="palette-colors spaced" layout="column" layout-align="center center">
+			<md-list-item flex layout="row" layout-align="center center" style="padding-left: 15px; padding-right: 15px;">
+				<h3 style="margin-right: 15px;" flex>Base Color:</h3>
+				<spectrum-colorpicker ng-model="palette.base" format="'hex'" options="{showInput: true, showPalette: true}" ng-change="calcPalette(paletteKey)"></spectrum-colorpicker>
+			</md-list-item>
+		    <md-list-item class="light-canvas" ng-repeat="color in palette.colors" flex layout="row">
+		        <div class="palette-color" style="background-color:{{color.hex}};" flex layout="row">
+		            <span class="name" ng-bind="color.name"></span>
+			        <span flex></span>
+		            <span ng-bind="color.hex" class="palette-color-hex"></span>
+		        </div>
+		    </md-list-item>
+		</md-list>
 	</md-content>
 </md-content>
