@@ -11,7 +11,7 @@ function ($scope, $mdDialog)
 			orig  : [],
 			base  : '#26a69a',
 			json  : '',
-			name  : 'PaletteName'
+			name  : ''
 		};
 
 		// Define palettes
@@ -22,7 +22,8 @@ function ($scope, $mdDialog)
 
 		// Define theme defaults
 		$scope.theme = {
-			name: 'My Theme'
+			name: '',
+            palettes: $scope.palettes
 		};
 	};
 
@@ -41,7 +42,7 @@ function ($scope, $mdDialog)
 
 	// Function to delete a palette when passed it's key.
 	$scope.deletePalette = function(key){
-		delete $scope.palettes[key];
+		$scope.palettes.remove(key);
 	};
 
 	// Function to assign watchers to all bases
@@ -110,29 +111,56 @@ function ($scope, $mdDialog)
 				name: '900'
 			},
 			{
-				hex : shadeColor(color, 0.333),
+				hex : shadeColor(color, 0.7),
 				name: 'A100'
 			},
 			{
-				hex : shadeColor(color, 0.333),
+				hex : shadeColor(color, 0.5),
 				name: 'A200'
 			},
 			{
-				hex : shadeColor(color, 0.333),
+				hex : shadeColor(color, 0.166),
 				name: 'A400'
 			},
 			{
-				hex : shadeColor(color, 0.333),
+				hex : shadeColor(color, -0.25),
 				name: 'A700'
 			}
 		];
 	};
+
+    // Function to show theme's full code
+    $scope.showThemeCode = function()
+    {
+        // Init return string
+        var themeCodeString = '';
+
+        // For each palette, add it's declaration
+        for(var i = 0; i < $scope.palettes.length; i++){
+            themeCodeString = themeCodeString+$scope.createDefinePalette($scope.palettes[i])+'\n\r';
+        }
+
+        // Add theme configuration
+        themeCodeString = themeCodeString +
+        '$mdThemingProvider.theme(\'' + $scope.theme.name + '\')\n\r\t'+
+        '.primaryPalette(\''+$scope.palettes[0].name+'\')\n\r\t'+
+        '.accentPalette(\''+$scope.palettes[1].name+'\');'
+        +'\n\r';
+
+        // Show clipboard with theme code
+        $scope.showClipboard(themeCodeString);
+    };
 
 	// Function to regenerate json and show dialog for palette.
 	$scope.showPaletteCode = function(palette){
 		palette.json = $scope.createDefinePalette(palette);
 		$scope.showClipboard(palette.json);
 	};
+
+    // Function to show export json for loading carts later
+    $scope.showExport = function(){
+        $scope.showClipboard(JSON.stringify($scope.theme, null, 2));
+    };
 
 	// Function to show generic clipboard alert dialog
 	$scope.showClipboard = function(code){
@@ -161,20 +189,15 @@ function ($scope, $mdDialog)
 		}
 	};
 
-	/*
-	 * Color utility functions
-	 * Source: http://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
-	 */
-	function shadeColor(color, percent) {
-		var f = parseInt(color.slice(1), 16), t = percent < 0 ? 0 : 255, p = percent < 0 ? percent * -1 : percent, R = f >> 16, G = f >> 8 & 0x00FF, B = f & 0x0000FF;
-		return "#" + (0x1000000 + (Math.round((t - R) * p) + R) * 0x10000 + (Math.round((t - G) * p) + G) * 0x100 + (Math.round((t - B) * p) + B)).toString(16).slice(1);
-	}
-	function darken(color){
-		shadeColor(color,-0.1);
-	}
-	function lighten(color) {
-		shadeColor(color,0.1);
-	}
+    // Function to darken a palette's color.
+    $scope.darkenPaletteItem = function(color){
+        color.hex = shadeColor(color.hex, -0.1);
+    };
+
+    // Function to lighten a palette's color.
+    $scope.lightenPaletteItem = function(color){
+        color.hex = shadeColor(color.hex, 0.1);
+    };
 
 	// Init controller
 	$scope.init();

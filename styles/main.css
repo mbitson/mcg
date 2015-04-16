@@ -1,52 +1,66 @@
+/*
+ * Reset the vertical align from baseline to middle. My app wont be typical text.
+ */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    vertical-align: middle;
+}
+
+
 body {
-	font-family : "Open Sans", Arial, sans-serif;
+    font-family : "Open Sans", Arial, sans-serif;
 }
 
 .spaced-top {
-	margin-top : 40px;
+    margin-top : 40px;
 }
 
 .spaced-bottom {
-	margin-bottom : 40px;
+    margin-bottom : 40px;
 }
 
 .spaced-left {
-	margin-left : 40px;
+    margin-left : 40px;
 }
 
 .spaced-right {
-	margin-right : 40px;
+    margin-right : 40px;
 }
 
 .spaced-horizontal {
-	padding-left  : 20px;
-	padding-right : 20px;
+    padding-left  : 20px;
+    padding-right : 20px;
 }
 
 .spaced-vertical {
-	margin-top    : 20px;
-	margin-bottom : 20px;
+    margin-top    : 20px;
+    margin-bottom : 20px;
 }
 
 .padded {
-	padding : 15px;
+    padding : 15px;
 }
 
 pre {
-	background : #eee;
-	padding    : 50px;
+    background : #eee;
+    padding    : 50px;
 }
 
-.bright-text, .bright-text input{
-	color: #fff !important;
+.md-accent, .md-accent input{
+    color: #fff !important;
+    fill: #fff !important;
+}
+
+.logo-text{
+    color: #c8ecff;
+    padding-left: 15px;
 }
 
 /*
  * Palette Color List CSS
  */
 .palette {
-	box-shadow : 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
-	margin: 10px;
+    box-shadow : 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
+    margin: 10px;
 }
 
 .palette-colors {
@@ -54,37 +68,74 @@ pre {
 }
 
 .palette-colors md-list-item {
-	width: 100%;
+    width: 100%;
 }
 
 .palette-color {
-	font-weight : 200;
-	padding     : 20px;
-	font-size   : 24px;
-	line-height : 24px;
-	width       : 100%;
-	display     : block;
-	color       : #000;
-	text-shadow : 1px 1px 0px rgba(255, 255, 255, 0.1);
+    font-weight : 200;
+    padding     : 0 10px;
+    font-size   : 16px;
+    line-height : 35px;
+    width       : 100%;
+
+    display     : block;
+    color       : #000;
+    text-shadow : 1px 1px 0px rgba(255, 255, 255, 0.1);
+}
+
+.palette-color span.color-text{
+    height: 35px !important;
+    display: inline-block;
+    line-height: 35px;
 }
 
 .palette-color-hex {
-	position  : relative;
-	top       : -4px;
-	font-size : 10px;
+    font-size : 11px;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.5);
 }
 
-.dark-canvas {
-	background-color : rgb(0, 0, 0);
+.palette-color-mutators{
+    display:inline-block;
+    position:relative;
+    top:-7px;
+    float: right;
+    height: 35px !important;
 }
 
-.light-canvas {
-	background-color : rgb(255, 255, 255);
+.dot{
+    border-radius: 24px;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
 }
+
+.sp-replacer {
+    min-width: 50px;
+    border: 0px solid #fff;
+    background: transparent;
+}
+
+.sp-replacer:hover{
+    color: #fff !important;
+}
+
+.gh-btn{
+    width: 45px; text-align: center; margin-left: 15px !important;
+}
+
+.btn-icon-only{
+    width: 42px !important;
+    text-align: center;
+}
+
 
 /*
  * MD Style Overrides
  */
 md-input-container {
-	padding : 0px !important;
+    padding: 20px 2px 26px !important;
+}
+.md-background{
+    background-color: rgba(0,0,0, 0.701961) !important;
 }
