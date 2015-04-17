@@ -6,41 +6,25 @@ mcgApp.config(function ($routeProvider, $mdThemingProvider) {
         templateUrl: 'templates/color_generator.html',
         controller: 'ColorGeneratorCtrl'
     });
-    $mdThemingProvider.definePalette('darkest', {
-        "50": "#e6e6e6",
-        "100": "#b3b3b3",
-        "200": "#808080",
-        "300": "#555555",
-        "400": "#2a2a2a",
-        "500": "#000000",
-        "600": "#000000",
-        "700": "#000000",
-        "800": "#000000",
-        "900": "#000000",
-        "A100": "#555555",
-        "A200": "#555555",
-        "A400": "#555555",
-        "A700": "#555555"
-    });
-    $mdThemingProvider.definePalette('dark', {
-        "50": "#e9e9e9",
-        "100": "#bebebe",
-        "200": "#939393",
-        "300": "#6e6e6e",
-        "400": "#4a4a4a",
-        "500": "#262626",
-        "600": "#212121",
-        "700": "#1d1d1d",
-        "800": "#181818",
-        "900": "#131313",
-        "A100": "#6e6e6e",
-        "A200": "#6e6e6e",
-        "A400": "#6e6e6e",
-        "A700": "#6e6e6e"
+    $mdThemingProvider.definePalette('clear', {
+        "50"  : "#FFFFFF",
+        "100" : "#FFFFFF",
+        "200" : "#FFFFFF",
+        "300" : "#FFFFFF",
+        "400" : "#FFFFFF",
+        "500" : "#FFFFFF",
+        "600" : "#cbcaca",
+        "700" : "#aeadad",
+        "800" : "#919090",
+        "900" : "#747474",
+        "A100": "#f8f8f8",
+        "A200": "#f4f3f3",
+        "A400": "#ecebeb",
+        "A700": "#aeadad"
     });
     $mdThemingProvider.theme('default')
-        .primaryPalette('darkest')
-        .accentPalette('dark')
+        .primaryPalette('red')
+        .accentPalette('clear')
         .dark();
 });
 
