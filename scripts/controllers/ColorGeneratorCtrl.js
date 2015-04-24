@@ -31,6 +31,9 @@ function ($scope, $mdDialog)
 	$scope.addBasePalette = function(){
 		$scope.palettes.push(angular.copy($scope.palette));
 		$scope.calcPalette($scope.palettes.length-1);
+
+		// GA Event Track
+		ga('send', 'event', 'mcg', 'add_palette');
 	};
 
 	// Function to calculate all colors for all palettes
@@ -43,6 +46,8 @@ function ($scope, $mdDialog)
 	// Function to delete a palette when passed it's key.
 	$scope.deletePalette = function(key){
 		$scope.palettes.remove(key);
+		// GA Event Track
+		ga('send', 'event', 'mcg', 'remove_palette');
 	};
 
 	// Function to assign watchers to all bases
@@ -149,12 +154,18 @@ function ($scope, $mdDialog)
 
         // Show clipboard with theme code
         $scope.showClipboard(themeCodeString);
+
+	    // GA Event Track
+	    ga('send', 'event', 'mcg', 'copy_code_theme');
     };
 
 	// Function to regenerate json and show dialog for palette.
 	$scope.showPaletteCode = function(palette){
 		palette.json = $scope.createDefinePalette(palette);
 		$scope.showClipboard(palette.json);
+
+		// GA Event Track
+		ga('send', 'event', 'mcg', 'copy_code_palette');
 	};
 
     // Function to show export json for loading carts later
@@ -181,6 +192,10 @@ function ($scope, $mdDialog)
 			},
 			controller : ClipboardDialogController
 		});
+
+		// GA Event Track
+		ga('send', 'event', 'mcg', 'copy_code');
+
 		function ClipboardDialogController(scope, $mdDialog, code) {
 			scope.code = code;
 			scope.closeDialog = function () {

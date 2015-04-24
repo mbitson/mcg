@@ -1,5 +1,5 @@
-<md-toolbar layout="row" layout-align="center center">
-    <md-button href="https://github.com/mbitson/mcg" class="gh-btn md-raised md-accent" target="_blank">
+<md-toolbar layout-gt-md="row" layout-md="column" layout-align="center center">
+    <md-button href="https://github.com/mbitson/mcg" class="gh-btn md-raised md-accent" target="_blank" aria-label="To Github">
         <md-tooltip>To GitHub</md-tooltip>
         <img src="/images/gh.png" alt="GitHub" name="GitHub Link" />
     </md-button>
@@ -12,32 +12,32 @@
     </div>
 	<div flex layout="row" layout-align="end center">
         <div class="md-accent bright-text">
-            <md-button class="md-accent" ng-click="showThemeCode()" style="margin-right: 15px;">
+            <md-button class="md-accent" ng-click="showThemeCode()" style="margin-right: 15px;" aria-label="Copy AngularJS Code">
                 <md-tooltip>Copy AngularJS Code</md-tooltip>
                 <ng-md-icon icon="content_paste" size="34" style="fill:#ffffff;"></ng-md-icon>
             </md-button>
         </div>
         <div class="md-accent bright-text">
-            <md-button class="md-accent" ng-click="showExport()" style="margin-right: 15px;">
-                <md-tooltip>Export Theme (For Import Here Only)</md-tooltip>
+            <md-button class="md-accent" ng-click="showExport()" style="margin-right: 15px;" aria-label="Export Theme">
+                <md-tooltip>Export Theme (For Import Here)</md-tooltip>
                 <ng-md-icon icon="file_download" size="34" style="fill:#ffffff;"></ng-md-icon>
             </md-button>
         </div>
         <div class="md-accent bright-text">
-            <md-button class="md-accent" ng-click="addBasePalette()" style="margin-right: 15px;">
+            <md-button class="md-accent" ng-click="addBasePalette()" style="margin-right: 15px;" aria-label="Add Palette">
                 <md-tooltip>Add Palette</md-tooltip>
                 <ng-md-icon icon="add_box" size="34" style="fill:#ffffff;"></ng-md-icon>
             </md-button>
         </div>
         <div class="md-accent bright-text">
-            <md-button class="md-accent" ng-click="addBasePalette()" style="margin-right: 5px;color:#fff !important;">
+            <md-button class="md-accent" ng-click="addBasePalette()" style="margin-right: 5px;color:#fff !important;" aria-label="Add Palette">
                 <md-tooltip>Add Palette</md-tooltip>
-                {{palettes.length}}
+                {{palettes.length}} Palette(s)
             </md-button>
         </div>
     </div>
 </md-toolbar>
-<md-content layout="row">
+<md-content layout="row" flex-gt-md>
 	<md-content flex class="palette" layout="column" ng-repeat="(paletteKey, palette) in palettes">
 		<md-toolbar class="md-accent" layout="row" layout-align="center center" style="padding-right: 15px;">
 			<div class="md-toolbar-tools">
@@ -47,11 +47,11 @@
 				</md-input-container>
 			</div>
 			<span flex></span>
-            <md-button class="btn-icon-only" ng-click="showPaletteCode(palette)">
+            <md-button class="btn-icon-only" ng-click="showPaletteCode(palette)" aria-label="View Code">
                 <md-tooltip>View Code</md-tooltip>
                 <ng-md-icon icon="content_paste" size="24"></ng-md-icon>
             </md-button>
-            <md-button class="btn-icon-only" ng-click="deletePalette(paletteKey)">
+            <md-button class="btn-icon-only" ng-click="deletePalette(paletteKey)" aria-label="Delete Palette">
                 <md-tooltip>Delete Palette</md-tooltip>
                 <ng-md-icon icon="remove_circle" size="24"></ng-md-icon>
             </md-button>
@@ -63,11 +63,11 @@
 		            <span class="name color-text" ng-bind="color.name"></span>
 		            <span ng-bind="color.hex" class="palette-color-hex color-text"></span>
                     <div class="palette-color-mutators">
-                        <md-button>
+                        <md-button aria-label="Darken 10%">
                             <md-tooltip>Darken 10%</md-tooltip>
                             <span class="dot" ng-click="darkenPaletteItem(color)" style="background-color: {{color.hex | darken}};"></span>
                         </md-button>
-                        <md-button>
+                        <md-button aria-label="Lighten 10%">
                             <md-tooltip>Lighten 10%</md-tooltip>
                             <span class="dot" ng-click="lightenPaletteItem(color)" style="background-color: {{color.hex | lighten}};"></span>
                         </md-button>

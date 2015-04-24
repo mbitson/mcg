@@ -74,6 +74,7 @@ pre {
 .palette {
 	box-shadow : 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
 	margin     : 10px;
+    min-width : 280px;
 }
 
 .palette-colors {
@@ -90,7 +91,6 @@ pre {
 	font-size   : 16px;
 	line-height : 35px;
 	width       : 100%;
-
 	display     : block;
 	color       : #000;
 	text-shadow : 1px 1px 0px rgba(255, 255, 255, 0.1);
@@ -137,6 +137,8 @@ pre {
 	width       : 45px;
 	text-align  : center;
 	margin-left : 15px !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .btn-icon-only {
@@ -171,4 +173,16 @@ md-input-container.md-default-theme label, md-input-container.md-default-theme .
 md-list {
 	padding  : 0 !important;
 	overflow : hidden !important;
+}
+
+md-content{
+    overflow: visible !important;
+}
+
+@media screen and (max-width: 960px){
+    .palette{
+        float: left;
+        width: 100%;
+        display: block !important;
+    }
 }
