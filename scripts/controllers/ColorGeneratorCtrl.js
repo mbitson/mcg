@@ -137,6 +137,16 @@ function ($scope, $mdDialog)
     // Function to show theme's full code
     $scope.showThemeCode = function()
     {
+	    // Check to see that a theme name and palette names are set.
+	    if(
+		    typeof $scope.theme.name === 'undefined' || $scope.theme.name.length < 1 ||
+		    typeof $scope.palettes[0] === 'undefined' || typeof $scope.palettes[0].name === 'undefined' || $scope.palettes[0].name.length < 1 ||
+		    typeof $scope.palettes[1] === 'undefined' || typeof $scope.palettes[1].name === 'undefined' || $scope.palettes[1].name.length < 1
+	    ){
+		    alert('To generate the code for a theme you must provide a theme name and at least two palettes with names.');
+		    return false;
+	    }
+
         // Init return string
         var themeCodeString = '';
 
@@ -160,8 +170,22 @@ function ($scope, $mdDialog)
     };
 
 	// Function to regenerate json and show dialog for palette.
-	$scope.showPaletteCode = function(palette){
+	$scope.showPaletteCode = function(palette)
+	{
+		// Check to see that this palette has a name
+		if (
+			typeof palette === 'undefined' ||
+			typeof palette.name === 'undefined' ||
+			palette.name.length < 1
+		) {
+			alert('To generate the code for a palette the palette must have a name.');
+			return false;
+		}
+
+		// Generate palette's code
 		palette.json = $scope.createDefinePalette(palette);
+
+		// Show code
 		$scope.showClipboard(palette.json);
 
 		// GA Event Track
