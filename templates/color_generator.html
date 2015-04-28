@@ -55,7 +55,7 @@
                 <md-tooltip>Delete Palette</md-tooltip>
                 <ng-md-icon icon="remove_circle" size="24"></ng-md-icon>
             </md-button>
-            <spectrum-colorpicker ng-model="palette.base" format="'hex'" options="{showInput: true, showPalette: true}" ng-change="calcPalette(paletteKey)"></spectrum-colorpicker>
+            <spectrum-colorpicker ng-model="palette.base" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 250, 'blur': 0} }" format="'hex'" options="{showInput: true, showPalette: true}" ng-change="calcPalette(paletteKey)"></spectrum-colorpicker>
         </md-toolbar>
 		<md-list flex class="palette-colors spaced" layout="column" layout-align="center center">
 		    <md-list-item class="light-canvas" ng-repeat="color in palette.colors" flex layout="row">
