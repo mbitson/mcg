@@ -67,7 +67,7 @@ function ($scope, $mdDialog)
 		angular.forEach(colors, function(value, key){
 			exportable[value.name] = value.hex;
 		});
-		return JSON.stringify(exportable, null, 4);
+		return angular.toJson(exportable, null, 4);
 	};
 
 	// Function to calculate all colors from base
@@ -194,7 +194,7 @@ function ($scope, $mdDialog)
 
     // Function to show export json for loading carts later
     $scope.showExport = function(){
-        $scope.showClipboard(JSON.stringify($scope.theme, null, 2));
+        $scope.showClipboard(angular.toJson($scope.theme, null, 2));
     };
 
 	// Function to show generic clipboard alert dialog
