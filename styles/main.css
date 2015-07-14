@@ -179,6 +179,25 @@ md-content{
     overflow: visible !important;
 }
 
+md-dialog md-content{
+	max-height: 600px;
+	overflow-y: scroll !important;
+}
+
+.color{
+	height: 100px;
+	min-width: 100px;
+}
+
+.color-lovers-palette{
+	margin-bottom: 25px;
+	cursor: pointer;
+}
+
+.colour-lover-content{
+	min-width: 600px;
+}
+
 @media screen and (max-width: 960px){
     .palette{
         float: left;

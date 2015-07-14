@@ -1,0 +1,25 @@
+<md-dialog aria-label="ColourLover Palettes" >
+	<md-toolbar layout="row" layout-align="space-around center" layout-padding class="md-accent">
+		<span>COLOURlovers.com </span>
+		<small style="font-size: 10px; padding-left: 10px; position:relative; top:4px;">Selecting a theme here will erase any current unsaved palettes.</small>
+	</md-toolbar>
+	<md-content class="colour-lover-content">
+		<div layout="row" flex style="padding-bottom: 25px !important;" layout-margin>
+			<md-button class="md-raised md-primary" flex ng-click="getTop()">Top</md-button>
+			<md-button class="md-raised md-primary" flex ng-click="getNew()">Newest</md-button>
+			<md-button class="md-raised md-primary" flex ng-click="getRandom()">Random</md-button>
+		</div>
+		<md-list>
+			<md-list-item ng-click="setColors(color.colors); closeDialog()" class="color-lovers-palette" flex layout="row" ng-repeat="color in colourlovers">
+				<div class="color" flex style="background: #{{colorHex}}" ng-repeat="colorHex in color.colors"></div>
+				<md-tooltip>{{color.title}} - {{color.userName}} - {{color.numViews}} views</md-tooltip>
+			</md-list-item>
+		</md-list>
+		<div >{{color}}</div>
+	</md-content>
+	<div class="md-actions">
+		<md-button ng-click="closeDialog()">
+			Close
+		</md-button>
+	</div>
+</md-dialog>

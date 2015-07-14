@@ -24,7 +24,10 @@ mcgApp.config(function ($routeProvider, $mdThemingProvider) {
     });
     $mdThemingProvider.theme('default')
         .primaryPalette('red')
-        .accentPalette('clear')
+        .accentPalette('clear');
+    $mdThemingProvider.theme('dark')
+        .primaryPalette('red')
+        .accentPalette( 'clear' )
         .dark();
 });
 

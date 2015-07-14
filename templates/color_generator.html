@@ -24,6 +24,12 @@
             </md-button>
         </div>
         <div class="md-accent bright-text">
+            <md-button class="md-accent" ng-click="showColourLovers()" style="margin-right: 15px;" aria-label="Select A ColourLover Palette">
+                <md-tooltip>Select A ColourLover Palette</md-tooltip>
+                <ng-md-icon icon="palette" size="34" style="fill:#fff;"></ng-md-icon>
+            </md-button>
+        </div>
+        <div class="md-accent bright-text">
             <md-button class="md-accent" ng-click="addBasePalette()" style="margin-right: 15px;" aria-label="Add Palette">
                 <md-tooltip>Add Palette</md-tooltip>
                 <ng-md-icon icon="add_box" size="34" style="fill:#ffffff;"></ng-md-icon>
@@ -37,7 +43,7 @@
         </div>
     </div>
 </md-toolbar>
-<md-content layout="row" flex-gt-md>
+<md-content layout="row" flex-gt-md class="md-dark-theme">
 	<md-content flex class="palette" layout="column" ng-repeat="(paletteKey, palette) in palettes">
 		<md-toolbar class="md-accent" layout="row" layout-align="center center" style="padding-right: 15px;">
 			<div class="md-toolbar-tools">

@@ -1,21 +1,16 @@
 "use strict";
 
 mcgApp.controller('ColorGeneratorCtrl',
-function ($scope, $mdDialog)
+function ($scope, $mdDialog, ColourLovers, $rootScope)
 {
 	$scope.init = function ()
 	{
-		// Define base palette
-		$scope.palette = {
-			colors: [],
-			orig  : [],
-			base  : '#26a69a',
-			json  : '',
-			name  : ''
-		};
+		// Reset palette to default color
+		$scope.setDefaultPalette();
 
 		// Define palettes
 		$scope.palettes = [];
+		$scope.colourlovers = [];
 
 		// Add base palette
 		$scope.addBasePalette();
@@ -27,6 +22,15 @@ function ($scope, $mdDialog)
 		};
 	};
 
+	$rootScope.setPalettesByColors = function(colors){
+		$scope.palettes = [];
+		angular.forEach(colors, function( value ){
+			$scope.palette.base = '#'+ value;
+			$scope.addBasePalette();
+		});
+		$scope.setDefaultPalette();
+	};
+
 	// Function to add a palette to palettes.
 	$scope.addBasePalette = function(){
 		$scope.palettes.push(angular.copy($scope.palette));
@@ -34,6 +38,18 @@ function ($scope, $mdDialog)
 
 		// GA Event Track
 		ga('send', 'event', 'mcg', 'add_palette');
+	};
+
+	// Function to reset palette back to default.
+	$scope.setDefaultPalette = function () {
+		// Define base palette
+		$scope.palette = {
+			colors: [],
+			orig:   [],
+			base:   '#26a69a',
+			json:   '',
+			name:   ''
+		};
 	};
 
 	// Function to calculate all colors for all palettes
@@ -236,6 +252,54 @@ function ($scope, $mdDialog)
 					$scope.closeDialog();
 				});
 			});
+		}
+	};
+
+	// Function to show generic clipboard alert dialog
+	$scope.showColourLovers = function () {
+		$mdDialog.show( {
+			templateUrl: '/templates/dialogs/colourlovers.html',
+			controller: ColourLoversDialogController
+		} );
+
+		// GA Event Track
+		ga( 'send', 'event', 'mcg', 'view_colourlovers' );
+
+		function ColourLoversDialogController( $scope, $mdDialog, ColourLovers )
+		{
+			$scope.init = function(){
+				$scope.colourlovers = [];
+				$scope.setColors = $rootScope.setPalettesByColors;
+				$scope.getTop();
+			};
+
+			// Get top colourlover palettes.
+			$scope.getTop = function(){
+				ColourLovers.getTop().success( function ( data ) {
+					$scope.colourlovers = data;
+				} );
+			};
+
+			// Get new colourlover palettes.
+			$scope.getNew = function () {
+				ColourLovers.getNew().success( function ( data ) {
+					$scope.colourlovers = data;
+				} );
+			};
+
+			// Get random colourlover palettes.
+			$scope.getRandom = function () {
+				ColourLovers.getRandom().success( function ( data ) {
+					$scope.colourlovers = data;
+				} );
+			};
+
+			// Function to close dialog
+			$scope.closeDialog = function () {
+				$mdDialog.hide();
+			};
+
+			$scope.init();
 		}
 	};
 
