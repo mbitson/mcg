@@ -202,10 +202,12 @@ function ($scope, $mdDialog)
 		$mdDialog.show({
 			template   : '<md-dialog aria-label="Clipboard dialog">' +
 			'  <md-content>' +
-			'    <pre>{{code}}' +
-			'    </pre>' +
+			'    <pre>{{code}}</pre>' +
 			'  </md-content>' +
 			'  <div class="md-actions">' +
+			//'    <md-button id="copy-to-clipboard" data-clipboard-text="{{code}}">' +
+			//'      Copy To Clipboard' +
+			//'    </md-button>' +
 			'    <md-button ng-click="closeDialog()">' +
 			'      Close' +
 			'    </md-button>' +
@@ -220,11 +222,20 @@ function ($scope, $mdDialog)
 		// GA Event Track
 		ga('send', 'event', 'mcg', 'copy_code');
 
-		function ClipboardDialogController(scope, $mdDialog, code) {
-			scope.code = code;
-			scope.closeDialog = function () {
+		function ClipboardDialogController($scope, $mdDialog, code)
+		{
+			$scope.code = code;
+			$scope.closeDialog = function () {
 				$mdDialog.hide();
-			}
+			};
+
+			// Configure Zero Clipboard
+			var client = new ZeroClipboard(document.getElementById('copy-to-clipboard'));
+			client.on('ready', function (event) {
+				client.on('copy', function (event) {
+					$scope.closeDialog();
+				});
+			});
 		}
 	};
 
