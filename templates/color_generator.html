@@ -13,19 +13,19 @@
 	<div flex layout="row" layout-align="end center">
         <div class="md-accent bright-text">
             <md-button class="md-accent" ng-click="showThemeCode()" style="margin-right: 15px;" aria-label="Copy AngularJS Code">
-                <md-tooltip>Copy AngularJS Code</md-tooltip>
+                <md-tooltip>Copy AngularJS Theme Code</md-tooltip>
                 <ng-md-icon icon="content_paste" size="34" style="fill:#ffffff;"></ng-md-icon>
             </md-button>
         </div>
+        <!--<div class="md-accent bright-text">-->
+            <!--<md-button class="md-accent" ng-click="showExport()" style="margin-right: 15px;" aria-label="Export Theme">-->
+                <!--<md-tooltip>Export Theme (For Import Here)</md-tooltip>-->
+                <!--<ng-md-icon icon="file_download" size="34" style="fill:#ffffff;"></ng-md-icon>-->
+            <!--</md-button>-->
+        <!--</div>-->
         <div class="md-accent bright-text">
-            <md-button class="md-accent" ng-click="showExport()" style="margin-right: 15px;" aria-label="Export Theme">
-                <md-tooltip>Export Theme (For Import Here)</md-tooltip>
-                <ng-md-icon icon="file_download" size="34" style="fill:#ffffff;"></ng-md-icon>
-            </md-button>
-        </div>
-        <div class="md-accent bright-text">
-            <md-button class="md-accent" ng-click="showColourLovers()" style="margin-right: 15px;" aria-label="Select A ColourLover Palette">
-                <md-tooltip>Select A ColourLover Palette</md-tooltip>
+            <md-button class="md-accent" ng-click="showColourLovers()" style="margin-right: 15px;" aria-label="Select A ColourLovers Theme">
+                <md-tooltip>Select A ColourLovers Theme</md-tooltip>
                 <ng-md-icon icon="palette" size="34" style="fill:#fff;"></ng-md-icon>
             </md-button>
         </div>
@@ -35,12 +35,12 @@
                 <ng-md-icon icon="add_box" size="34" style="fill:#ffffff;"></ng-md-icon>
             </md-button>
         </div>
-        <div class="md-accent bright-text">
-            <md-button class="md-accent" ng-click="addBasePalette()" style="margin-right: 5px;color:#fff !important;" aria-label="Add Palette">
-                <md-tooltip>Add Palette</md-tooltip>
-                {{palettes.length}} Palette(s)
-            </md-button>
-        </div>
+        <!--<div class="md-accent bright-text">-->
+            <!--<md-button class="md-accent" ng-click="addBasePalette()" style="margin-right: 5px;color:#fff !important;" aria-label="Add Palette">-->
+                <!--<md-tooltip>Add Palette</md-tooltip>-->
+                <!--{{palettes.length}} Palette(s)-->
+            <!--</md-button>-->
+        <!--</div>-->
     </div>
 </md-toolbar>
 <md-content layout="row" flex-gt-md class="md-dark-theme">
@@ -69,14 +69,7 @@
 		            <span class="name color-text" ng-bind="color.name"></span>
 		            <span ng-bind="color.hex" class="palette-color-hex color-text"></span>
                     <div class="palette-color-mutators">
-                        <md-button aria-label="Darken 10%">
-                            <md-tooltip>Darken 10%</md-tooltip>
-                            <span class="dot" ng-click="darkenPaletteItem(color)" style="background-color: {{color.hex | darken}};"></span>
-                        </md-button>
-                        <md-button aria-label="Lighten 10%">
-                            <md-tooltip>Lighten 10%</md-tooltip>
-                            <span class="dot" ng-click="lightenPaletteItem(color)" style="background-color: {{color.hex | lighten}};"></span>
-                        </md-button>
+                        <!-- Removed lighten and darken buttons until saturation issues are worked out. -->
                         <spectrum-colorpicker ng-model="color.hex" format="'hex'" options="{showInput: true, showPalette: true}"></spectrum-colorpicker>
                     </div>
 		        </div>
