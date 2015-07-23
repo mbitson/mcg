@@ -1,11 +1,13 @@
 # Material Design Color Generator
 A tool for generating a color palette for Material Design.
 ###<a href="http://mcg.mbitson.com/">Click here to view the tool!</a>
+
 # What's New?
 * Export your color choices to the AngularJS Material Design theme declaration code.
 * Modify any one palette color.
 * The newest release includes support for colourlovers.com palettes. You may now select a top palette and instantly have a material design theme!
 * Improved Performance with more than 2 palettes.
+
 # Planned Future Enhancements
 * Design new custom UI with following enhancements in mind:
 * Change pre tag in code views to code editor with syntax highlighting.
