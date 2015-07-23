@@ -181,7 +181,10 @@ md-content{
 
 md-dialog md-content{
 	max-height: 600px;
-	overflow-y: scroll !important;
+}
+
+md-dialog pre{
+	overflow-x: scroll;
 }
 
 .color{
