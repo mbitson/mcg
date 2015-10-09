@@ -1,0 +1,28 @@
+<md-dialog aria-label="Import dialog">
+	<md-toolbar layout="column" layout-align="space-around center" layout-padding class="md-accent">
+		<span style="margin-top: 5px;">Import A Palette</span><br />
+		<small style="font-size: 10px; padding-left: 10px; position:relative; top:-4px;">You may post angularJS a <strong>single</strong> (for now) palette definition block (or JSON palette, NAME:HEX) here to import.</small>
+	</md-toolbar>
+	<md-content>
+		<textarea ng-model="code" class="import-textarea"></textarea>
+		<p>- or you may pick a default material design palette: -</p>
+		<div id="import-theme-container">
+			<md-button
+					class="md-raised md-primary"
+					ng-click="import(palette)"
+					ng-repeat="palette in defaultPalettes | toArray"
+					md-theme="{{palette.$key}}"
+					ng-attr-style="background-color: rgb({{palette.value[0]}}, {{palette.value[0]}}, {{palette.value[0]}});"
+			>{{palette.$key}}
+			</md-button>
+		</div>
+	</md-content>
+	<div class="md-actions">
+		<md-button ng-click="closeDialog()">
+			Close Dialog
+		</md-button>
+		<md-button class="md-raised md-primary" ng-click="import(code)">
+			Import
+		</md-button>
+	</div>
+</md-dialog>
