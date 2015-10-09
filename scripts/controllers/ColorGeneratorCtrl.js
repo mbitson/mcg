@@ -87,66 +87,24 @@ function ($scope, $mdDialog, ColourLovers, $rootScope)
 	};
 
 	// Function to calculate all colors from base
-	$scope.computeColors = function(color)
+	$scope.computeColors = function(hex)
 	{
 		// Return array of color objects.
 		return [
-			{
-				hex: shadeColor(color, 0.9),
-				name : '50'
-			},
-			{
-				hex: shadeColor(color, 0.7),
-				name : '100'
-			},
-			{
-				hex: shadeColor(color, 0.5),
-				name : '200'
-			},
-			{
-				hex: shadeColor(color, 0.333),
-				name : '300'
-			},
-			{
-				hex: shadeColor(color, 0.166),
-				name : '400'
-			},
-			{
-				hex: shadeColor(color, 0),
-				name : '500'
-			},
-			{
-				hex : shadeColor(color, -0.125),
-				name: '600'
-			},
-			{
-				hex : shadeColor(color, -0.25),
-				name: '700'
-			},
-			{
-				hex : shadeColor(color, -0.375),
-				name: '800'
-			},
-			{
-				hex : shadeColor(color, -0.5),
-				name: '900'
-			},
-			{
-				hex : shadeColor(color, 0.7),
-				name: 'A100'
-			},
-			{
-				hex : shadeColor(color, 0.5),
-				name: 'A200'
-			},
-			{
-				hex : shadeColor(color, 0.166),
-				name: 'A400'
-			},
-			{
-				hex : shadeColor(color, -0.25),
-				name: 'A700'
-			}
+			{ hex : tinycolor( hex ).lighten( 52 ).toHexString(), name : '50' },
+			{ hex : tinycolor( hex ).lighten( 37 ).toHexString(), name : '100' },
+			{ hex : tinycolor( hex ).lighten( 26 ).toHexString(), name : '200' },
+			{ hex : tinycolor( hex ).lighten( 12 ).toHexString(), name : '300' },
+			{ hex : tinycolor( hex ).lighten( 6 ).toHexString(), name : '400' },
+			{ hex : hex, name : '500' },
+			{ hex : tinycolor( hex ).darken( 6 ).toHexString(), name: '600' },
+			{ hex : tinycolor( hex ).darken( 12 ).toHexString(), name: '700' },
+			{ hex : tinycolor( hex ).darken( 18 ).toHexString(), name: '800' },
+			{ hex : tinycolor( hex ).darken( 24 ).toHexString(), name: '900' },
+			{ hex : tinycolor( hex ).lighten( 52 ).toHexString(), name: 'A100' },
+			{ hex : tinycolor( hex ).lighten( 37 ).toHexString(), name: 'A200' },
+			{ hex : tinycolor( hex ).lighten( 6 ).toHexString(), name: 'A400' },
+			{ hex : tinycolor( hex ).darken( 12 ).toHexString(), name: 'A700' }
 		];
 	};
 
