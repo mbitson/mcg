@@ -1,8 +1,14 @@
 "use strict";
 
+// Define our default color generator controller!
 mcgApp.controller('ColorGeneratorCtrl',
-function ($scope, $mdDialog, ColourLovers, $rootScope)
+function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 {
+	// Init function.
+	// This is placed into a function
+	// for ease-of-use in the future.
+	// Often times an app needs to be
+	// "Restarted" without a reload.
 	$scope.init = function ()
 	{
 		// Reset palette to default color
@@ -12,8 +18,8 @@ function ($scope, $mdDialog, ColourLovers, $rootScope)
 		$scope.palettes = [];
 		$scope.colourlovers = [];
 
-		// Add base palette
-		$scope.addBasePalette();
+		// Add a default palette
+		$scope.addPaletteFromObject( $mdColorPalette.indigo );
 
 		// Define theme defaults
 		$scope.theme = {
@@ -22,6 +28,7 @@ function ($scope, $mdDialog, ColourLovers, $rootScope)
 		};
 	};
 
+	// Function to replace all current palettes with an array of hex values.
 	$rootScope.setPalettesByColors = function(colors){
 		$scope.palettes = [];
 		angular.forEach(colors, function( value ){
@@ -31,12 +38,66 @@ function ($scope, $mdDialog, ColourLovers, $rootScope)
 		$scope.setDefaultPalette();
 	};
 
+	// Function to add a palette from import code
+	$scope.addPaletteFromJSON = function ( code )
+	{
+		// Break code into chunks to find JSON
+		var chunks = code.split( /[{}]/ );
+		var colorsObj = JSON.parse( '{' + chunks[ 1 ] + '}' );
+
+		// Add this palette!
+		$scope.addPaletteFromObject(colorsObj);
+	};
+
+	// Function to add a palette from
+	// a JSON object (angularjs material
+	// design format)
+	$scope.addPaletteFromObject = function ( objectRef )
+	{
+		// First, clone object to clean it.
+		var paletteObj = angular.copy( objectRef );
+
+		// Init our customized palette values.
+		var colors = [];
+		var base = $scope.palette.base;
+
+		// Build palette color json format
+		angular.forEach( paletteObj, function ( value, key )
+		{
+			// If this is an object with RGB/Contrast values (Default angularjs palettes)
+			if(typeof value == "object")
+			{
+				// Format it for tinycolor
+				value = "rgb(" + value.value[ 0 ] + ", " + value.value[ 1 ] + ", " + value.value[ 2 ] + ")";
+			}
+
+			// Regardless, push this color to the colors using tinycolor!
+			colors.push( { hex: tinycolor( value ).toHexString(), name: key } );
+
+			// If this key is the base (500), set as base
+			if ( key == 500 || key == "500" ) {
+				base = value;
+			}
+		} );
+
+		// Copy the base palette & add our customizations
+		var palette = angular.copy( $scope.palette );
+		palette.colors = colors;
+		palette.base = base;
+
+		// Push to the palette repository.
+		$scope.palettes.push( palette );
+	};
+
+
 	// Function to add a palette to palettes.
-	$scope.addBasePalette = function(){
+	$scope.addBasePalette = function()
+	{
+		// Push on the default and then calculate it's values from it's base.
 		$scope.palettes.push(angular.copy($scope.palette));
 		$scope.calcPalette($scope.palettes.length-1);
 
-		// GA Event Track
+		// Google Analytics Event Track
 		ga('send', 'event', 'mcg', 'add_palette');
 	};
 
@@ -62,7 +123,7 @@ function ($scope, $mdDialog, ColourLovers, $rootScope)
 	// Function to delete a palette when passed it's key.
 	$scope.deletePalette = function(key){
 		$scope.palettes.remove(key);
-		// GA Event Track
+		// Google Analytics Event Track
 		ga('send', 'event', 'mcg', 'remove_palette');
 	};
 
@@ -139,7 +200,7 @@ function ($scope, $mdDialog, ColourLovers, $rootScope)
         // Show clipboard with theme code
         $scope.showClipboard(themeCodeString);
 
-	    // GA Event Track
+	    // Google Analytics Event Track
 	    ga('send', 'event', 'mcg', 'copy_code_theme');
     };
 
@@ -162,26 +223,44 @@ function ($scope, $mdDialog, ColourLovers, $rootScope)
 		// Show code
 		$scope.showClipboard(palette.json);
 
-		// GA Event Track
+		// Google Analytics Event Track
 		ga('send', 'event', 'mcg', 'copy_code_palette');
 	};
 
     // Function to show export json for loading carts later
-    $scope.showExport = function(){
-        $scope.showClipboard(angular.toJson($scope.theme, null, 2));
+    $scope.showImport = function()
+	{
+		$mdDialog
+			// Show the dialog to allow import
+			.show( {
+				templateUrl: 'templates/dialogs/import.html',
+				controller: DialogImportCtrl
+			} )
+			// Once the user clicks import...
+			.then( function ( code )
+			{
+				// ...add the palette!
+				if ( typeof code == "object" ) {
+					$scope.addPaletteFromObject( code );
+				}else{
+					$scope.addPaletteFromJSON( code );
+				}
+			}, function () { } );
+
+		// Google Analytics Event Track
+		ga( 'send', 'event', 'mcg', 'import_code' );
     };
 
 	// Function to show generic clipboard alert dialog
-	$scope.showClipboard = function(code){
+	$scope.showClipboard = function(code)
+	{
+		// TODO: Move these controllers and templates to their own files.
 		$mdDialog.show({
 			template   : '<md-dialog aria-label="Clipboard dialog">' +
 			'  <md-content>' +
 			'    <pre>{{code}}</pre>' +
 			'  </md-content>' +
 			'  <div class="md-actions">' +
-			//'    <md-button id="copy-to-clipboard" data-clipboard-text="{{code}}">' +
-			//'      Copy To Clipboard' +
-			//'    </md-button>' +
 			'    <md-button ng-click="closeDialog()">' +
 			'      Close' +
 			'    </md-button>' +
@@ -193,9 +272,10 @@ function ($scope, $mdDialog, ColourLovers, $rootScope)
 			controller : ClipboardDialogController
 		});
 
-		// GA Event Track
+		// Google Analytics Event Track
 		ga('send', 'event', 'mcg', 'copy_code');
 
+		// TODO: Move these controllers and templates to their own files.
 		function ClipboardDialogController($scope, $mdDialog, code)
 		{
 			$scope.code = code;
@@ -220,7 +300,7 @@ function ($scope, $mdDialog, ColourLovers, $rootScope)
 			controller: ColourLoversDialogController
 		} );
 
-		// GA Event Track
+		// Google Analytics Event Track
 		ga( 'send', 'event', 'mcg', 'view_colourlovers' );
 
 		function ColourLoversDialogController( $scope, $mdDialog, ColourLovers )

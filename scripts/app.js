@@ -1,6 +1,6 @@
 "use strict";
 
-var mcgApp = angular.module('mcgApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'angularSpectrumColorpicker', 'ngMdIcons']);
+var mcgApp = angular.module('mcgApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'angularSpectrumColorpicker', 'ngMdIcons', 'angular-toArrayFilter']);
 mcgApp.config(function ($routeProvider, $mdThemingProvider) {
    	$routeProvider.when('/', {
         templateUrl: 'templates/color_generator.html',
@@ -29,24 +29,38 @@ mcgApp.config(function ($routeProvider, $mdThemingProvider) {
         .primaryPalette('red')
         .accentPalette( 'clear' )
         .dark();
+    $mdThemingProvider.theme('red').primaryPalette('red').accentPalette('clear');
+    $mdThemingProvider.theme('pink').primaryPalette('pink').accentPalette('clear');
+    $mdThemingProvider.theme('purple').primaryPalette('purple').accentPalette('clear');
+    $mdThemingProvider.theme('deep-purple').primaryPalette('deep-purple').accentPalette('clear');
+    $mdThemingProvider.theme('indigo').primaryPalette('indigo').accentPalette('clear');
+    $mdThemingProvider.theme('blue').primaryPalette('blue').accentPalette('clear');
+    $mdThemingProvider.theme('light-blue').primaryPalette('light-blue').accentPalette('clear');
+    $mdThemingProvider.theme('cyan').primaryPalette('cyan').accentPalette('clear');
+    $mdThemingProvider.theme('teal').primaryPalette('teal').accentPalette('clear');
+    $mdThemingProvider.theme('green').primaryPalette('green').accentPalette('clear');
+    $mdThemingProvider.theme('light-green').primaryPalette('light-green').accentPalette('clear');
+    $mdThemingProvider.theme('lime').primaryPalette('lime').accentPalette('clear');
+    $mdThemingProvider.theme('yellow').primaryPalette('yellow').accentPalette('clear');
+    $mdThemingProvider.theme('amber').primaryPalette('amber').accentPalette('clear');
+    $mdThemingProvider.theme('orange').primaryPalette('orange').accentPalette('clear');
+    $mdThemingProvider.theme('deep-orange').primaryPalette('deep-orange').accentPalette('clear');
+    $mdThemingProvider.theme('brown').primaryPalette('brown').accentPalette('clear');
+    $mdThemingProvider.theme('grey').primaryPalette('grey').accentPalette('clear');
+    $mdThemingProvider.theme('blue-grey').primaryPalette('blue-grey').accentPalette('clear');
 });
 
-/*
- * Color utility functions
- * Source: http://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
+/**
+ * Filters for modifying colors
  */
-function shadeColor(color, percent) {
-    var f = parseInt(color.slice(1), 16), t = percent < 0 ? 0 : 255, p = percent < 0 ? percent * -1 : percent, R = f >> 16, G = f >> 8 & 0x00FF, B = f & 0x0000FF;
-    return "#" + (0x1000000 + (Math.round((t - R) * p) + R) * 0x10000 + (Math.round((t - G) * p) + G) * 0x100 + (Math.round((t - B) * p) + B)).toString(16).slice(1);
-}
 mcgApp.filter('darken', function(){
     return function(color){
-        return shadeColor(color,-0.1);
+        return tinycolor( color ).darken( 5 );
     };
 });
 mcgApp.filter('lighten', function(){
     return function(color){
-        return shadeColor(color,0.1);
+        return tinycolor( color ).lighten( 5 );
     };
 });
 
