@@ -201,6 +201,7 @@ md-dialog pre{
 
 .colour-lover-content{
 	min-width: 600px;
+	overflow: auto !important;
 }
 
 /**
