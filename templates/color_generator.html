@@ -57,8 +57,8 @@
             </md-button>
             <spectrum-colorpicker ng-model="palette.base" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 250, 'blur': 0} }" format="'hex'" options="{showInput: true, showPalette: true}" ng-change="calcPalette(paletteKey)"></spectrum-colorpicker>
         </md-toolbar>
-		<md-list flex class="palette-colors spaced" layout="column" layout-align="center center">
-		    <md-list-item class="light-canvas" ng-repeat="color in palette.colors" flex layout="row">
+		<md-list flex class="palette-colors spaced">
+		    <md-list-item class="light-canvas" ng-repeat="color in palette.colors">
 		        <div class="palette-color" style="background-color:{{color.hex}};">
 		            <span class="name color-text" ng-bind="color.name"></span>
 		            <span ng-bind="color.hex" class="palette-color-hex color-text"></span>
@@ -70,4 +70,29 @@
 		    </md-list-item>
 		</md-list>
 	</md-content>
+    <md-fab-speed-dial md-open="dialOpen" class="bright-text md-scale" md-direction="left">
+        <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-warn">
+                <ng-md-icon icon="menu" size="34" style="fill:#fff;"></ng-md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <md-button class="md-accent" md-visible="dialTooltipOpen" ng-click="addBasePalette()" style="margin-right: 15px;" aria-label="Add Palette">
+                <md-tooltip>Add Palette</md-tooltip>
+                <ng-md-icon icon="add_box" size="34" style="fill:#fff;"></ng-md-icon>
+            </md-button>
+            <md-button class="md-accent" md-visible="dialTooltipOpen" ng-click="showColourLovers()" style="margin-right: 15px;" aria-label="Select A ColourLovers Theme">
+                <md-tooltip>Select A ColourLovers Theme</md-tooltip>
+                <ng-md-icon icon="palette" size="34" style="fill:#fff;"></ng-md-icon>
+            </md-button>
+            <md-button class="md-accent" md-visible="dialTooltipOpen" ng-click="showImport()" style="margin-right: 15px;" aria-label="Import Theme">
+                <md-tooltip>Import</md-tooltip>
+                <ng-md-icon icon="file_upload" size="34" style="fill:#fff;"></ng-md-icon>
+            </md-button>
+            <md-button class="md-accent" md-visible="dialTooltipOpen" ng-click="showThemeCode()" style="margin-right: 15px;" aria-label="Copy AngularJS Code">
+                <md-tooltip>Copy AngularJS Code / Export</md-tooltip>
+                <ng-md-icon icon="file_download" size="34" style="fill:#fff;"></ng-md-icon>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
 </md-content>
