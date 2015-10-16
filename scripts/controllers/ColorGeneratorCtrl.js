@@ -18,6 +18,9 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		$scope.palettes = [];
 		$scope.colourlovers = [];
 
+		// Toolbar is hidden by default.
+		$scope.initSpeedDial();
+
 		// Add a default palette
 		$scope.addPaletteFromObject( $mdColorPalette.indigo );
 
@@ -26,6 +29,10 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 			name: '',
             palettes: $scope.palettes
 		};
+	};
+
+	$scope.initSpeedDial = function(){
+		$scope.dialOpen = false;
 	};
 
 	// Function to replace all current palettes with an array of hex values.
