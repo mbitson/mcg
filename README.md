@@ -3,6 +3,7 @@ A tool for generating a color palette for Material Design.
 ###<a href="http://mcg.mbitson.com/">Click here to view the tool!</a>
 
 # What's New?
+* 10/16/15 - Updated angular, it's dependencies, and other third party tools. Added SpeedDial from Material Design library.
 * 10/9/15 - Import from AngularJS Material Design default palettes or from your own AngularJS Material Design Color Palette definition code!
 * 10/9/15 - Added support for tinycolor.js instead of manual color manipulation.
 * 7/22/15 - Improved Performance with more than 2 palettes.
