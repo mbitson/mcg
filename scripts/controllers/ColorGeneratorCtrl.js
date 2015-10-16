@@ -2,7 +2,7 @@
 
 // Define our default color generator controller!
 mcgApp.controller('ColorGeneratorCtrl',
-function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette, $timeout )
+function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 {
 	// Init function.
 	// This is placed into a function
