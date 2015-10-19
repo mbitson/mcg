@@ -39,7 +39,7 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	$rootScope.setPalettesByColors = function(colors){
 		$scope.palettes = [];
 		angular.forEach(colors, function( value ){
-			$scope.palette.base = '#'+ value;
+			$scope.palette.base = $scope.getLightestBase( '#' + value );
 			$scope.addBasePalette();
 		});
 		$scope.setDefaultPalette();
@@ -174,6 +174,24 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 			{ hex : tinycolor( hex ).lighten( 6 ).toHexString(), name: 'A400' },
 			{ hex : tinycolor( hex ).darken( 12 ).toHexString(), name: 'A700' }
 		];
+	};
+
+	// Function to prevent lightest
+	// colors from turning into white.
+	// Done by darkening base until the
+	// brightest color is no longer #fff.
+	$scope.getLightestBase = function(base)
+	{
+		console.log( "Get lighter base called." );
+		console.log( base );
+		console.log( tinycolor( base ).lighten( 37 ).toHexString() );
+		if( tinycolor( base ).lighten( 52 ).toHexString().toLowerCase() == "#ffffff" ){
+			return $scope.getLightestBase( tinycolor( base ).darken( 5 ).toHexString() );
+		}else{
+			console.log(base);
+			console.log("Color determined! Selecting!");
+			return base;
+		}
 	};
 
     // Function to show theme's full code
