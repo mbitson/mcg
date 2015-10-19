@@ -182,14 +182,17 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	// brightest color is no longer #fff.
 	$scope.getLightestBase = function(base)
 	{
-		console.log( "Get lighter base called." );
-		console.log( base );
-		console.log( tinycolor( base ).lighten( 37 ).toHexString() );
-		if( tinycolor( base ).lighten( 52 ).toHexString().toLowerCase() == "#ffffff" ){
+		// If this base's lightest color returns white
+		if( tinycolor( base ).lighten( 52 ).toHexString().toLowerCase() == "#ffffff" )
+		{
+			// Darken it and try again
 			return $scope.getLightestBase( tinycolor( base ).darken( 5 ).toHexString() );
-		}else{
-			console.log(base);
-			console.log("Color determined! Selecting!");
+		}
+
+		// Otherwise,
+		else
+		{
+			//...base is ready to rock!
 			return base;
 		}
 	};
