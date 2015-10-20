@@ -289,8 +289,8 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 			'    <pre>{{code}}</pre>' +
 			'  </md-content>' +
 			'  <div class="md-actions">' +
-			'    <span ng-show="copied">Code copied to clipboard!</span>'+
-			'    <md-button class="md-accent" ui-zeroclip zeroclip-model="code" zeroclip-copied="copied=true">' +
+			'    <span ng-if="copied==true" ng-cloak class="animated fadeInUp">Code copied to clipboard!</span>'+
+			'    <md-button class="md-accent" ui-zeroclip zeroclip-model="code" zeroclip-copied="showNotice()">' +
 			'      Copy' +
 			'    </md-button>' +
 			'    <md-button ng-click="closeDialog()">' +
@@ -308,12 +308,18 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		ga('send', 'event', 'mcg', 'copy_code');
 
 		// TODO: Move these controllers and templates to their own files.
-		function ClipboardDialogController($scope, $mdDialog, code)
+		function ClipboardDialogController($scope, $mdDialog, $timeout, code)
 		{
 			$scope.code = code;
 			$scope.copied = false;
 			$scope.closeDialog = function () {
 				$mdDialog.hide();
+			};
+			$scope.showNotice = function(){
+				$scope.copied = true;
+				$timeout(function(){
+					$scope.copied = false;
+				}, 1500);
 			};
 
 			// Configure Zero Clipboard
