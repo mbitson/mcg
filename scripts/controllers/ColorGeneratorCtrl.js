@@ -258,6 +258,19 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		ga( 'send', 'event', 'mcg', 'import_code' );
     };
 
+	// Function to show export json for loading carts later
+	$scope.showAbout = function ()
+	{
+		// Show about us section!
+		$mdDialog.show( {
+			templateUrl: 'templates/dialogs/about.html',
+			controller:  AboutCtrl
+		} );
+
+		// Google Analytics Event Track
+		ga( 'send', 'event', 'mcg', 'about_us' );
+	};
+
 	// Function to show generic clipboard alert dialog
 	$scope.showClipboard = function(code)
 	{
