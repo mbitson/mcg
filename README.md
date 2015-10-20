@@ -16,6 +16,7 @@ A tool for generating a color palette for Material Design.
 * (TOP) Support export to Polymer Theme
 * (TOP) Design new custom UI with following enhancements in mind:
 * (MED) Determine/control the contrast for each color in a palette.
+* (MED) Add ability to quickly add 'functional' palettes - Success (Green), Warning(Red), Danger(Yellow)
 * (MED) Offer material design previews. AngularJS MD + Mobile App preview.
 * (MED) Remove individual color's hex details and create tooltip styled with all color details. (Hoverintent, populated only once it's opening, includes hex, rgb, cmyk, saturation, brightness. Possibly obtained using tinycolor)
 * (MED) Change pre tag in code views to code editor with syntax highlighting.
