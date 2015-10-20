@@ -232,6 +232,18 @@ body .md-button {
 	min-width: 40px;
 }
 
+/* Content styles */
+.light-text{
+	color: #727373;
+}
+.spaced-text{
+	font-size: 13px;
+	line-height: 19px;
+}
+.spaced-text p{
+	margin: 30px;
+}
+
 /**
  * Import Styles
  **/
