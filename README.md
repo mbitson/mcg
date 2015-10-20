@@ -11,6 +11,7 @@ A tool for generating a color palette for Material Design.
 * 4/14/15 - Export your color choices to the AngularJS Material Design theme declaration code.
 
 # Planned Future Enhancements
+* (TOP) Determine which palette is primary, secondary, and so on. Drag and drop palettes.
 * (TOP) Support export to Materialize (CSS, Universal)
 * (TOP) Support export to Polymer Theme
 * (TOP) Support export to Material-UI (React)
