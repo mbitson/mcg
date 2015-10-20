@@ -13,7 +13,8 @@ A tool for generating a color palette for Material Design.
 # Planned Future Enhancements
 * (TOP) Support export to Materialize (CSS, Universal)
 * (TOP) Support export to Polymer Theme
-* (TOP) Design new custom UI with following enhancements in mind:
+* (TOP) Support export to Material-UI (React)
+* (MED) Support export for mobile app development.
 * (MED) Determine/control the contrast for each color in a palette.
 * (MED) Add ability to quickly add 'functional' palettes - Success (Green), Warning(Red), Danger(Yellow)
 * (MED) Offer material design previews. AngularJS MD + Mobile App preview.
