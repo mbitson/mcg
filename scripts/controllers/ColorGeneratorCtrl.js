@@ -334,14 +334,6 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 					$scope.copied = false;
 				}, 1500);
 			};
-
-			// Configure Zero Clipboard
-			var client = new ZeroClipboard(document.getElementById('copy-to-clipboard'));
-			client.on('ready', function (event) {
-				client.on('copy', function (event) {
-					$scope.closeDialog();
-				});
-			});
 		}
 	};
 
