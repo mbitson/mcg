@@ -268,6 +268,10 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 			'    <pre>{{code}}</pre>' +
 			'  </md-content>' +
 			'  <div class="md-actions">' +
+			'    <span ng-show="copied">Code copied to clipboard!</span>'+
+			'    <md-button class="md-accent" ui-zeroclip zeroclip-model="code" zeroclip-copied="copied=true">' +
+			'      Copy' +
+			'    </md-button>' +
 			'    <md-button ng-click="closeDialog()">' +
 			'      Close' +
 			'    </md-button>' +
@@ -286,6 +290,7 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		function ClipboardDialogController($scope, $mdDialog, code)
 		{
 			$scope.code = code;
+			$scope.copied = false;
 			$scope.closeDialog = function () {
 				$mdDialog.hide();
 			};
