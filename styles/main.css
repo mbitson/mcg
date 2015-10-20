@@ -240,7 +240,8 @@ body .md-button {
 	font-size: 13px;
 	line-height: 19px;
 }
-.spaced-text p{
+
+.spaced-text p, .spaced-text strong{
 	margin: 30px;
 }
 
