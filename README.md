@@ -12,12 +12,14 @@ A tool for generating a color palette for Material Design.
 * 4/14/15 - Export your color choices to the AngularJS Material Design theme declaration code.
 
 # Planned Future Enhancements
+* (TOP) Determine which palette is primary, secondary, and so on. Drag and drop palettes.
 * (TOP) Support export to Materialize (CSS, Universal)
 * (TOP) Support export to Polymer Theme
-* (TOP) Design new custom UI with following enhancements in mind:
+* (TOP) Support export to Material-UI (React)
+* (TOP) Support export for mobile app development.
+* (TOP) Offer material design previews. AngularJS MD + Mobile App preview.
+* (TOP) Add ability to quickly add 'functional' palettes - Success (Green), Warning(Red), Danger(Yellow)
 * (MED) Determine/control the contrast for each color in a palette.
-* (MED) Add ability to quickly add 'functional' palettes - Success (Green), Warning(Red), Danger(Yellow)
-* (MED) Offer material design previews. AngularJS MD + Mobile App preview.
 * (MED) Remove individual color's hex details and create tooltip styled with all color details. (Hoverintent, populated only once it's opening, includes hex, rgb, cmyk, saturation, brightness. Possibly obtained using tinycolor)
 * (MED) Change pre tag in code views to code editor with syntax highlighting.
 * (MED) Add copy-to-clipboard button to code editor.
