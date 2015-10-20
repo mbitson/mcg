@@ -170,6 +170,9 @@ md-fab-speed-dial {
 /*
  * MD Style Overrides
  */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	display: none !important;
+}
 md-input-container {
 	padding: 20px 2px 26px !important;
 }
