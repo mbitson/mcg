@@ -1,34 +1,23 @@
 "use strict";
 
-var mcgApp = angular.module('mcgApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'angularSpectrumColorpicker', 'ngMdIcons', 'angular-toArrayFilter']);
-mcgApp.config(function ($routeProvider, $mdThemingProvider) {
+var mcgApp = angular.module('mcgApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'angularSpectrumColorpicker', 'ngMdIcons', 'angular-toArrayFilter', 'zeroclipboard']);
+mcgApp.config(function ($routeProvider, $mdThemingProvider, uiZeroclipConfigProvider)
+{
+    // Configure Zero Clipboard.
+    uiZeroclipConfigProvider.setZcConf( { swfPath: "/bower_components/zeroclipboard/dist/ZeroClipboard.swf" } );
+
+    // Configure routes.
    	$routeProvider.when('/', {
         templateUrl: 'templates/color_generator.html',
         controller: 'ColorGeneratorCtrl'
     });
-    $mdThemingProvider.definePalette('clear', {
-        "50"  : "#FFFFFF",
-        "100" : "#FFFFFF",
-        "200" : "#FFFFFF",
-        "300" : "#FFFFFF",
-        "400" : "#FFFFFF",
-        "500" : "#FFFFFF",
-        "600" : "#cbcaca",
-        "700" : "#aeadad",
-        "800" : "#919090",
-        "900" : "#747474",
-        "A100": "#f8f8f8",
-        "A200": "#f4f3f3",
-        "A400": "#ecebeb",
-        "A700": "#aeadad"
-    });
-    $mdThemingProvider.theme('default')
-        .primaryPalette('red')
-        .accentPalette('clear');
-    $mdThemingProvider.theme('dark')
-        .primaryPalette('red')
-        .accentPalette( 'clear' )
-        .dark();
+
+    // Configure themes.
+    $mdThemingProvider.definePalette('clear', { "50": "#FFFFFF", "100": "#FFFFFF", "200": "#FFFFFF", "300": "#FFFFFF", "400": "#FFFFFF", "500": "#FFFFFF", "600": "#cbcaca", "700": "#aeadad", "800": "#919090", "900": "#747474", "A100": "#f8f8f8", "A200": "#f4f3f3", "A400": "#ecebeb", "A700": "#aeadad" } );
+    $mdThemingProvider.theme('default').primaryPalette('red').accentPalette('clear');
+    $mdThemingProvider.theme('dark').primaryPalette('red').accentPalette( 'clear' ).dark();
+
+    // Set default palettes as themes for use in UI.
     $mdThemingProvider.theme('red').primaryPalette('red').accentPalette('clear');
     $mdThemingProvider.theme('pink').primaryPalette('pink').accentPalette('clear');
     $mdThemingProvider.theme('purple').primaryPalette('purple').accentPalette('clear');
@@ -72,6 +61,3 @@ Array.prototype.remove = function(from, to) {
     this.length = from < 0 ? this.length + from : from;
     return this.push.apply(this, rest);
 };
-
-// Configure Zero Clipboard
-ZeroClipboard.config({swfPath: "/bower_components/zeroclipboard/dist/ZeroClipboard.swf"});
