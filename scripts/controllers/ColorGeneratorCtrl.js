@@ -155,6 +155,11 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	};
 
 	// Function to calculate all colors from base
+	// These colors were determined by finding all
+	// HSL values for a google palette, calculating
+	// the difference in H, S, and L per color
+	// change individually, and then applying these
+	// here.
 	$scope.computeColors = function(hex)
 	{
 		// Return array of color objects.
