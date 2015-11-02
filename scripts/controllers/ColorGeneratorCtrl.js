@@ -164,20 +164,20 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	{
 		// Return array of color objects.
 		return [
-			{ hex : tinycolor( hex ).lighten( 37.7 ).toHexString(), name : '50' },
-			{ hex : tinycolor( hex ).lighten( 31.8 ).toHexString(), name : '100' },
-			{ hex : tinycolor( hex ).lighten( 18.7 ).toHexString(), name : '200' },
-			{ hex : tinycolor( hex ).lighten( 9.1 ).desaturate( 20.9 ).spin( -3.8 ).toHexString(), name : '300' },
+			{ hex : tinycolor( hex ).lighten( 37.7 ).saturate( 10.4 ).spin( -13 ).toHexString(), name : '50' },
+			{ hex : tinycolor( hex ).lighten( 31.8 ).saturate( 10.4 ).spin( -9.5 ).toHexString(), name : '100' },
+			{ hex : tinycolor( hex ).lighten( 18.7 ).desaturate( 17 ).spin( -3.9 ).toHexString(), name : '200' },
+			{ hex : tinycolor( hex ).lighten( 9.1 ).desaturate( 20.9 ).spin( -4 ).toHexString(), name : '300' },
 			{ hex : tinycolor( hex ).lighten( 4.1 ).desaturate( 6.6 ).spin( -3 ).toHexString(), name : '400' },
 			{ hex : hex, name : '500' },
-			{ hex : tinycolor( hex ).darken( 6 ).toHexString(), name: '600' },
-			{ hex : tinycolor( hex ).darken( 12 ).toHexString(), name: '700' },
-			{ hex : tinycolor( hex ).darken( 18 ).toHexString(), name: '800' },
-			{ hex : tinycolor( hex ).darken( 24 ).toHexString(), name: '900' },
-			{ hex : tinycolor( hex ).lighten( 52 ).toHexString(), name: 'A100' },
-			{ hex : tinycolor( hex ).lighten( 37 ).toHexString(), name: 'A200' },
-			{ hex : tinycolor( hex ).lighten( 6 ).toHexString(), name: 'A400' },
-			{ hex : tinycolor( hex ).darken( 12 ).toHexString(), name: 'A700' }
+			{ hex : tinycolor( hex ).darken( 3.1 ).desaturate( 12.4 ).spin( -2.7 ).toHexString(), name: '600' },
+			{ hex : tinycolor( hex ).darken( 7.8 ).desaturate( 24.5 ).spin( -4 ).toHexString(), name: '700' },
+			{ hex : tinycolor( hex ).darken( 11.7 ).desaturate( 23.2 ).spin( -4 ).toHexString(), name: '800' },
+			{ hex : tinycolor( hex ).darken( 17 ).desaturate( 16.1 ).spin( -4 ).toHexString(), name: '900' },
+			{ hex : tinycolor( hex ).lighten( 16.7 ).saturate( 10.4 ).spin( 0.6 ).toHexString(), name: 'A100' },
+			{ hex : tinycolor( hex ).lighten( 7.7 ).saturate( 10.4 ).spin( -4 ).toHexString(), name: 'A200' },
+			{ hex : tinycolor( hex ).darken( 3.9 ).saturate( 10.4 ).spin( -15.5 ).toHexString(), name: 'A400' },
+			{ hex : tinycolor( hex ).darken( 16.6 ).saturate( 10.4 ).spin( -4 ).toHexString(), name: 'A700' }
 		];
 	};
 
