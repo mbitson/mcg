@@ -68,6 +68,10 @@
 		        <div class="palette-color" style="background-color:{{color.hex}};">
 		            <span class="name color-text" ng-bind="color.name"></span>
 		            <span ng-bind="color.hex" class="palette-color-hex color-text"></span>
+		            <a class="palette-color-hex color-text" href="http://colorhexa.com/{{color.hex.replace('#', '')}}" target="_blank">
+                        <ng-md-icon icon="open_in_new" size="12" style="fill:#000; opacity:0.5"></ng-md-icon>
+                        <md-tooltip>Open Color In Colorhexa.com for Details</md-tooltip>
+                    </a>
                     <div class="palette-color-mutators">
                         <!-- Removed lighten and darken buttons until saturation issues are worked out. -->
                         <spectrum-colorpicker ng-model="color.hex" format="'hex'" options="{showInput: true, showPalette: true}"></spectrum-colorpicker>
