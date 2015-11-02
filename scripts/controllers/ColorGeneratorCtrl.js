@@ -167,7 +167,7 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 			{ hex : tinycolor( hex ).lighten( 37.7 ).toHexString(), name : '50' },
 			{ hex : tinycolor( hex ).lighten( 31.8 ).toHexString(), name : '100' },
 			{ hex : tinycolor( hex ).lighten( 18.7 ).toHexString(), name : '200' },
-			{ hex : tinycolor( hex ).lighten( 9.1 ).desaturate( 20.9 ).spin( -4.1 ).toHexString(), name : '300' },
+			{ hex : tinycolor( hex ).lighten( 9.1 ).desaturate( 20.9 ).spin( -3.6 ).toHexString(), name : '300' },
 			{ hex : tinycolor( hex ).lighten( 4.1 ).desaturate( 6.6 ).spin( -3 ).toHexString(), name : '400' },
 			{ hex : hex, name : '500' },
 			{ hex : tinycolor( hex ).darken( 6 ).toHexString(), name: '600' },
