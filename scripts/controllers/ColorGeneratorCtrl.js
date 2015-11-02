@@ -155,15 +155,20 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	};
 
 	// Function to calculate all colors from base
+	// These colors were determined by finding all
+	// HSL values for a google palette, calculating
+	// the difference in H, S, and L per color
+	// change individually, and then applying these
+	// here.
 	$scope.computeColors = function(hex)
 	{
 		// Return array of color objects.
 		return [
-			{ hex : tinycolor( hex ).lighten( 52 ).toHexString(), name : '50' },
-			{ hex : tinycolor( hex ).lighten( 37 ).toHexString(), name : '100' },
-			{ hex : tinycolor( hex ).lighten( 26 ).toHexString(), name : '200' },
-			{ hex : tinycolor( hex ).lighten( 12 ).toHexString(), name : '300' },
-			{ hex : tinycolor( hex ).lighten( 6 ).toHexString(), name : '400' },
+			{ hex : tinycolor( hex ).lighten( 37.7 ).toHexString(), name : '50' },
+			{ hex : tinycolor( hex ).lighten( 31.8 ).toHexString(), name : '100' },
+			{ hex : tinycolor( hex ).lighten( 18.7 ).toHexString(), name : '200' },
+			{ hex : tinycolor( hex ).lighten( 9.1 ).toHexString(), name : '300' },
+			{ hex : tinycolor( hex ).lighten( 4.5 ).desaturate( 6.7 ).spin( -3 ).toHexString(), name : '400' },
 			{ hex : hex, name : '500' },
 			{ hex : tinycolor( hex ).darken( 6 ).toHexString(), name: '600' },
 			{ hex : tinycolor( hex ).darken( 12 ).toHexString(), name: '700' },
