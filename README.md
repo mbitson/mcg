@@ -3,6 +3,7 @@ A tool for generating a color palette for Material Design.
 ###<a href="http://mcg.mbitson.com/">Click here to view the tool!</a>
 
 # What's New?
+* 12/18/15 - GitHub user Simon04 added support for automatic text-color contrast calculations. Thank you!
 * 10/16/15 - Updated angular, it's dependencies, and other third party tools. Added SpeedDial from Material Design library.
 * 10/9/15 - Import from AngularJS Material Design default palettes or from your own AngularJS Material Design Color Palette definition code!
 * 10/9/15 - Added support for tinycolor.js instead of manual color manipulation.
@@ -19,7 +20,6 @@ A tool for generating a color palette for Material Design.
 * (TOP) Support export for mobile app development.
 * (TOP) Offer material design previews. AngularJS MD + Mobile App preview.
 * (TOP) Add ability to quickly add 'functional' palettes - Success (Green), Warning(Red), Danger(Yellow)
-* (MED) Determine/control the contrast for each color in a palette.
 * (MED) Remove individual color's hex details and create tooltip styled with all color details. (Hoverintent, populated only once it's opening, includes hex, rgb, cmyk, saturation, brightness. Possibly obtained using tinycolor)
 * (MED) Change pre tag in code views to code editor with syntax highlighting.
 * (MED) Add copy-to-clipboard button to code editor.
@@ -29,3 +29,8 @@ A tool for generating a color palette for Material Design.
 * (MED) Allow for nameless (generic named) palettes to set a default MD theme.
 * (LOW) Add reset buttons for each individual color in a palette (based on main palette color)
 * (LOW) Create UI for more than 5 palettes (and/or alert user about dangers of using this many palettes)
+
+# Contributions
+* fireflight1 - Initial concept, starting code base.
+* tkh44 - Optimizations/fixes
+* simon04 - Contrast detection, bug fixes.
