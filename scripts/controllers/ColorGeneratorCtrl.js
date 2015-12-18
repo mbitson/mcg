@@ -74,12 +74,15 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 			// If this is an object with RGB/Contrast values (Default angularjs palettes)
 			if(typeof value == "object")
 			{
+				var color = {name: key};
+				color.darkContrast = value.contrast && value.contrast[0] === 0;
 				// Format it for tinycolor
 				value = "rgb(" + value.value[ 0 ] + ", " + value.value[ 1 ] + ", " + value.value[ 2 ] + ")";
+				color.hex = tinycolor(value).toHexString();
+				colors.push(color);
+			} else {
+				colors.push(getColorObject(value, key));
 			}
-
-			// Regardless, push this color to the colors using tinycolor!
-			colors.push( { hex: tinycolor( value ).toHexString(), name: key } );
 
 			// If this key is the base (500), set as base
 			if ( key == 500 || key == "500" ) {
@@ -96,6 +99,14 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		$scope.palettes.push( palette );
 	};
 
+	function getColorObject(value, name) {
+		var c = tinycolor(value);
+		return {
+			name: name,
+			hex: c.toHexString(),
+			darkContrast: c.isLight()
+		};
+	}
 
 	// Function to add a palette to palettes.
 	$scope.addBasePalette = function()
@@ -148,10 +159,16 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	// Function to make an exportable json array for themes.
 	$scope.makeColorsJson = function(colors){
 		var exportable = {};
+		var darkColors = [];
 		angular.forEach(colors, function(value, key){
 			exportable[value.name] = value.hex;
+			if (value.darkContrast) {
+				darkColors.push(value.name);
+			}
 		});
-		return angular.toJson(exportable, null, 4);
+		exportable.contrastDefaultColor = 'light';
+		exportable.contrastDarkColors = darkColors.join(' ');
+		return angular.toJson(exportable, 2).replace(/"/g, "'");
 	};
 
 	// Function to calculate all colors from base
@@ -164,20 +181,20 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	{
 		// Return array of color objects.
 		return [
-			{ hex : tinycolor( hex ).lighten( 52 ).toHexString(), name : '50' },
-			{ hex : tinycolor( hex ).lighten( 37 ).toHexString(), name : '100' },
-			{ hex : tinycolor( hex ).lighten( 26 ).toHexString(), name : '200' },
-			{ hex : tinycolor( hex ).lighten( 12 ).toHexString(), name : '300' },
-			{ hex : tinycolor( hex ).lighten( 6 ).toHexString(), name : '400' },
-			{ hex : hex, name : '500' },
-			{ hex : tinycolor( hex ).darken( 6 ).toHexString(), name: '600' },
-			{ hex : tinycolor( hex ).darken( 12 ).toHexString(), name: '700' },
-			{ hex : tinycolor( hex ).darken( 18 ).toHexString(), name: '800' },
-			{ hex : tinycolor( hex ).darken( 24 ).toHexString(), name: '900' },
-			{ hex : tinycolor( hex ).lighten( 52 ).toHexString(), name: 'A100' },
-			{ hex : tinycolor( hex ).lighten( 37 ).toHexString(), name: 'A200' },
-			{ hex : tinycolor( hex ).lighten( 6 ).toHexString(), name: 'A400' },
-			{ hex : tinycolor( hex ).darken( 12 ).toHexString(), name: 'A700' }
+			getColorObject(tinycolor( hex ).lighten( 52 ), '50'),
+			getColorObject(tinycolor( hex ).lighten( 37 ), '100'),
+			getColorObject(tinycolor( hex ).lighten( 26 ), '200'),
+			getColorObject(tinycolor( hex ).lighten( 12 ), '300'),
+			getColorObject(tinycolor( hex ).lighten( 6 ), '400'),
+			getColorObject(tinycolor( hex ), '500'),
+			getColorObject(tinycolor( hex ).darken( 6 ), '600'),
+			getColorObject(tinycolor( hex ).darken( 12 ), '700'),
+			getColorObject(tinycolor( hex ).darken( 18 ), '800'),
+			getColorObject(tinycolor( hex ).darken( 24 ), '900'),
+			getColorObject(tinycolor( hex ).lighten( 52 ), 'A100'),
+			getColorObject(tinycolor( hex ).lighten( 37 ), 'A200'),
+			getColorObject(tinycolor( hex ).lighten( 6 ), 'A400'),
+			getColorObject(tinycolor( hex ).darken( 12 ), 'A700')
 		];
 	};
 
