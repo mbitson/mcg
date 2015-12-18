@@ -98,8 +98,14 @@ body .palette-colors md-list-item {
 	line-height: 35px;
 	width: 100%;
 	display: block;
+	min-height: 35px
+}
+.palette-color-light {
+	color: rgba(255, 255, 255, 0.87);
+	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+}
+.palette-color-dark {
 	color: #000;
-	min-height: 35px;
 	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.1);
 }
 
@@ -112,7 +118,7 @@ body .palette-colors md-list-item {
 .palette-color-hex {
 	font-size: 11px;
 	text-transform: uppercase;
-	color: rgba(0, 0, 0, 0.5);
+	opacity: 0.7;
 }
 
 .palette-color-mutators {
@@ -121,6 +127,23 @@ body .palette-colors md-list-item {
 	top: -3px;
 	float: right;
 	height: 35px !important;
+}
+
+.palette-color-contrast {
+	display: inline-block;
+	float: right;
+	width: 20px;
+	height: 20px;
+	opacity: 0.7;
+	margin: 4px;
+}
+.palette-color-light .palette-color-contrast {
+	background: white;
+	border: 1px solid black;
+}
+.palette-color-dark .palette-color-contrast {
+	background: black;
+	border: 1px solid white;
 }
 
 .dot {
