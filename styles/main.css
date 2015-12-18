@@ -296,3 +296,13 @@ body .md-button {
 		display: block !important;
 	}
 }
+
+/**
+ * About styles
+ **/
+.clean-ul{
+	margin-left: 50px;
+	list-style-type: circle;
+	font-size: 14px;
+	padding-left: 30px;
+}
