@@ -304,7 +304,7 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	{
 		// TODO: Move these controllers and templates to their own files.
 		$mdDialog.show({
-			templateUrl   : '/templates/dialogs/export.html',
+			templateUrl   : 'templates/dialogs/export.html',
 			locals     : {
 				exportObj: exportObj,
 				single: single,
@@ -320,7 +320,7 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	// Function to show generic clipboard alert dialog
 	$scope.showColourLovers = function () {
 		$mdDialog.show( {
-			templateUrl: '/templates/dialogs/colourlovers.html',
+			templateUrl: 'templates/dialogs/colourlovers.html',
 			controller: ColourLoversDialogController
 		} );
 
