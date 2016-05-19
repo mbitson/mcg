@@ -151,26 +151,6 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		$scope.palettes[key].colors = $scope.palettes[key].orig;
 	};
 
-	// Function to make the definePalette code for a palette.
-	$scope.createDefinePalette = function(palette){
-		return '$mdThemingProvider.definePalette(\'' + palette.name + '\', ' + $scope.makeColorsJson(palette.colors) + ');';
-	};
-
-	// Function to make an exportable json array for themes.
-	$scope.makeColorsJson = function(colors){
-		var exportable = {};
-		var darkColors = [];
-		angular.forEach(colors, function(value, key){
-			exportable[value.name] = value.hex;
-			if (value.darkContrast) {
-				darkColors.push(value.name);
-			}
-		});
-		exportable.contrastDefaultColor = 'light';
-		exportable.contrastDarkColors = darkColors.join(' ');
-		return angular.toJson(exportable, 2).replace(/"/g, "'");
-	};
-
 	// Function to calculate all colors from base
 	// These colors were determined by finding all
 	// HSL values for a google palette, calculating
@@ -225,8 +205,11 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	    // Check to see that a theme name
 	    if(typeof $scope.theme.name === 'undefined' || $scope.theme.name.length < 1) {
 			// Set a default theme name
-			$scope.theme.name = 'McgTheme';
+			$scope.theme.name = 'mcgtheme';
 	    }
+
+		// Make theme name safe for use in code
+		$scope.theme.name = $scope.makeSafe($scope.theme.name);
 
 		// If the first is not defined, add a palette.
 		if(typeof $scope.palettes[0] === "undefined") {
@@ -245,27 +228,14 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 			// If this palette does not have a name..
 			if(typeof palette.name === 'undefined' || palette.name.length < 1 ) {
 				// Define a default name for it
-				palette.name = 'McgPalette'+key;
+				palette.name = 'mcgpalette'+key;
 			}
+			// Make palette name safe in code
+			palette.name = $scope.makeSafe(palette.name);
 		});
 
-        // Init return string
-        var themeCodeString = '';
-
-        // For each palette, add it's declaration
-        for(var i = 0; i < $scope.palettes.length; i++){
-            themeCodeString = themeCodeString+$scope.createDefinePalette($scope.palettes[i])+'\n\r';
-        }
-
-        // Add theme configuration
-        themeCodeString = themeCodeString +
-        '$mdThemingProvider.theme(\'' + $scope.theme.name + '\')\n\r\t'+
-        '.primaryPalette(\''+$scope.palettes[0].name+'\')\n\r\t'+
-        '.accentPalette(\''+$scope.palettes[1].name+'\');'
-        +'\n\r';
-
         // Show clipboard with theme code
-        $scope.showClipboard(themeCodeString);
+        $scope.showClipboard($scope.palettes, false);
 
 	    // Google Analytics Event Track
 	    ga('send', 'event', 'mcg', 'copy_code_theme');
@@ -276,19 +246,17 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	{
 		// Check to see that this palette has a name
 		if (
-			typeof palette === 'undefined' ||
 			typeof palette.name === 'undefined' ||
 			palette.name.length < 1
 		) {
-			alert('To generate the code for a palette the palette must have a name.');
-			return false;
+			// Define a default name for it
+			palette.name = 'mcgpalette';
 		}
 
-		// Generate palette's code
-		palette.json = $scope.createDefinePalette(palette);
+		palette.name = $scope.makeSafe(palette.name);
 
 		// Show code
-		$scope.showClipboard(palette.json);
+		$scope.showClipboard(palette, true);
 
 		// Google Analytics Event Track
 		ga('send', 'event', 'mcg', 'copy_code_palette');
@@ -332,48 +300,21 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	};
 
 	// Function to show generic clipboard alert dialog
-	$scope.showClipboard = function(code)
+	$scope.showClipboard = function(exportObj, single)
 	{
 		// TODO: Move these controllers and templates to their own files.
 		$mdDialog.show({
-			template   : '<md-dialog aria-label="Clipboard dialog">' +
-			'  <md-content>' +
-			'    <pre>{{code}}</pre>' +
-			'  </md-content>' +
-			'  <div class="md-actions">' +
-			'    <span ng-if="copied==true" ng-cloak class="animated fadeInUp">Code copied to clipboard!</span>'+
-			'    <md-button class="md-accent" ui-zeroclip zeroclip-model="code" zeroclip-copied="showNotice()">' +
-			'      Copy' +
-			'    </md-button>' +
-			'    <md-button ng-click="closeDialog()">' +
-			'      Close' +
-			'    </md-button>' +
-			'  </div>' +
-			'</md-dialog>',
+			templateUrl   : '/templates/dialogs/export.html',
 			locals     : {
-				code: code
+				exportObj: exportObj,
+				single: single,
+				theme: $scope.theme
 			},
-			controller : ClipboardDialogController
+			controller : DialogExportCtrl
 		});
 
 		// Google Analytics Event Track
 		ga('send', 'event', 'mcg', 'copy_code');
-
-		// TODO: Move these controllers and templates to their own files.
-		function ClipboardDialogController($scope, $mdDialog, $timeout, code)
-		{
-			$scope.code = code;
-			$scope.copied = false;
-			$scope.closeDialog = function () {
-				$mdDialog.hide();
-			};
-			$scope.showNotice = function(){
-				$scope.copied = true;
-				$timeout(function(){
-					$scope.copied = false;
-				}, 1500);
-			};
-		}
 	};
 
 	// Function to show generic clipboard alert dialog
@@ -422,6 +363,10 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 
 			$scope.init();
 		}
+	};
+
+	$scope.makeSafe = function(s){
+		return s.replace(/[^a-z0-9]/gi, '').toLowerCase();
 	};
 
     // Function to darken a palette's color.
