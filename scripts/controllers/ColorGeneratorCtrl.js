@@ -222,15 +222,32 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
     // Function to show theme's full code
     $scope.showThemeCode = function()
     {
-	    // Check to see that a theme name and palette names are set.
-	    if(
-		    typeof $scope.theme.name === 'undefined' || $scope.theme.name.length < 1 ||
-		    typeof $scope.palettes[0] === 'undefined' || typeof $scope.palettes[0].name === 'undefined' || $scope.palettes[0].name.length < 1 ||
-		    typeof $scope.palettes[1] === 'undefined' || typeof $scope.palettes[1].name === 'undefined' || $scope.palettes[1].name.length < 1
-	    ){
-		    alert('To generate the code for a theme you must provide a theme name and at least two palettes with names.');
-		    return false;
+	    // Check to see that a theme name
+	    if(typeof $scope.theme.name === 'undefined' || $scope.theme.name.length < 1) {
+			// Set a default theme name
+			$scope.theme.name = 'McgTheme';
 	    }
+
+		// If the first is not defined, add a palette.
+		if(typeof $scope.palettes[0] === "undefined") {
+			// Add a default palette
+			$scope.addPaletteFromObject( $mdColorPalette.indigo );
+		}
+
+		// If the second is not defined, add a palette.
+		if(typeof $scope.palettes[1] === "undefined") {
+			// Add a default palette
+			$scope.addPaletteFromObject( $mdColorPalette.indigo );
+		}
+
+		// For each of the user's palettes...
+		angular.forEach($scope.palettes, function(palette, key){
+			// If this palette does not have a name..
+			if(typeof palette.name === 'undefined' || palette.name.length < 1 ) {
+				// Define a default name for it
+				palette.name = 'McgPalette'+key;
+			}
+		});
 
         // Init return string
         var themeCodeString = '';
