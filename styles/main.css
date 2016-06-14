@@ -227,11 +227,19 @@ md-content {
 }
 
 md-dialog md-content {
-	max-height: 600px;
+	width: 100%;
 }
 
 md-dialog pre {
 	overflow-x: scroll;
+}
+
+md-dialog.fullscreen-dialog {
+	max-width: 85%;
+	max-height: 85%;
+	width: 85%;
+	height: 85%;
+	border-radius: 0;
 }
 
 .color {
