@@ -154,7 +154,7 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 		// Generate the scss variables
 		code += '\n\r\n\r';
 		angular.forEach(palette.colors, function(value, key){
-			code += '$palette-'+palette.name+'-'+value.name+': nth($pallete-'+palette.name+', '+(key+1)+');\n\r';
+			code += '$palette-'+palette.name+'-'+value.name+': nth($palette-'+palette.name+', '+(key+1)+');\n\r';
 		});
 		code += '\n\r\n\r';
 
