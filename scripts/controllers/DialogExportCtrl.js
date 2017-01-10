@@ -80,7 +80,7 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 	 * MCG Formatting functions
 	 */
 	$scope.setCodeToMcg = function () {
-		$scope.code = JSON.stringify($scope.exportObj, null, 2);
+		$scope.code = JSON.stringify(angular.copy($scope.exportObj), null, 2);
 	};
 
 	/*
