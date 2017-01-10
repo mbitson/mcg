@@ -3,6 +3,10 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 {
 	$scope.formats = [
 		{
+			name: "Android XML",
+			key: 'android'
+		},
+		{
 			name: "Angular JS (Material)",
 			key: 'angularjs'
 		},
@@ -11,20 +15,16 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 			key: 'angularjs2'
 		},
 		{
-			name: "Material UI (React)",
-			key: 'materialui'
+			name: "Ember Paper",
+			key: 'ember'
 		},
 		{
 			name: "Material Design Lite (SCSS)",
 			key: 'md-lite'
 		},
 		{
-			name: "Ember Paper",
-			key: 'ember'
-		},
-		{
-			name: "Android XML",
-			key: 'android'
+			name: "Material UI (React)",
+			key: 'materialui'
 		},
 		{
 			name: "MCG Reimport",
