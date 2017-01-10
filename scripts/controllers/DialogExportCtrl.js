@@ -13,6 +13,10 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 		{
 			name: "Android XML",
 			key: 'android'
+		},
+		{
+			name: "MCG Reimport",
+			key: 'mcg'
 		}
 	];
 	$scope.format = "angularjs";
@@ -43,9 +47,19 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 			case "md-lite":
 				$scope.setCodeToMdLite();
 				break;
+			case "mcg":
+				$scope.setCodeToMcg();
+				break;
 			default:
 				$scope.code = "This format is coming soon!";
 		}
+	};
+
+	/*
+	 * MCG Formatting functions
+	 */
+	$scope.setCodeToMcg = function () {
+		$scope.code = JSON.stringify($scope.exportObj, null, 2);
 	};
 
 	/*

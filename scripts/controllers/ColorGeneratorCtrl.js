@@ -18,6 +18,11 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		$scope.palettes = [];
 		$scope.colourlovers = [];
 
+		// Automatically update the URL
+		$scope.$watch('palettes', function (value) {
+			console.log(JSON.stringify(angular.copy(value)).length);
+		}, true);
+
 		// Toolbar is hidden by default.
 		$scope.initSpeedDial();
 
@@ -171,10 +176,10 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 			getColorObject(tinycolor( hex ).darken( 12 ), '700'),
 			getColorObject(tinycolor( hex ).darken( 18 ), '800'),
 			getColorObject(tinycolor( hex ).darken( 24 ), '900'),
-			getColorObject(tinycolor( hex ).lighten( 52 ), 'A100'),
-			getColorObject(tinycolor( hex ).lighten( 37 ), 'A200'),
-			getColorObject(tinycolor( hex ).lighten( 6 ), 'A400'),
-			getColorObject(tinycolor( hex ).darken( 12 ), 'A700')
+			getColorObject(tinycolor( hex ).lighten( 50 ).saturate(30), 'A100'),
+			getColorObject(tinycolor( hex ).lighten( 30 ).saturate(30), 'A200'),
+			getColorObject(tinycolor( hex ).lighten( 10 ).saturate(15), 'A400'),
+			getColorObject(tinycolor( hex ).lighten( 5 ).saturate(5), 'A700')
 		];
 	};
 
@@ -275,11 +280,7 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 			.then( function ( code )
 			{
 				// ...add the palette!
-				if ( typeof code == "object" ) {
-					$scope.addPaletteFromObject( code );
-				}else{
-					$scope.addPaletteFromJSON( code );
-				}
+				$scope.palettes = JSON.parse(code);
 			}, function () { } );
 
 		// Google Analytics Event Track
