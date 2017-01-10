@@ -3,6 +3,7 @@ A tool for generating a color palette for Material Design.
 ###<a href="http://mcg.mbitson.com/">Click here to view the tool!</a>
 
 # What's New?
+* 1/10/16 - Added support for Material UI (React)
 * 1/10/16 - Added support for Ember Paper SCSS.
 * 1/10/16 - Added support for AngularJS2 Material 2 Framework.
 * 1/10/16 - Added ability to export in a format recognized for reimport by MCG. (Enables sharing of palettes)
@@ -17,10 +18,6 @@ A tool for generating a color palette for Material Design.
 
 # Planned Future Enhancements
 * (TOP) Determine which palette is primary, secondary, and so on. Drag and drop palettes.
-* (TOP) Support export to Materialize (CSS, Universal)
-* (TOP) Support export to Polymer Theme
-* (TOP) Support export to Material-UI (React)
-* (TOP) Support export for mobile app development.
 * (TOP) Offer material design previews. AngularJS MD + Mobile App preview.
 * (TOP) Add ability to quickly add 'functional' palettes - Success (Green), Warning(Red), Danger(Yellow)
 * (MED) Remove individual color's hex details and create tooltip styled with all color details. (Hoverintent, populated only once it's opening, includes hex, rgb, cmyk, saturation, brightness. Possibly obtained using tinycolor)

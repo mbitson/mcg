@@ -11,6 +11,10 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 			key: 'angularjs2'
 		},
 		{
+			name: "Material UI (React)",
+			key: 'materialui'
+		},
+		{
 			name: "Material Design Lite (SCSS)",
 			key: 'md-lite'
 		},
@@ -51,6 +55,9 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 				break;
 			case "angularjs2":
 				$scope.setCodeToAngularTwo();
+				break;
+			case "materialui":
+				$scope.setCodeToMaterialUI();
 				break;
 			case "android":
 				$scope.setCodeToAndroid();
@@ -269,9 +276,38 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 		}
 
 		// Generate the contrast variables
-		code += '    \'contrast\': '+ contrast+'\n\r';
+		code += '    \'contrast\': ' + contrast + '\n\r';
 
 		code += ') !default;\n\r\n\r';
+
+		return code;
+	};
+
+	/*
+	 * Material UI (React) Formatting Functions
+	 */
+	$scope.setCodeToMaterialUI = function () {
+		var themeCodeString = '/* For use in app/styles/color-palette.scss */\n\r';
+		if ($scope.single === true) {
+			// Generate palette's code
+			themeCodeString = $scope.createMaterialUIPaletteCode($scope.exportObj);
+		} else {
+			// For each palette, add it's declaration
+			for (var i = 0; i < $scope.exportObj.length; i++) {
+				themeCodeString = themeCodeString + $scope.createMaterialUIPaletteCode($scope.exportObj[i]);
+			}
+		}
+
+		$scope.code = themeCodeString;
+	};
+
+	$scope.createMaterialUIPaletteCode = function (palette) {
+		var code = '\n\r';
+
+		// Generate base colors
+		angular.forEach(palette.colors, function (value, key) {
+			code += "export const " + palette.name + value.name + " = '" + tinycolor(value.hex).toHexString() + '\';\n\r';
+		});
 
 		return code;
 	};
