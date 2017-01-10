@@ -15,6 +15,10 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 			key: 'md-lite'
 		},
 		{
+			name: "Ember Paper",
+			key: 'ember'
+		},
+		{
 			name: "Android XML",
 			key: 'android'
 		},
@@ -53,6 +57,9 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 				break;
 			case "md-lite":
 				$scope.setCodeToMdLite();
+				break;
+			case "ember":
+				$scope.setCodeToEmber();
 				break;
 			case "mcg":
 				$scope.setCodeToMcg();
@@ -223,6 +230,48 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 			code += '$palette-' + palette.name + '-' + value.name + ': nth($palette-' + palette.name + ', ' + (key + 1) + ');\n\r';
 		});
 		code += '\n\r\n\r';
+
+		return code;
+	};
+
+	/*
+	 * Ember Paper Formatting Functions
+	 */
+	$scope.setCodeToEmber = function () {
+		var themeCodeString = '/* For use in app/styles/color-palette.scss */\n\r';
+		if ($scope.single === true) {
+			// Generate palette's code
+			themeCodeString = $scope.createEmberPaletteCode($scope.exportObj);
+		} else {
+			// For each palette, add it's declaration
+			for (var i = 0; i < $scope.exportObj.length; i++) {
+				themeCodeString = themeCodeString + $scope.createEmberPaletteCode($scope.exportObj[i]);
+			}
+		}
+
+		$scope.code = themeCodeString;
+	};
+
+	$scope.createEmberPaletteCode = function (palette) {
+		var code = '';
+
+		// Generate base colors
+		code += '$color-' + palette.name + ': (\n\r';
+		angular.forEach(palette.colors, function (value, key) {
+			code += "    '" + value.name + "' : " + tinycolor(value.hex).toHexString() + ',\n\r';
+		});
+
+		console.log(palette);
+		if (palette.colors[5].darkContrast) {
+			var contrast = '#000000';
+		} else {
+			var contrast = '#ffffff';
+		}
+
+		// Generate the contrast variables
+		code += '    \'contrast\': '+ contrast+'\n\r';
+
+		code += ');\n\r\n\r';
 
 		return code;
 	};
