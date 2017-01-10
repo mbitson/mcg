@@ -271,7 +271,7 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 		// Generate the contrast variables
 		code += '    \'contrast\': '+ contrast+'\n\r';
 
-		code += ');\n\r\n\r';
+		code += ') !default;\n\r\n\r';
 
 		return code;
 	};
