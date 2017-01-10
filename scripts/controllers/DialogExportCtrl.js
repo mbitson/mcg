@@ -3,8 +3,12 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 {
 	$scope.formats = [
 		{
-			name: "Angular JS",
+			name: "Angular JS (Material)",
 			key: 'angularjs'
+		},
+		{
+			name: "Angular JS 2 (Material 2)",
+			key: 'angularjs2'
 		},
 		{
 			name: "Material Design Lite (SCSS)",
@@ -40,6 +44,9 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 		switch(format){
 			case "angularjs":
 				$scope.setCodeToAngularJS();
+				break;
+			case "angularjs2":
+				$scope.setCodeToAngularTwo();
 				break;
 			case "android":
 				$scope.setCodeToAndroid();
@@ -109,6 +116,51 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 	};
 
 	/*
+	 * AngularJS 2
+	 * Material 2 Formatting Functions
+	 */
+	$scope.setCodeToAngularTwo = function () {
+		var themeCodeString = '/* For use in src/lib/core/theming/_palette.scss */\n\r';
+		if ($scope.single === true) {
+			// Generate palette's code
+			themeCodeString = $scope.createMTwoPaletteCode($scope.exportObj);
+		} else {
+			// For each palette, add it's declaration
+			for (var i = 0; i < $scope.exportObj.length; i++) {
+				themeCodeString = themeCodeString + $scope.createMTwoPaletteCode($scope.exportObj[i]);
+			}
+		}
+
+		$scope.code = themeCodeString;
+	};
+
+	$scope.createMTwoPaletteCode = function (palette) {
+		var code = '';
+
+		// Generate base colors
+		code += '$md-' + palette.name + ': (\n\r';
+		angular.forEach(palette.colors, function (value, key) {
+			code += "    '"+value.name+"' : " + tinycolor(value.hex).toHexString() + ',\n\r';
+		});
+
+		// Generate the contrast variables
+		code += '    \'contrast\': (\n\r';
+		angular.forEach(palette.colors, function (value, key) {
+			if(value.darkContrast) {
+				var contrast = '#000000';
+			}else{
+				var contrast = '#ffffff';
+			}
+			code += "        '" + value.name + "' : " + contrast + ',\n\r';
+		});
+		code += '    )\n\r';
+
+		code += ');\n\r\n\r';
+
+		return code;
+	};
+
+	/*
 	 * Android formatting functions
 	 */
 	$scope.setCodeToAndroid = function(){
@@ -140,14 +192,14 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 	/*
 	 * Material Design Lite (SCSS)
 	 */
-	$scope.setCodeToMdLite = function(){
+	$scope.setCodeToMdLite = function () {
 		var themeCodeString = '/* For use in _color-definitions.scss */\n\r';
-		if($scope.single === true) {
+		if ($scope.single === true) {
 			// Generate palette's code
 			themeCodeString = $scope.createMdLitePaletteCode($scope.exportObj);
-		}else{
+		} else {
 			// For each palette, add it's declaration
-			for(var i = 0; i < $scope.exportObj.length; i++){
+			for (var i = 0; i < $scope.exportObj.length; i++) {
 				themeCodeString = themeCodeString + $scope.createMdLitePaletteCode($scope.exportObj[i]);
 			}
 		}
@@ -155,20 +207,20 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 		$scope.code = themeCodeString;
 	};
 
-	$scope.createMdLitePaletteCode = function(palette){
+	$scope.createMdLitePaletteCode = function (palette) {
 		var code = '';
 
 		// Generate the palette container for scss
-		code += '$palette-'+palette.name+':\n\r';
-		angular.forEach(palette.colors, function(value, key){
-			code += tinycolor( value.hex ).toRgbString()+'\n\r';
+		code += '$palette-' + palette.name + ':\n\r';
+		angular.forEach(palette.colors, function (value, key) {
+			code += tinycolor(value.hex).toRgbString() + '\n\r';
 		});
 		code += ';';
 
 		// Generate the scss variables
 		code += '\n\r\n\r';
-		angular.forEach(palette.colors, function(value, key){
-			code += '$palette-'+palette.name+'-'+value.name+': nth($palette-'+palette.name+', '+(key+1)+');\n\r';
+		angular.forEach(palette.colors, function (value, key) {
+			code += '$palette-' + palette.name + '-' + value.name + ': nth($palette-' + palette.name + ', ' + (key + 1) + ');\n\r';
 		});
 		code += '\n\r\n\r';
 
