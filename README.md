@@ -3,6 +3,8 @@ A tool for generating a color palette for Material Design.
 ###<a href="http://mcg.mbitson.com/">Click here to view the tool!</a>
 
 # What's New?
+* 1/10/16 - Added support for AngularJS2 Material 2 Framework.
+* 1/10/16 - Added ability to export in a format recognized for reimport by MCG. (Enables sharing of palettes)
 * 12/18/15 - GitHub user Simon04 added support for automatic text-color contrast calculations. Thank you!
 * 10/16/15 - Updated angular, it's dependencies, and other third party tools. Added SpeedDial from Material Design library.
 * 10/9/15 - Import from AngularJS Material Design default palettes or from your own AngularJS Material Design Color Palette definition code!
