@@ -3,6 +3,7 @@ A tool for generating a color palette for Material Design.
 ###<a href="http://mcg.mbitson.com/">Click here to view the tool!</a>
 
 # What's New?
+* 1/10/16 - Added support for Ember Paper SCSS.
 * 1/10/16 - Added support for AngularJS2 Material 2 Framework.
 * 1/10/16 - Added ability to export in a format recognized for reimport by MCG. (Enables sharing of palettes)
 * 12/18/15 - GitHub user Simon04 added support for automatic text-color contrast calculations. Thank you!
