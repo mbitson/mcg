@@ -1,11 +1,8 @@
 "use strict";
 
-var mcgApp = angular.module('mcgApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'angularSpectrumColorpicker', 'ngMdIcons', 'angular-toArrayFilter', 'zeroclipboard']);
-mcgApp.config(function ($routeProvider, $mdThemingProvider, uiZeroclipConfigProvider)
+var mcgApp = angular.module('mcgApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'angularSpectrumColorpicker', 'ngMdIcons', 'angular-toArrayFilter', 'ngSanitize']);
+mcgApp.config(function ($routeProvider, $mdThemingProvider)
 {
-    // Configure Zero Clipboard.
-    uiZeroclipConfigProvider.setZcConf( { swfPath: "/bower_components/zeroclipboard/dist/ZeroClipboard.swf" } );
-
     // Configure routes.
    	$routeProvider.when('/', {
         templateUrl: 'templates/color_generator.html',
@@ -61,3 +58,18 @@ Array.prototype.remove = function(from, to) {
     this.length = from < 0 ? this.length + from : from;
     return this.push.apply(this, rest);
 };
+
+var entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    "'": '&#39;',
+    "/": '&#x2F;'
+};
+
+function escapeHtml(string) {
+    return String(string).replace(/[&<>"'\/]/g, function (s) {
+        return entityMap[s];
+    });
+}
