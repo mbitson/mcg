@@ -26,9 +26,10 @@
     "jquery": "~2.1.3",
     "spectrum": "1.6.0",
     "angular-spectrum-colorpicker": "~1.3.5",
-    "zeroclipboard": "2.0.2",
     "tinycolor": "~1.2.1",
-    "angular-zeroclipboard": "~0.8.0",
-    "angular-toArrayFilter": "~1.0.1"
+    "angular-toArrayFilter": "~1.0.1",
+    "prism": "^1.6.0",
+    "clipboard": "^1.5.16",
+    "angular-sanitize": "^1.6.1"
   }
 }
