@@ -29,6 +29,7 @@
     "tinycolor": "~1.2.1",
     "angular-toArrayFilter": "~1.0.1",
     "prism": "^1.6.0",
-    "clipboard": "^1.5.16"
+    "clipboard": "^1.5.16",
+    "angular-sanitize": "^1.6.1"
   }
 }
