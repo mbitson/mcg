@@ -74,6 +74,12 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 			default:
 				$scope.code = "This format is coming soon!";
 		}
+
+		$scope.code = '<pre class="language-none"><code class="code-toolbar line-numbers">'+ $scope.code +'</code></pre>';
+
+		$timeout(function () {
+			Prism.highlightAll();
+		}, 100);
 	};
 
 	/*
@@ -97,15 +103,14 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 
 			// For each palette, add it's declaration
 			for(var i = 0; i < $scope.exportObj.length; i++){
-				themeCodeString = themeCodeString+$scope.createAjsPaletteCode($scope.exportObj[i])+'\n\r';
+				themeCodeString = themeCodeString+$scope.createAjsPaletteCode($scope.exportObj[i])+'\n';
 			}
 
 			// Add theme configuration
 			$scope.code = themeCodeString +
-				'$mdThemingProvider.theme(\'' + $scope.theme.name + '\')\n\r\t'+
-				'.primaryPalette(\''+$scope.exportObj[0].name+'\')\n\r\t'+
-				'.accentPalette(\''+$scope.exportObj[1].name+'\');'
-				+'\n\r';
+				'$mdThemingProvider.theme(\'' + $scope.theme.name + '\')\n'+
+				'    .primaryPalette(\''+$scope.exportObj[0].name+'\')\n'+
+				'    .accentPalette(\''+$scope.exportObj[1].name+'\');';
 		}
 	};
 	
@@ -134,7 +139,7 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 	 * Material 2 Formatting Functions
 	 */
 	$scope.setCodeToAngularTwo = function () {
-		var themeCodeString = '/* For use in src/lib/core/theming/_palette.scss */\n\r';
+		var themeCodeString = '/* For use in src/lib/core/theming/_palette.scss */\n';
 		if ($scope.single === true) {
 			// Generate palette's code
 			themeCodeString = $scope.createMTwoPaletteCode($scope.exportObj);
@@ -152,24 +157,24 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 		var code = '';
 
 		// Generate base colors
-		code += '$md-' + palette.name + ': (\n\r';
+		code += '$md-' + palette.name + ': (\n';
 		angular.forEach(palette.colors, function (value, key) {
-			code += "    '"+value.name+"' : " + tinycolor(value.hex).toHexString() + ',\n\r';
+			code += "    '"+value.name+"' : " + tinycolor(value.hex).toHexString() + ',\n';
 		});
 
 		// Generate the contrast variables
-		code += '    \'contrast\': (\n\r';
+		code += '    \'contrast\': (\n';
 		angular.forEach(palette.colors, function (value, key) {
 			if(value.darkContrast) {
 				var contrast = '#000000';
 			}else{
 				var contrast = '#ffffff';
 			}
-			code += "        '" + value.name + "' : " + contrast + ',\n\r';
+			code += "        '" + value.name + "' : " + contrast + ',\n';
 		});
-		code += '    )\n\r';
+		code += '    )\n';
 
-		code += ');\n\r\n\r';
+		code += ');\n\n';
 
 		return code;
 	};
@@ -192,13 +197,13 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 		}
 
 		// Add XML parent node
-		$scope.code = '<resources>\n\r'+themeCodeString+'<resources>';
+		$scope.code = escapeHtml('<resources>\n'+themeCodeString+'<resources>');
 	};
 
 	$scope.createAndroidPaletteCode = function(palette){
 		var code = '';
 		angular.forEach(palette.colors, function(value, key){
-			code += '    <color name="'+palette.name+'_'+value.name+'">'+value.hex+'</color>\n\r';
+			code += '     <color name="'+palette.name+'_'+value.name+'">'+value.hex+'</color>\n';
 		});
 		return code;
 	};
@@ -207,7 +212,7 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 	 * Material Design Lite (SCSS)
 	 */
 	$scope.setCodeToMdLite = function () {
-		var themeCodeString = '/* For use in _color-definitions.scss */\n\r';
+		var themeCodeString = '/* For use in _color-definitions.scss */\n';
 		if ($scope.single === true) {
 			// Generate palette's code
 			themeCodeString = $scope.createMdLitePaletteCode($scope.exportObj);
@@ -225,18 +230,18 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 		var code = '';
 
 		// Generate the palette container for scss
-		code += '$palette-' + palette.name + ':\n\r';
+		code += '$palette-' + palette.name + ':\n';
 		angular.forEach(palette.colors, function (value, key) {
-			code += tinycolor(value.hex).toRgbString() + '\n\r';
+			code += tinycolor(value.hex).toRgbString() + '\n';
 		});
 		code += ';';
 
 		// Generate the scss variables
-		code += '\n\r\n\r';
+		code += '\n\n';
 		angular.forEach(palette.colors, function (value, key) {
-			code += '$palette-' + palette.name + '-' + value.name + ': nth($palette-' + palette.name + ', ' + (key + 1) + ');\n\r';
+			code += '$palette-' + palette.name + '-' + value.name + ': nth($palette-' + palette.name + ', ' + (key + 1) + ');\n';
 		});
-		code += '\n\r\n\r';
+		code += '\n\n';
 
 		return code;
 	};
@@ -245,7 +250,7 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 	 * Ember Paper Formatting Functions
 	 */
 	$scope.setCodeToEmber = function () {
-		var themeCodeString = '/* For use in app/styles/color-palette.scss */\n\r';
+		var themeCodeString = '/* For use in app/styles/color-palette.scss */\n';
 		if ($scope.single === true) {
 			// Generate palette's code
 			themeCodeString = $scope.createEmberPaletteCode($scope.exportObj);
@@ -263,12 +268,11 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 		var code = '';
 
 		// Generate base colors
-		code += '$color-' + palette.name + ': (\n\r';
+		code += '$color-' + palette.name + ': (\n';
 		angular.forEach(palette.colors, function (value, key) {
-			code += "    '" + value.name + "' : " + tinycolor(value.hex).toHexString() + ',\n\r';
+			code += "    '" + value.name + "' : " + tinycolor(value.hex).toHexString() + ',\n';
 		});
 
-		console.log(palette);
 		if (palette.colors[5].darkContrast) {
 			var contrast = '#000000';
 		} else {
@@ -276,9 +280,9 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 		}
 
 		// Generate the contrast variables
-		code += '    \'contrast\': ' + contrast + '\n\r';
+		code += '    \'contrast\': ' + contrast + '\n';
 
-		code += ') !default;\n\r\n\r';
+		code += ') !default;\n\n';
 
 		return code;
 	};
@@ -287,7 +291,7 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 	 * Material UI (React) Formatting Functions
 	 */
 	$scope.setCodeToMaterialUI = function () {
-		var themeCodeString = '/* For use in app/styles/color-palette.scss */\n\r';
+		var themeCodeString = '/* For use in app/styles/color-palette.scss */\n';
 		if ($scope.single === true) {
 			// Generate palette's code
 			themeCodeString = $scope.createMaterialUIPaletteCode($scope.exportObj);
@@ -302,11 +306,11 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 	};
 
 	$scope.createMaterialUIPaletteCode = function (palette) {
-		var code = '\n\r';
+		var code = '\n';
 
 		// Generate base colors
 		angular.forEach(palette.colors, function (value, key) {
-			code += "export const " + palette.name + value.name + " = '" + tinycolor(value.hex).toHexString() + '\';\n\r';
+			code += "export const " + palette.name + value.name + " = '" + tinycolor(value.hex).toHexString() + '\';\n';
 		});
 
 		return code;

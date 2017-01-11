@@ -18,11 +18,6 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		$scope.palettes = [];
 		$scope.colourlovers = [];
 
-		// Automatically update the URL
-		$scope.$watch('palettes', function (value) {
-			console.log(JSON.stringify(angular.copy(value)).length);
-		}, true);
-
 		// Toolbar is hidden by default.
 		$scope.initSpeedDial();
 
