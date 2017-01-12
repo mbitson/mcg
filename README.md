@@ -30,6 +30,9 @@ A tool for generating a color palette for Material Design.
 * (LOW) Add reset buttons for each individual color in a palette (based on main palette color)
 * (LOW) Create UI for more than 5 palettes (and/or alert user about dangers of using this many palettes)
 
+# Bugs and Questions
+* Should you encounter a bug/problem or have a question about the tool please report it using GitHub's "Issues" feature [here](https://github.com/mbitson/mcg/issues).
+
 # Contributions
 * fireflight1 - Initial concept, starting code base.
 * tkh44 - Optimizations/fixes

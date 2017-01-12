@@ -35,7 +35,6 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 	$scope.theme = theme;
 	$scope.exportObj = exportObj;
 	$scope.single = single;
-	$scope.copied = false;
 	$scope.code = '';
 
 	$scope.init = function() {
@@ -318,13 +317,6 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 	
 	$scope.closeDialog = function () {
 		$mdDialog.hide();
-	};
-
-	$scope.showNotice = function(){
-		$scope.copied = true;
-		$timeout(function(){
-			$scope.copied = false;
-		}, 1500);
 	};
 
 	$scope.init();

@@ -1,13 +1,18 @@
 "use strict";
 
 var mcgApp = angular.module('mcgApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'angularSpectrumColorpicker', 'ngMdIcons', 'angular-toArrayFilter', 'ngSanitize']);
-mcgApp.config(function ($routeProvider, $mdThemingProvider)
+mcgApp.config(function ($routeProvider, $mdThemingProvider, $sceDelegateProvider, $qProvider)
 {
     // Configure routes.
    	$routeProvider.when('/', {
         templateUrl: 'templates/color_generator.html',
         controller: 'ColorGeneratorCtrl'
     });
+
+    $sceDelegateProvider.resourceUrlWhitelist([
+        'self',
+        'http://www.colourlovers.com/api/**'
+    ]);
 
     // Configure themes.
     $mdThemingProvider.definePalette('clear', { "50": "#FFFFFF", "100": "#FFFFFF", "200": "#FFFFFF", "300": "#FFFFFF", "400": "#FFFFFF", "500": "#FFFFFF", "600": "#cbcaca", "700": "#aeadad", "800": "#919090", "900": "#747474", "A100": "#f8f8f8", "A200": "#f4f3f3", "A400": "#ecebeb", "A700": "#aeadad" } );
