@@ -339,34 +339,26 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 
 			// Get top colourlover palettes.
 			$scope.getTop = function(){
-				ColourLovers.getTop().success( function ( data ) {
-					$scope.colourlovers = data;
-				} ).catch(function(error){
-					console.log(error);
-				});
+				ColourLovers.getTop();
 			};
 
 			// Get new colourlover palettes.
 			$scope.getNew = function () {
-				ColourLovers.getNew().success( function ( data ) {
-					$scope.colourlovers = data;
-				} ).catch(function (error) {
-					console.log(error);
-				});
+				ColourLovers.getNew();
 			};
 
 			// Get random colourlover palettes.
 			$scope.getRandom = function () {
-				ColourLovers.getRandom().success( function ( data ) {
-					$scope.colourlovers = data;
-				} ).catch(function (error) {
-					console.log(error);
-				});
+				ColourLovers.getRandom();
 			};
 
 			// Function to close dialog
 			$scope.closeDialog = function () {
 				$mdDialog.hide();
+			};
+
+			var CLGetSuccess = function (data) {
+				$scope.colourlovers = data;
 			};
 
 			$scope.init();

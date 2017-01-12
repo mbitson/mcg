@@ -1,7 +1,7 @@
 "use strict";
 
 var mcgApp = angular.module('mcgApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'angularSpectrumColorpicker', 'ngMdIcons', 'angular-toArrayFilter', 'ngSanitize']);
-mcgApp.config(function ($routeProvider, $mdThemingProvider, $sceDelegateProvider, $qProvider)
+mcgApp.config(function ($routeProvider, $mdThemingProvider, $sceDelegateProvider)
 {
     // Configure routes.
    	$routeProvider.when('/', {

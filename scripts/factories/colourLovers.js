@@ -8,16 +8,16 @@ mcgApp.factory( 'ColourLovers', [ '$http', '$sce', function ( $http, $sce ) {
 		};
 		return {
 			get:     function () {
-				return $http.get(getClUrl('?format=json'));
+				return $http.jsonp(getClUrl('?jsonCallback=CLGetSuccess')).catch(function(e){console.log(e);});
 			},
 			getNew: function(){
-				return $http.get(getClUrl('new?format=json'));
+				return $http.jsonp(getClUrl('new?jsonCallback=CLGetSuccess')).catch(function(e){console.log(e);});
 			},
 			getTop: function () {
-				return $http.get(getClUrl('top?format=json'));
+				return $http.jsonp(getClUrl('top?jsonCallback=CLGetSuccess')).catch(function(e){console.log(e);});
 			},
 			getRandom: function () {
-				return $http.get(getClUrl('random?format=json&numResults=20'));
+				return $http.jsonp(getClUrl('random?jsonCallback=CLGetSuccess&numResults=20')).catch(function(e){console.log(e);});
 			}
 		}
 	} ] );
