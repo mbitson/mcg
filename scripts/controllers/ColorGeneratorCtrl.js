@@ -269,7 +269,9 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 			// Show the dialog to allow import
 			.show( {
 				templateUrl: 'templates/dialogs/import.html',
-				controller: DialogImportCtrl
+				controller: DialogImportCtrl,
+				clickOutsideToClose: true,
+				escapeToClose: true
 			} )
 			// Once the user clicks import...
 			.then( function ( code )
@@ -288,7 +290,9 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		// Show about us section!
 		$mdDialog.show( {
 			templateUrl: 'templates/dialogs/about.html',
-			controller:  AboutCtrl
+			controller:  AboutCtrl,
+			clickOutsideToClose: true,
+			escapeToClose: true
 		} );
 
 		// Google Analytics Event Track
@@ -306,7 +310,9 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 				single: single,
 				theme: $scope.theme
 			},
-			controller : DialogExportCtrl
+			controller : DialogExportCtrl,
+			clickOutsideToClose: true,
+			escapeToClose: true
 		});
 
 		// Google Analytics Event Track
@@ -333,28 +339,26 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 
 			// Get top colourlover palettes.
 			$scope.getTop = function(){
-				ColourLovers.getTop().success( function ( data ) {
-					$scope.colourlovers = data;
-				} );
+				ColourLovers.getTop();
 			};
 
 			// Get new colourlover palettes.
 			$scope.getNew = function () {
-				ColourLovers.getNew().success( function ( data ) {
-					$scope.colourlovers = data;
-				} );
+				ColourLovers.getNew();
 			};
 
 			// Get random colourlover palettes.
 			$scope.getRandom = function () {
-				ColourLovers.getRandom().success( function ( data ) {
-					$scope.colourlovers = data;
-				} );
+				ColourLovers.getRandom();
 			};
 
 			// Function to close dialog
 			$scope.closeDialog = function () {
 				$mdDialog.hide();
+			};
+
+			var CLGetSuccess = function (data) {
+				$scope.colourlovers = data;
 			};
 
 			$scope.init();
