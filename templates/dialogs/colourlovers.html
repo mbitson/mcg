@@ -9,13 +9,18 @@
 			<md-button class="md-raised md-primary" flex ng-click="getNew()">Newest</md-button>
 			<md-button class="md-raised md-primary" flex ng-click="getRandom()">Random</md-button>
 		</div>
-		<md-list>
+		<md-list ng-if="color.colors">
 			<md-list-item ng-click="setColors(color.colors); closeDialog()" class="color-lovers-palette" flex layout="row" ng-repeat="color in colourlovers">
 				<div class="color" flex style="background: #{{colorHex}}" ng-repeat="colorHex in color.colors"></div>
 				<md-tooltip>{{color.title}} - {{color.userName}} - {{color.numViews}} views</md-tooltip>
 			</md-list-item>
 		</md-list>
-		<div >{{color}}</div>
+		<p ng-if="!color.colors" style="text-align:center;">
+			ColourLovers.com Integration is currently not working.
+		</p>
+		<p ng-if="!color.colors" style="text-align:center;">
+			Please report the outage via GitHub Issues <a href="https://github.com/mbitson/mcg/issues" target="_blank">here.</a>
+		</p>
 	</md-content>
 	<div class="md-actions">
 		<md-button ng-click="closeDialog()">
