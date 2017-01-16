@@ -158,18 +158,18 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme)
 		// Generate base colors
 		code += '$md-' + palette.name + ': (\n';
 		angular.forEach(palette.colors, function (value, key) {
-			code += "    '"+value.name+"' : " + tinycolor(value.hex).toHexString() + ',\n';
+			code += "    "+value.name+" : " + tinycolor(value.hex).toHexString() + ',\n';
 		});
 
 		// Generate the contrast variables
-		code += '    \'contrast\': (\n';
+		code += '    contrast: (\n';
 		angular.forEach(palette.colors, function (value, key) {
 			if(value.darkContrast) {
 				var contrast = '#000000';
 			}else{
 				var contrast = '#ffffff';
 			}
-			code += "        '" + value.name + "' : " + contrast + ',\n';
+			code += "        " + value.name + " : " + contrast + ',\n';
 		});
 		code += '    )\n';
 
