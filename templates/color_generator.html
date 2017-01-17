@@ -61,7 +61,7 @@
                 <md-tooltip>Delete Palette</md-tooltip>
                 <ng-md-icon icon="remove_circle" size="24"></ng-md-icon>
             </md-button>
-            <spectrum-colorpicker ng-model="palette.base" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 250, 'blur': 0} }" format="'hex'" options="{showInput: true, showPalette: true}" ng-change="calcPalette(paletteKey)"></spectrum-colorpicker>
+            <spectrum-colorpicker ng-model="palette.base" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 250, 'blur': 0} }" format="'hex'" options="{preferredFormat: 'hex', showInput: true, showPalette: true, palette:defaultPalette }" ng-change="calcPalette(paletteKey)"></spectrum-colorpicker>
         </md-toolbar>
 		<md-list flex class="palette-colors spaced">
 		    <md-list-item class="light-canvas" ng-repeat="color in palette.colors">
@@ -74,7 +74,7 @@
                     </a>
                     <div class="palette-color-mutators">
                         <!-- Removed lighten and darken buttons until saturation issues are worked out. -->
-                        <spectrum-colorpicker ng-model="color.hex" format="'hex'" options="{showInput: true, showPalette: true}"></spectrum-colorpicker>
+                        <spectrum-colorpicker ng-model="color.hex" format="'hex'" options="{preferredFormat: 'hex', showInput: true, showPalette: true, palette:defaultPalette }"></spectrum-colorpicker>
                     </div>
                     <div class="palette-color-contrast" ng-click="color.darkContrast = !color.darkContrast">
                       <md-tooltip>Toggle contrast</md-tooltip>

@@ -11,6 +11,27 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	// "Restarted" without a reload.
 	$scope.init = function ()
 	{
+		// Init settings object
+		$rootScope.settings = {};
+
+		// Set algorithm options
+		$rootScope.settings.algorithms = [
+			'traditional',
+			'constantin'
+		];
+
+		// Set default settings
+		$rootScope.settings.algorithm = $rootScope.settings.algorithms[1];
+
+		$scope.defaultPalette = [
+			["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
+			["#f4cccc", "#fce5cd", "#fff2cc", "#d9ead3", "#d0e0e3", "#cfe2f3", "#d9d2e9", "#ead1dc"],
+			["#ea9999", "#f9cb9c", "#ffe599", "#b6d7a8", "#a2c4c9", "#9fc5e8", "#b4a7d6", "#d5a6bd"],
+			["#e06666", "#f6b26b", "#ffd966", "#93c47d", "#76a5af", "#6fa8dc", "#8e7cc3", "#c27ba0"],
+			["#c00", "#e69138", "#f1c232", "#6aa84f", "#45818e", "#3d85c6", "#674ea7", "#a64d79"],
+			["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]
+		];
+
 		// Reset palette to default color
 		$scope.setDefaultPalette();
 
@@ -151,6 +172,14 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		$scope.palettes[key].colors = $scope.palettes[key].orig;
 	};
 
+	// Utility function to combine two rgb objects via Multiply
+	$scope.multiply = function(rgb1, rgb2){
+		rgb1.b = Math.floor(rgb1.b * rgb2.b / 255);
+		rgb1.g = Math.floor(rgb1.g * rgb2.g / 255);
+		rgb1.r = Math.floor(rgb1.r * rgb2.r / 255);
+		return tinycolor('rgb ' + rgb1.r + ' ' + rgb1.g + ' ' + rgb1.b);
+	};
+
 	// Function to calculate all colors from base
 	// These colors were determined by finding all
 	// HSL values for a google palette, calculating
@@ -160,22 +189,44 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	$scope.computeColors = function(hex)
 	{
 		// Return array of color objects.
-		return [
-			getColorObject(tinycolor( hex ).lighten( 52 ), '50'),
-			getColorObject(tinycolor( hex ).lighten( 37 ), '100'),
-			getColorObject(tinycolor( hex ).lighten( 26 ), '200'),
-			getColorObject(tinycolor( hex ).lighten( 12 ), '300'),
-			getColorObject(tinycolor( hex ).lighten( 6 ), '400'),
-			getColorObject(tinycolor( hex ), '500'),
-			getColorObject(tinycolor( hex ).darken( 6 ), '600'),
-			getColorObject(tinycolor( hex ).darken( 12 ), '700'),
-			getColorObject(tinycolor( hex ).darken( 18 ), '800'),
-			getColorObject(tinycolor( hex ).darken( 24 ), '900'),
-			getColorObject(tinycolor( hex ).lighten( 50 ).saturate(30), 'A100'),
-			getColorObject(tinycolor( hex ).lighten( 30 ).saturate(30), 'A200'),
-			getColorObject(tinycolor( hex ).lighten( 10 ).saturate(15), 'A400'),
-			getColorObject(tinycolor( hex ).lighten( 5 ).saturate(5), 'A700')
-		];
+		if($rootScope.settings.algorithm == 'constantin'){
+			var baseLight = tinycolor('#ffffff');
+			var baseDark = $scope.multiply(tinycolor(hex).toRgb(), tinycolor(hex).toRgb());
+			var baseTriad = tinycolor(hex).tetrad();
+			return [
+				getColorObject(tinycolor.mix(baseLight, hex, 12), '50'),
+				getColorObject(tinycolor.mix(baseLight, hex, 30), '100'),
+				getColorObject(tinycolor.mix(baseLight, hex, 50), '200'),
+				getColorObject(tinycolor.mix(baseLight, hex, 70), '300'),
+				getColorObject(tinycolor.mix(baseLight, hex, 85), '400'),
+				getColorObject(tinycolor.mix(baseLight, hex, 100), '500'),
+				getColorObject(tinycolor.mix(baseDark, hex, 87), '600'),
+				getColorObject(tinycolor.mix(baseDark, hex, 70), '700'),
+				getColorObject(tinycolor.mix(baseDark, hex, 54), '800'),
+				getColorObject(tinycolor.mix(baseDark, hex, 25), '900'),
+				getColorObject(tinycolor.mix(baseDark, baseTriad[4], 15).saturate(80).lighten(65), 'A100'),
+				getColorObject(tinycolor.mix(baseDark, baseTriad[4], 15).saturate(80).lighten(55), 'A200'),
+				getColorObject(tinycolor.mix(baseDark, baseTriad[4], 15).saturate(100).lighten(45), 'A400'),
+				getColorObject(tinycolor.mix(baseDark, baseTriad[4], 15).saturate(100).lighten(40), 'A700')
+			];
+		}else{
+			return [
+				getColorObject(tinycolor(hex).lighten(52), '50'),
+				getColorObject(tinycolor(hex).lighten(37), '100'),
+				getColorObject(tinycolor(hex).lighten(26), '200'),
+				getColorObject(tinycolor(hex).lighten(12), '300'),
+				getColorObject(tinycolor(hex).lighten(6), '400'),
+				getColorObject(tinycolor(hex), '500'),
+				getColorObject(tinycolor(hex).darken(6), '600'),
+				getColorObject(tinycolor(hex).darken(12), '700'),
+				getColorObject(tinycolor(hex).darken(18), '800'),
+				getColorObject(tinycolor(hex).darken(24), '900'),
+				getColorObject(tinycolor(hex).lighten(50).saturate(30), 'A100'),
+				getColorObject(tinycolor(hex).lighten(30).saturate(30), 'A200'),
+				getColorObject(tinycolor(hex).lighten(10).saturate(15), 'A400'),
+				getColorObject(tinycolor(hex).lighten(5).saturate(5), 'A700')
+			];
+		}
 	};
 
 	// Function to prevent lightest
