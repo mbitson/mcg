@@ -3,6 +3,7 @@ A tool for generating a color palette for Material Design.
 ###<a href="http://mcg.mbitson.com/">Click here to view the tool!</a>
 
 # What's New?
+* 1/17/16 - Updated color calculation algorithms per the logic shared [here](http://stackoverflow.com/a/36229022/3525315). Thank you Constantin!
 * 1/10/16 - Added support for Material UI (React)
 * 1/10/16 - Added support for Ember Paper SCSS.
 * 1/10/16 - Added support for AngularJS2 Material 2 Framework.
@@ -17,6 +18,7 @@ A tool for generating a color palette for Material Design.
 * 4/14/15 - Export your color choices to the AngularJS Material Design theme declaration code.
 
 # Planned Future Enhancements
+* (TOP) Let the user select which color calculation algorithm they'd like to use. (constantin/traditional[mcg])
 * (TOP) Determine which palette is primary, secondary, and so on. Drag and drop palettes.
 * (TOP) Offer material design previews. AngularJS MD + Mobile App preview.
 * (TOP) Add ability to quickly add 'functional' palettes - Success (Green), Warning(Red), Danger(Yellow)
@@ -37,3 +39,4 @@ A tool for generating a color palette for Material Design.
 * fireflight1 - Initial concept, starting code base.
 * tkh44 - Optimizations/fixes
 * simon04 - Contrast detection, bug fixes.
+* Constantin - Color algorithm logic per stack overflow answer [here](http://stackoverflow.com/a/36229022/3525315).
