@@ -40,7 +40,12 @@ mcgApp.service('VueInterpreter', function () {
         var darkTextArray = [];
         angular.forEach(palette.colors, function (value, key) {
             if(value.darkContrast == true) {
-                if(value.name.indexOf('A') < 0) value.name = parseInt(value.name);
+                if(
+                    typeof value.name == "string" &&
+                    value.name.indexOf('A') < 0
+                ){
+                    value.name = parseInt(value.name);
+                }
                 darkTextArray.push(value.name);
             }
         });
