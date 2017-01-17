@@ -346,6 +346,7 @@ body .md-button {
 
 #import-theme-container {
 	width: 600px;
+	padding: 15px 90px;
 }
 
 #import-theme-container .md-button {

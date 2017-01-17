@@ -328,7 +328,11 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 			.then( function ( code )
 			{
 				// ...add the palette!
-				$scope.palettes = JSON.parse(code);
+				if(typeof code === "string"){
+					$scope.palettes = JSON.parse(code);
+				}else{
+					$scope.addPaletteFromObject(code);
+				}
 			}, function () { } );
 
 		// Google Analytics Event Track
