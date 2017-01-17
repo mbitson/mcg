@@ -39,6 +39,18 @@ mcgApp.config(function ($routeProvider, $mdThemingProvider, $sceDelegateProvider
     $mdThemingProvider.theme('brown').primaryPalette('brown').accentPalette('clear');
     $mdThemingProvider.theme('grey').primaryPalette('grey').accentPalette('clear');
     $mdThemingProvider.theme('blue-grey').primaryPalette('blue-grey').accentPalette('clear');
+}).run(function($rootScope, $location, $window)
+{
+    // initialise google analytics
+    $window.ga('create', 'UA-62237624-1', 'auto');
+
+    // track index view
+    $window.ga('send', 'pageview', 'mcg_index');
+
+    // track pageview on state change
+    $rootScope.$on('$stateChangeSuccess', function (event) {
+        $window.ga('send', 'pageview', $location.path());
+    });
 });
 
 /**
