@@ -5,8 +5,8 @@
 	</md-toolbar>
 	<md-content>
 		<textarea ng-model="code" class="import-textarea"></textarea>
-		<p>- or you may pick a default material design palette: -</p>
-		<div id="import-theme-container">
+		<p style="display: block; text-align: center;">- or you may pick a default material design palette: -</p>
+		<div id="import-theme-container" flex layout="row" layout-align="space-around center" layout-wrap>
 			<md-button
 					class="md-raised md-primary"
 					ng-click="import(palette)"
