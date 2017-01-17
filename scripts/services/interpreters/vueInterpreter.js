@@ -12,7 +12,7 @@ mcgApp.service('VueInterpreter', function () {
      * Material Design Lite (SCSS)
      */
     this.buildExport = function () {
-        var themeCodeString = '/* For use in _color-definitions.scss */\n';
+        var themeCodeString = '    /* src/core/components/mdTheme/palette.js */\n';
         if (this.single === true) {
             // Generate palette's code
             themeCodeString = this.createMdLitePaletteCode(this.exportObj);
@@ -30,18 +30,25 @@ mcgApp.service('VueInterpreter', function () {
         var code = '';
 
         // Generate the palette container for scss
-        code += '$palette-' + palette.name + ':\n';
+        code +=  '    ' + palette.name + ':{\n';
         angular.forEach(palette.colors, function (value, key) {
-            code += tinycolor(value.hex).toRgbString() + '\n';
+            code += '        ' + value.name + ': \'' + tinycolor(value.hex).toHexString() + '\',\n';
         });
-        code += ';';
 
-        // Generate the scss variables
-        code += '\n\n';
+        // Output darkText
+        code += '        darkText: ';
+        var darkTextArray = [];
         angular.forEach(palette.colors, function (value, key) {
-            code += '$palette-' + palette.name + '-' + value.name + ': nth($palette-' + palette.name + ', ' + (key + 1) + ');\n';
+            if(value.darkContrast == true) {
+                if(value.name.indexOf('A') < 0) value.name = parseInt(value.name);
+                darkTextArray.push(value.name);
+            }
         });
-        code += '\n\n';
+        code += JSON.stringify(darkTextArray);
+        code += '\n';
+
+        // Close out palette
+        code += '    },\n';
 
         return code;
     };
