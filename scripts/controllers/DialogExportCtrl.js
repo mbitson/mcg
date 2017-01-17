@@ -38,7 +38,7 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme,
 		var interpretor = TopInterpreter.getInterpreter(format);
 
 		if (interpretor !== false) {
-			$scope.code = interpretor.export($scope.exportObj, $scope.theme);
+			$scope.code = interpretor.export($scope.exportObj, $scope.theme, $scope.single);
 		}else{
 			$scope.code = "This format is coming soon!";
 		}

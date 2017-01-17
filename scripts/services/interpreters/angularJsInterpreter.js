@@ -1,9 +1,10 @@
 mcgApp.service('AngularJsInterpreter', function () {
-    this.export = function(exportObj, theme)
+    this.export = function(exportObj, theme, single)
     {
         this.code = '';
         this.exportObj = exportObj;
         this.theme = theme;
+        this.single = single;
         this.buildExport();
         return this.code;
     };
@@ -24,12 +25,15 @@ mcgApp.service('AngularJsInterpreter', function () {
             for (var i = 0; i < this.exportObj.length; i++) {
                 themeCodeString = themeCodeString + this.createAjsPaletteCode(this.exportObj[i]) + '\n';
             }
+            this.code = themeCodeString;
 
             // Add theme configuration
-            this.code = themeCodeString +
-                '$mdThemingProvider.theme(\'' + this.theme.name + '\')\n' +
-                '    .primaryPalette(\'' + this.exportObj[0].name + '\')\n' +
-                '    .accentPalette(\'' + this.exportObj[1].name + '\');';
+            if(typeof this.exportObj[0] !== "undefined" && typeof this.exportObj[1] !== "undefined"){
+                this.code +=
+                    '$mdThemingProvider.theme(\'' + this.theme.name + '\')\n' +
+                    '    .primaryPalette(\'' + this.exportObj[0].name + '\')\n' +
+                    '    .accentPalette(\'' + this.exportObj[1].name + '\');';
+            }
         }
     };
 
