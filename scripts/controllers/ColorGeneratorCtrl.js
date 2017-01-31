@@ -253,37 +253,8 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
     // Function to show theme's full code
     $scope.showThemeCode = function()
     {
-	    // Check to see that a theme name
-	    if(typeof $scope.theme.name === 'undefined' || $scope.theme.name.length < 1) {
-			// Set a default theme name
-			$scope.theme.name = 'mcgtheme';
-	    }
-
-		// Make theme name safe for use in code
-		$scope.theme.name = $scope.makeSafe($scope.theme.name);
-
-		// If the first is not defined, add a palette.
-		if(typeof $scope.palettes[0] === "undefined") {
-			// Add a default palette
-			$scope.addPaletteFromObject( $mdColorPalette.indigo );
-		}
-
-		// If the second is not defined, add a palette.
-		if(typeof $scope.palettes[1] === "undefined") {
-			// Add a default palette
-			$scope.addPaletteFromObject( $mdColorPalette.indigo );
-		}
-
-		// For each of the user's palettes...
-		angular.forEach($scope.palettes, function(palette, key){
-			// If this palette does not have a name..
-			if(typeof palette.name === 'undefined' || palette.name.length < 1 ) {
-				// Define a default name for it
-				palette.name = 'mcgpalette'+key;
-			}
-			// Make palette name safe in code
-			palette.name = $scope.makeSafe(palette.name);
-		});
+		// Force names
+		$scope.forceNames(false);
 
         // Show clipboard with theme code
         $scope.showClipboard($scope.palettes, false);
@@ -291,6 +262,46 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	    // Google Analytics Event Track
 	    ga('send', 'event', 'mcg', 'copy_code_theme');
     };
+
+    $scope.forceNames = function(requireTwo)
+	{
+		if(typeof requireTwo == "undefined")
+		{
+			requireTwo = true;
+		}
+
+		// Check to see that a theme name
+		if (typeof $scope.theme.name === 'undefined' || $scope.theme.name.length < 1) {
+			// Set a default theme name
+			$scope.theme.name = 'mcgtheme';
+		}
+
+		// Make theme name safe for use in code
+		$scope.theme.name = $scope.makeSafe($scope.theme.name);
+
+		// If the first is not defined, add a palette.
+		if (typeof $scope.palettes[0] === "undefined") {
+			// Add a default palette
+			$scope.addPaletteFromObject($mdColorPalette.indigo);
+		}
+
+		// If the second is not defined, add a palette.
+		if (typeof $scope.palettes[1] === "undefined" && requireTwo) {
+			// Add a default palette
+			$scope.addPaletteFromObject($mdColorPalette.indigo);
+		}
+
+		// For each of the user's palettes...
+		angular.forEach($scope.palettes, function (palette, key) {
+			// If this palette does not have a name..
+			if (typeof palette.name === 'undefined' || palette.name.length < 1) {
+				// Define a default name for it
+				palette.name = 'mcgpalette' + key;
+			}
+			// Make palette name safe in code
+			palette.name = $scope.makeSafe(palette.name);
+		});
+	};
 
 	// Function to regenerate json and show dialog for palette.
 	$scope.showPaletteCode = function(palette)
@@ -330,7 +341,7 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 				// ...add the palette!
 				if(typeof code === "string"){
 					$scope.palettes = JSON.parse(code);
-				}else{
+				}else if(typeof code === "object"){
 					$scope.addPaletteFromObject(code);
 				}
 			}, function () { } );
@@ -338,6 +349,27 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		// Google Analytics Event Track
 		ga( 'send', 'event', 'mcg', 'import_code' );
     };
+
+	// Function to show export json for loading carts later
+	$scope.showDemo = function () {
+		// Force names
+		$scope.forceNames(true);
+
+		$mdDialog
+		// Show the dialog to allow import
+			.show({
+				templateUrl: 'templates/dialogs/demo.html',
+				controller: DemoCtrl,
+				clickOutsideToClose: true,
+				escapeToClose: true,
+				locals: {
+					palettes: $scope.palettes
+				}
+			});
+
+		// Google Analytics Event Track
+		ga('send', 'event', 'mcg', 'run_demo');
+	};
 
 	// Function to show export json for loading carts later
 	$scope.showAbout = function ()

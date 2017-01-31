@@ -1,4 +1,4 @@
-<md-toolbar layout-gt-md="row" layout-md="column" layout-align="center center">
+<md-toolbar layout-gt-md="row" layout-md="column" layout-align="center center" md-theme="red">
     <md-button href="https://github.com/mbitson/mcg" class="gh-btn md-raised md-accent" target="_blank" aria-label="To Github">
         <md-tooltip>To GitHub</md-tooltip>
         <img src="/images/gh.png" alt="GitHub" name="GitHub Link" />
@@ -41,6 +41,12 @@
                 <ng-md-icon icon="add_box" size="34" style="fill:#ffffff;"></ng-md-icon>
             </md-button>
         </div>
+        <div class="md-accent bright-text">
+            <md-button class="md-accent" ng-click="showDemo()" style="margin-right: 15px;" aria-label="Show Demo">
+                <md-tooltip>Run Demo</md-tooltip>
+                <ng-md-icon icon="play_circle_fill" size="34" style="fill:#fff;"></ng-md-icon>
+            </md-button>
+        </div>
     </div>
 </md-toolbar>
 <md-content class="md-dark-theme">
@@ -64,7 +70,7 @@
             <spectrum-colorpicker ng-model="palette.base" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 250, 'blur': 0} }" format="'hex'" options="{preferredFormat: 'hex', showInput: true, showPalette: true, palette:defaultPalette }" ng-change="calcPalette(paletteKey)"></spectrum-colorpicker>
         </md-toolbar>
 		<md-list flex class="palette-colors spaced">
-		    <md-list-item class="light-canvas" ng-repeat="color in palette.colors">
+		    <md-list-item flex class="light-canvas" ng-repeat="color in palette.colors">
 		        <div class="palette-color" style="background-color:{{color.hex}};" ng-class="{'palette-color-light': !color.darkContrast, 'palette-color-dark': color.darkContrast}">
 		            <span class="name color-text" ng-bind="color.name"></span>
 		            <span ng-bind="color.hex" class="palette-color-hex color-text"></span>
@@ -90,6 +96,10 @@
             </md-button>
         </md-fab-trigger>
         <md-fab-actions>
+            <md-button class="md-accent" md-visible="dialTooltipOpen" ng-click="showDemo()" style="margin-right: 15px;" aria-label="Show Demo">
+                <md-tooltip>Run Demo</md-tooltip>
+                <ng-md-icon icon="play_circle_fill" size="34" style="fill:#fff;"></ng-md-icon>
+            </md-button>
             <md-button class="md-accent" md-visible="dialTooltipOpen" ng-click="addBasePalette()" style="margin-right: 15px;" aria-label="Add Palette">
                 <md-tooltip>Add Palette</md-tooltip>
                 <ng-md-icon icon="add_box" size="34" style="fill:#fff;"></ng-md-icon>

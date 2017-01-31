@@ -1,7 +1,7 @@
 "use strict";
 
 var mcgApp = angular.module('mcgApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'angularSpectrumColorpicker', 'ngMdIcons', 'angular-toArrayFilter', 'ngSanitize']);
-mcgApp.config(function ($routeProvider, $mdThemingProvider, $sceDelegateProvider)
+mcgApp.config(function ($routeProvider, $mdThemingProvider, $sceDelegateProvider, $provide)
 {
     // Configure routes.
    	$routeProvider.when('/', {
@@ -14,13 +14,16 @@ mcgApp.config(function ($routeProvider, $mdThemingProvider, $sceDelegateProvider
         'http://www.colourlovers.com/api/**'
     ]);
 
+    // Watch for theme updates to dynamically change the theme.
+    $mdThemingProvider.generateThemesOnDemand(true);
+
     // Configure themes.
     $mdThemingProvider.definePalette('clear', { "50": "#FFFFFF", "100": "#FFFFFF", "200": "#FFFFFF", "300": "#FFFFFF", "400": "#FFFFFF", "500": "#FFFFFF", "600": "#cbcaca", "700": "#aeadad", "800": "#919090", "900": "#747474", "A100": "#f8f8f8", "A200": "#f4f3f3", "A400": "#ecebeb", "A700": "#aeadad" } );
     $mdThemingProvider.theme('default').primaryPalette('red').accentPalette('clear');
     $mdThemingProvider.theme('dark').primaryPalette('red').accentPalette( 'clear' ).dark();
 
     // Set default palettes as themes for use in UI.
-    $mdThemingProvider.theme('red').primaryPalette('red').accentPalette('clear');
+    $mdThemingProvider.theme('red').primaryPalette('red').accentPalette('clear').backgroundPalette('red');
     $mdThemingProvider.theme('pink').primaryPalette('pink').accentPalette('clear');
     $mdThemingProvider.theme('purple').primaryPalette('purple').accentPalette('clear');
     $mdThemingProvider.theme('deep-purple').primaryPalette('deep-purple').accentPalette('clear');
@@ -39,7 +42,10 @@ mcgApp.config(function ($routeProvider, $mdThemingProvider, $sceDelegateProvider
     $mdThemingProvider.theme('brown').primaryPalette('brown').accentPalette('clear');
     $mdThemingProvider.theme('grey').primaryPalette('grey').accentPalette('clear');
     $mdThemingProvider.theme('blue-grey').primaryPalette('blue-grey').accentPalette('clear');
-}).run(function($rootScope, $location, $window)
+
+    // Save the theming provider for later use
+    $provide.value('mdThemingProvider', $mdThemingProvider);
+}).run(function($rootScope, $location, $window, $mdTheming)
 {
     // initialise google analytics
     $window.ga('create', 'UA-62237624-1', 'auto');
@@ -51,6 +57,28 @@ mcgApp.config(function ($routeProvider, $mdThemingProvider, $sceDelegateProvider
     $rootScope.$on('$stateChangeSuccess', function (event) {
         $window.ga('send', 'pageview', $location.path());
     });
+
+    $mdTheming.generateTheme('default');
+    $mdTheming.generateTheme('dark');
+    $mdTheming.generateTheme('red');
+    $mdTheming.generateTheme('pink');
+    $mdTheming.generateTheme('purple');
+    $mdTheming.generateTheme('deep-purple');
+    $mdTheming.generateTheme('indigo');
+    $mdTheming.generateTheme('blue');
+    $mdTheming.generateTheme('light-blue');
+    $mdTheming.generateTheme('cyan');
+    $mdTheming.generateTheme('teal');
+    $mdTheming.generateTheme('green');
+    $mdTheming.generateTheme('light-green');
+    $mdTheming.generateTheme('lime');
+    $mdTheming.generateTheme('yellow');
+    $mdTheming.generateTheme('amber');
+    $mdTheming.generateTheme('orange');
+    $mdTheming.generateTheme('deep-orange');
+    $mdTheming.generateTheme('brown');
+    $mdTheming.generateTheme('grey');
+    $mdTheming.generateTheme('blue-grey');
 });
 
 /**

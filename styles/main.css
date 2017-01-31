@@ -7,7 +7,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 body {
 	font-family: "Open Sans", Arial, sans-serif;
-	background: rgb(66, 66, 66);
+	background: rgb(48, 48, 48);
 }
 
 .spaced-top {
@@ -45,9 +45,39 @@ pre {
 	padding: 50px;
 }
 
-.md-accent, .md-accent input, .md-accent label {
-	color: #333 !important;
-	fill: #333 !important;
+.mcg-md-profile {
+	font-size: 0.8rem;
+	padding: 15px;
+	text-align: center;
+	opacity: 0.7;
+	transition: opacity 0.3s, box-shadow 0.3s;
+	-webkit-box-shadow: inset 0px -66px 109px -52px rgba(0, 0, 0, 0.45);
+	-moz-box-shadow: inset 0px -66px 109px -52px rgba(0, 0, 0, 0.45);
+	box-shadow: inset 0px -66px 109px -52px rgba(0, 0, 0, 0.45);
+}
+
+.mcg-md-profile:hover {
+	opacity: 1;
+	-webkit-box-shadow: inset 0px -66px 109px -52px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: inset 0px -66px 109px -52px rgba(0, 0, 0, 0.75);
+	box-shadow: inset 0px -66px 109px -52px rgba(0, 0, 0, 0.75);
+}
+
+.mcg-md-profile img {
+	margin: 20px auto;
+	display: block;
+	border-radius: 50%;
+	box-sizing: content-box;
+}
+
+.mcg-username {
+	font-size: 1.1em;
+	letter-spacing: -0.5px;
+	font-weight: bold;
+}
+
+.mcg-email {
+	font-size: 0.9em;
 }
 
 .logo-text {
@@ -206,7 +236,33 @@ md-dialog.export-dialog .md-actions {
 	display: none !important;
 }
 md-input-container {
-	padding: 20px 2px 26px !important;
+	position: relative;
+	margin: 0;
+	top: 17px;
+}
+
+.demo-dialog{
+	width: 80%;
+	font-size: 1rem;
+	height: 80%;
+	overflow: hidden;
+}
+
+.demo-dialog md-content{
+	overflow: hidden;
+}
+
+.demo-dialog md-list-item._md-button-wrap > div.md-button:first-child {
+	padding: 10px 16px;
+}
+
+.card-media {
+	background-color: #999999;
+}
+
+md-list-item .md-list-item-inner:before, md-list-item:before {
+	display: none;
+	content: none;
 }
 
 .md-background {
