@@ -2,7 +2,7 @@
 
 // Define our default color generator controller!
 mcgApp.controller('ColorGeneratorCtrl',
-function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
+function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette, $mdSidenav, $cookies, $location )
 {
 	// Init function.
 	// This is placed into a function
@@ -21,7 +21,12 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		];
 
 		// Set default settings
-		$rootScope.settings.algorithm = $rootScope.settings.algorithms[1];
+		var algorithm = $cookies.get('mcg.settings.algorithm');
+		if(!algorithm){
+			$rootScope.settings.algorithm = $rootScope.settings.algorithms[1];
+		}else {
+			$rootScope.settings.algorithm = algorithm;
+		}
 
 		$scope.defaultPalette = [
 			["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
@@ -42,14 +47,43 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		// Toolbar is hidden by default.
 		$scope.initSpeedDial();
 
-		// Add a default palette
-		$scope.addPaletteFromObject( $mdColorPalette.indigo );
-
 		// Define theme defaults
 		$scope.theme = {
 			name: '',
-            palettes: $scope.palettes
+			palettes: $scope.palettes
 		};
+
+		// Add a default palette or the URL encoded palettes
+		if(!$scope.isObjectEmpty($location.search())){
+			$scope.addPalettesFromLocation();
+		}else{
+			$scope.addPaletteFromObject($mdColorPalette.indigo);
+		}
+	};
+
+	// Watch necessary attributes and build $location.search string.
+	$scope.$watch(function(){ return $scope.palettes; }, function () { $scope.parseLocationString(); }, true);
+	$scope.$watch(function () { return $scope.theme.name; }, function () { $scope.parseLocationString(); }, true);
+	$scope.parseLocationString = function()
+	{
+		$scope.addNames();
+		var searchObj = {};
+		angular.forEach($scope.palettes, function (palette) {
+			searchObj[palette.name] = palette.colors[5].hex;
+		});
+		if ($scope.theme.name !== '') {
+			searchObj.themename = $scope.theme.name;
+		}
+		$location.search(searchObj);
+	};
+
+	$scope.isObjectEmpty = function (obj) {
+		for (var prop in obj) {
+			if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+				return false;
+			}
+		}
+		return true;
 	};
 
 	$scope.initSpeedDial = function(){
@@ -138,6 +172,20 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 
 		// Google Analytics Event Track
 		ga('send', 'event', 'mcg', 'add_palette');
+	};
+
+	$scope.addPalettesFromLocation = function()
+	{
+		angular.forEach($location.search(), function(value, key){
+			if(key == 'themename'){
+				$scope.theme.name = value;
+			}else{
+				var palette = angular.copy($scope.palette);
+				palette.base = value;
+				$scope.palettes.push(palette);
+			}
+		});
+		$scope.calcPalettes();
 	};
 
 	// Function to reset palette back to default.
@@ -253,37 +301,8 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
     // Function to show theme's full code
     $scope.showThemeCode = function()
     {
-	    // Check to see that a theme name
-	    if(typeof $scope.theme.name === 'undefined' || $scope.theme.name.length < 1) {
-			// Set a default theme name
-			$scope.theme.name = 'mcgtheme';
-	    }
-
-		// Make theme name safe for use in code
-		$scope.theme.name = $scope.makeSafe($scope.theme.name);
-
-		// If the first is not defined, add a palette.
-		if(typeof $scope.palettes[0] === "undefined") {
-			// Add a default palette
-			$scope.addPaletteFromObject( $mdColorPalette.indigo );
-		}
-
-		// If the second is not defined, add a palette.
-		if(typeof $scope.palettes[1] === "undefined") {
-			// Add a default palette
-			$scope.addPaletteFromObject( $mdColorPalette.indigo );
-		}
-
-		// For each of the user's palettes...
-		angular.forEach($scope.palettes, function(palette, key){
-			// If this palette does not have a name..
-			if(typeof palette.name === 'undefined' || palette.name.length < 1 ) {
-				// Define a default name for it
-				palette.name = 'mcgpalette'+key;
-			}
-			// Make palette name safe in code
-			palette.name = $scope.makeSafe(palette.name);
-		});
+		// Force names
+		$scope.forceNames(false);
 
         // Show clipboard with theme code
         $scope.showClipboard($scope.palettes, false);
@@ -291,6 +310,50 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	    // Google Analytics Event Track
 	    ga('send', 'event', 'mcg', 'copy_code_theme');
     };
+
+    $scope.forceNames = function(requireTwo)
+	{
+		if(typeof requireTwo == "undefined")
+		{
+			requireTwo = true;
+		}
+
+		// Check to see that a theme name
+		if (typeof $scope.theme.name === 'undefined' || $scope.theme.name.length < 1) {
+			// Set a default theme name
+			$scope.theme.name = 'mcgtheme';
+		}
+
+		// Make theme name safe for use in code
+		$scope.theme.name = $scope.makeSafe($scope.theme.name);
+
+		// If the first is not defined, add a palette.
+		if (typeof $scope.palettes[0] === "undefined") {
+			// Add a default palette
+			$scope.addPaletteFromObject($mdColorPalette.indigo);
+		}
+
+		// If the second is not defined, add a palette.
+		if (typeof $scope.palettes[1] === "undefined" && requireTwo) {
+			// Add a default palette
+			$scope.addPaletteFromObject($mdColorPalette.indigo);
+		}
+
+		$scope.addNames();
+	};
+
+	$scope.addNames = function(){
+		// For each of the user's palettes...
+		angular.forEach($scope.palettes, function (palette, key) {
+			// If this palette does not have a name..
+			if (typeof palette.name === 'undefined' || palette.name.length < 1) {
+				// Define a default name for it
+				palette.name = 'mcgpalette' + key;
+			}
+			// Make palette name safe in code
+			palette.name = $scope.makeSafe(palette.name);
+		});
+	};
 
 	// Function to regenerate json and show dialog for palette.
 	$scope.showPaletteCode = function(palette)
@@ -330,7 +393,7 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 				// ...add the palette!
 				if(typeof code === "string"){
 					$scope.palettes = JSON.parse(code);
-				}else{
+				}else if(typeof code === "object"){
 					$scope.addPaletteFromObject(code);
 				}
 			}, function () { } );
@@ -338,6 +401,38 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		// Google Analytics Event Track
 		ga( 'send', 'event', 'mcg', 'import_code' );
     };
+
+	// Function to show export json for loading carts later
+	$scope.showDemo = function ()
+	{
+		// Force names
+		$scope.forceNames(true);
+
+		$mdDialog
+		// Show the dialog to allow import
+			.show({
+				templateUrl: 'templates/dialogs/demo.html',
+				controller: DemoCtrl,
+				clickOutsideToClose: true,
+				escapeToClose: true,
+				locals: {
+					palettes: $scope.palettes
+				}
+			});
+
+		// Google Analytics Event Track
+		ga('send', 'event', 'mcg', 'run_demo');
+	};
+
+	// Function to show export json for loading carts later
+	$scope.showSettings = function ()
+	{
+		// Open settings
+		$mdSidenav('settings').toggle();
+
+		// Google Analytics Event Track
+		ga('send', 'event', 'mcg', 'settings');
+	};
 
 	// Function to show export json for loading carts later
 	$scope.showAbout = function ()
@@ -375,7 +470,8 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	};
 
 	// Function to show generic clipboard alert dialog
-	$scope.showColourLovers = function () {
+	$scope.showColourLovers = function ()
+	{
 		$mdDialog.show( {
 			templateUrl: 'templates/dialogs/colourlovers.html',
 			controller: ColourLoversDialogController
