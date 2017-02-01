@@ -30,6 +30,7 @@
     "angular-toArrayFilter": "~1.0.1",
     "prism": "^1.6.0",
     "clipboard": "^1.5.16",
-    "angular-sanitize": "latest"
+    "angular-sanitize": "latest",
+    "angular-cookies": "^1.6.1"
   }
 }
