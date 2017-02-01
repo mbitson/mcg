@@ -26,42 +26,42 @@ function DemoCtrl($scope, $mdDialog, mdThemingProvider, $mdTheming, AngularJsInt
 		// Set defaults and demo content
 		$scope.menuIcon = 'menu';
 		$scope.menuOpen = true;
-		$scope.imagePath = 'https://material.angularjs.org/latest/img/list/60.jpeg?0';
+		$scope.imagePath = 'https://avatars3.githubusercontent.com/u/7337773?v=3&s=60';
 		$scope.todos = [
 			{
 				face: $scope.imagePath,
-				what: 'Brunch this weekend?',
-				who: 'Min Li Chan',
-				when: '3:08PM',
-				notes: " I'll be in your neighborhood doing errands"
+				what: 'Lunch this weekend?',
+				who: 'A Famous Person',
+				when: '4:22PM',
+				notes: "Want to meet up for some grub?"
 			},
 			{
 				face: $scope.imagePath,
-				what: 'Brunch this weekend?',
-				who: 'Min Li Chan',
-				when: '3:08PM',
-				notes: " I'll be in your neighborhood doing errands"
+				what: 'Lunch this weekend?',
+				who: 'A Famous Person',
+				when: '4:22PM',
+				notes: "Want to meet up for some grub?"
 			},
 			{
 				face: $scope.imagePath,
-				what: 'Brunch this weekend?',
-				who: 'Min Li Chan',
-				when: '3:08PM',
-				notes: " I'll be in your neighborhood doing errands"
+				what: 'Lunch this weekend?',
+				who: 'A Famous Person',
+				when: '4:22PM',
+				notes: "Want to meet up for some grub?"
 			},
 			{
 				face: $scope.imagePath,
-				what: 'Brunch this weekend?',
-				who: 'Min Li Chan',
-				when: '3:08PM',
-				notes: " I'll be in your neighborhood doing errands"
+				what: 'Lunch this weekend?',
+				who: 'A Famous Person',
+				when: '4:22PM',
+				notes: "Want to meet up for some grub?"
 			},
 			{
 				face: $scope.imagePath,
-				what: 'Brunch this weekend?',
-				who: 'Min Li Chan',
-				when: '3:08PM',
-				notes: " I'll be in your neighborhood doing errands"
+				what: 'Lunch this weekend?',
+				who: 'A Famous Person',
+				when: '4:22PM',
+				notes: "Want to meet up for some grub?"
 			}
 		];
 	};
