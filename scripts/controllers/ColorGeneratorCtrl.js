@@ -2,7 +2,7 @@
 
 // Define our default color generator controller!
 mcgApp.controller('ColorGeneratorCtrl',
-function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette, $mdSidenav, $cookies )
+function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette, $mdSidenav, $cookies, $location )
 {
 	// Init function.
 	// This is placed into a function
@@ -47,14 +47,43 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette, $mdSiden
 		// Toolbar is hidden by default.
 		$scope.initSpeedDial();
 
-		// Add a default palette
-		$scope.addPaletteFromObject( $mdColorPalette.indigo );
-
 		// Define theme defaults
 		$scope.theme = {
 			name: '',
-            palettes: $scope.palettes
+			palettes: $scope.palettes
 		};
+
+		// Add a default palette or the URL encoded palettes
+		if(!$scope.isObjectEmpty($location.search())){
+			$scope.addPalettesFromLocation();
+		}else{
+			$scope.addPaletteFromObject($mdColorPalette.indigo);
+		}
+	};
+
+	// Watch necessary attributes and build $location.search string.
+	$scope.$watch(function(){ return $scope.palettes; }, function () { $scope.parseLocationString(); }, true);
+	$scope.$watch(function () { return $scope.theme.name; }, function () { $scope.parseLocationString(); }, true);
+	$scope.parseLocationString = function()
+	{
+		$scope.addNames();
+		var searchObj = {};
+		angular.forEach($scope.palettes, function (palette) {
+			searchObj[palette.name] = palette.colors[5].hex;
+		});
+		if ($scope.theme.name !== '') {
+			searchObj.themename = $scope.theme.name;
+		}
+		$location.search(searchObj);
+	};
+
+	$scope.isObjectEmpty = function (obj) {
+		for (var prop in obj) {
+			if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+				return false;
+			}
+		}
+		return true;
 	};
 
 	$scope.initSpeedDial = function(){
@@ -143,6 +172,20 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette, $mdSiden
 
 		// Google Analytics Event Track
 		ga('send', 'event', 'mcg', 'add_palette');
+	};
+
+	$scope.addPalettesFromLocation = function()
+	{
+		angular.forEach($location.search(), function(value, key){
+			if(key == 'themename'){
+				$scope.theme.name = value;
+			}else{
+				var palette = angular.copy($scope.palette);
+				palette.base = value;
+				$scope.palettes.push(palette);
+			}
+		});
+		$scope.calcPalettes();
 	};
 
 	// Function to reset palette back to default.
@@ -296,6 +339,10 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette, $mdSiden
 			$scope.addPaletteFromObject($mdColorPalette.indigo);
 		}
 
+		$scope.addNames();
+	};
+
+	$scope.addNames = function(){
 		// For each of the user's palettes...
 		angular.forEach($scope.palettes, function (palette, key) {
 			// If this palette does not have a name..
