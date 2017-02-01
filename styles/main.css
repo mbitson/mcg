@@ -241,6 +241,32 @@ md-input-container {
 	top: 17px;
 }
 
+.md-mcg-notice {
+	font-size: 0.6em;
+	text-align: left;
+	line-height: 1.1em;
+	padding: 0 15px 15px 15px;
+}
+
+.md-input-desc {
+	margin-top: 25px;
+	margin-bottom: 10px;
+	font-size: 0.6em;
+	text-align: left;
+	line-height: 1.1em;
+	padding: 0 5px 5px 5px;
+}
+
+.settings .md-input-desc ul{
+    margin-left: 16px;
+    list-style-type: disc;
+    margin-top: 5px;
+}
+
+.settings .md-input-desc ul li {
+    margin-bottom: 5px;
+}
+
 .demo-dialog{
 	width: 80%;
 	font-size: 1rem;

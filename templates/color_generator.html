@@ -29,12 +29,12 @@
                 <ng-md-icon icon="file_upload" size="34" style="fill:#ffffff;"></ng-md-icon>
             </md-button>
         </div>
-        <div class="md-accent bright-text">
-            <md-button class="md-accent" ng-click="showColourLovers()" style="margin-right: 15px;" aria-label="Select A ColourLovers Theme">
-                <md-tooltip>Select A ColourLovers Theme</md-tooltip>
-                <ng-md-icon icon="palette" size="34" style="fill:#fff;"></ng-md-icon>
-            </md-button>
-        </div>
+        <!--<div class="md-accent bright-text">-->
+            <!--<md-button class="md-accent" ng-click="showColourLovers()" style="margin-right: 15px;" aria-label="Select A ColourLovers Theme">-->
+                <!--<md-tooltip>Select A ColourLovers Theme</md-tooltip>-->
+                <!--<ng-md-icon icon="palette" size="34" style="fill:#fff;"></ng-md-icon>-->
+            <!--</md-button>-->
+        <!--</div>-->
         <div class="md-accent bright-text">
             <md-button class="md-accent" ng-click="addBasePalette()" style="margin-right: 15px;" aria-label="Add Palette">
                 <md-tooltip>Add Palette</md-tooltip>
@@ -45,6 +45,12 @@
             <md-button class="md-accent" ng-click="showDemo()" style="margin-right: 15px;" aria-label="Show Demo">
                 <md-tooltip>Run Demo</md-tooltip>
                 <ng-md-icon icon="play_circle_fill" size="34" style="fill:#fff;"></ng-md-icon>
+            </md-button>
+        </div>
+        <div class="md-accent bright-text">
+            <md-button class="md-accent" ng-click="showSettings()" style="margin-right: 15px;" aria-label="Show Settings">
+                <md-tooltip>Settings</md-tooltip>
+                <ng-md-icon icon="settings_applications" size="34" style="fill:#fff;"></ng-md-icon>
             </md-button>
         </div>
     </div>
@@ -96,6 +102,10 @@
             </md-button>
         </md-fab-trigger>
         <md-fab-actions>
+            <md-button class="md-accent" md-visible="dialTooltipOpen" ng-click="showSettings()" style="margin-right: 15px;" aria-label="Show Settings">
+                <md-tooltip>Settings</md-tooltip>
+                <ng-md-icon icon="settings_applications" size="34" style="fill:#fff;"></ng-md-icon>
+            </md-button>
             <md-button class="md-accent" md-visible="dialTooltipOpen" ng-click="showDemo()" style="margin-right: 15px;" aria-label="Show Demo">
                 <md-tooltip>Run Demo</md-tooltip>
                 <ng-md-icon icon="play_circle_fill" size="34" style="fill:#fff;"></ng-md-icon>
@@ -104,10 +114,10 @@
                 <md-tooltip>Add Palette</md-tooltip>
                 <ng-md-icon icon="add_box" size="34" style="fill:#fff;"></ng-md-icon>
             </md-button>
-            <md-button class="md-accent" md-visible="dialTooltipOpen" ng-click="showColourLovers()" style="margin-right: 15px;" aria-label="Select A ColourLovers Theme">
-                <md-tooltip>Select A ColourLovers Theme</md-tooltip>
-                <ng-md-icon icon="palette" size="34" style="fill:#fff;"></ng-md-icon>
-            </md-button>
+            <!--<md-button class="md-accent" md-visible="dialTooltipOpen" ng-click="showColourLovers()" style="margin-right: 15px;" aria-label="Select A ColourLovers Theme">-->
+                <!--<md-tooltip>Select A ColourLovers Theme</md-tooltip>-->
+                <!--<ng-md-icon icon="palette" size="34" style="fill:#fff;"></ng-md-icon>-->
+            <!--</md-button>-->
             <md-button class="md-accent" md-visible="dialTooltipOpen" ng-click="showImport()" style="margin-right: 15px;" aria-label="Import Theme">
                 <md-tooltip>Import</md-tooltip>
                 <ng-md-icon icon="file_upload" size="34" style="fill:#fff;"></ng-md-icon>
@@ -123,3 +133,31 @@
         </md-fab-actions>
     </md-fab-speed-dial>
 </md-content>
+<md-sidenav class="md-sidenav-right md-whiteframe-4dp settings" md-component-id="settings">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">App Settings</h1>
+        <span class="md-mcg-notice">Settings will be saved as cookies within your browser.</span>
+    </md-toolbar>
+    <md-content ng-controller="SettingsCtrl" layout-padding layout="column">
+        <form layout="column" layout-align="start stretch">
+            <h2 class="md-title">Color Generation Algorithm</h2>
+            <md-input-container>
+                <md-select ng-model="settings.algorithm">
+                    <md-option ng-repeat="algorithm in settings.algorithms" ng-value="algorithm">
+                        {{algorithm.charAt(0).toUpperCase()+algorithm.slice(1)}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <span class="md-input-desc"><strong>Note:</strong>
+	            <ul>
+		            <li>"Traditional" is the original MCG logic. It creates a lower contrast palette.</li>
+	                <li>"Constantin" is the logic that was developed based on the outline from <a href="http://stackoverflow.com/questions/28503998/how-to-create-custom-palette-with-custom-color-for-material-design-app/36229022#36229022">here</a>. It creates a higher contrast palette.</li>
+	            </ul>
+            </span>
+        </form>
+        <span flex></span>
+        <md-button ng-click="close()" class="md-primary">
+            Close Settings
+        </md-button>
+    </md-content>
+</md-sidenav>

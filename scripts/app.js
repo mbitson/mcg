@@ -1,6 +1,20 @@
 "use strict";
 
-var mcgApp = angular.module('mcgApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'angularSpectrumColorpicker', 'ngMdIcons', 'angular-toArrayFilter', 'ngSanitize']);
+// Build app
+var mcgApp = angular.module('mcgApp',
+    [
+        'ngRoute',
+        'ngMaterial',
+        'ngAnimate',
+        'angularSpectrumColorpicker',
+        'ngMdIcons',
+        'angular-toArrayFilter',
+        'ngSanitize',
+        'ngCookies'
+    ]
+);
+
+// Configure
 mcgApp.config(function ($routeProvider, $mdThemingProvider, $sceDelegateProvider, $provide)
 {
     // Configure routes.

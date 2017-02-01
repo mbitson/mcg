@@ -2,7 +2,7 @@
 
 // Define our default color generator controller!
 mcgApp.controller('ColorGeneratorCtrl',
-function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
+function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette, $mdSidenav, $cookies )
 {
 	// Init function.
 	// This is placed into a function
@@ -21,7 +21,12 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 		];
 
 		// Set default settings
-		$rootScope.settings.algorithm = $rootScope.settings.algorithms[1];
+		var algorithm = $cookies.get('mcg.settings.algorithm');
+		if(!algorithm){
+			$rootScope.settings.algorithm = $rootScope.settings.algorithms[1];
+		}else {
+			$rootScope.settings.algorithm = algorithm;
+		}
 
 		$scope.defaultPalette = [
 			["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
@@ -351,7 +356,8 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
     };
 
 	// Function to show export json for loading carts later
-	$scope.showDemo = function () {
+	$scope.showDemo = function ()
+	{
 		// Force names
 		$scope.forceNames(true);
 
@@ -369,6 +375,16 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 
 		// Google Analytics Event Track
 		ga('send', 'event', 'mcg', 'run_demo');
+	};
+
+	// Function to show export json for loading carts later
+	$scope.showSettings = function ()
+	{
+		// Open settings
+		$mdSidenav('settings').toggle();
+
+		// Google Analytics Event Track
+		ga('send', 'event', 'mcg', 'settings');
 	};
 
 	// Function to show export json for loading carts later
@@ -407,7 +423,8 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette )
 	};
 
 	// Function to show generic clipboard alert dialog
-	$scope.showColourLovers = function () {
+	$scope.showColourLovers = function ()
+	{
 		$mdDialog.show( {
 			templateUrl: 'templates/dialogs/colourlovers.html',
 			controller: ColourLoversDialogController
