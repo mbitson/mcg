@@ -17,11 +17,11 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.4",
-    "angular-animate": "^1.4",
-    "angular-aria": "^1.4",
-    "angular-material": "~0.11",
-    "angular-route": "^1.4",
+    "angular": "latest",
+    "angular-animate": "latest",
+    "angular-aria": "latest",
+    "angular-material": "latest",
+    "angular-route": "latest",
     "angular-material-icons": "^0.6",
     "jquery": "~2.1.3",
     "spectrum": "1.6.0",
@@ -30,6 +30,6 @@
     "angular-toArrayFilter": "~1.0.1",
     "prism": "^1.6.0",
     "clipboard": "^1.5.16",
-    "angular-sanitize": "^1.6.1"
+    "angular-sanitize": "latest"
   }
 }

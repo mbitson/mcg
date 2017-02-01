@@ -15,8 +15,7 @@ mcgApp.service('AngularJsInterpreter', function () {
     this.buildExport = function () {
         if (this.single === true) {
             // Generate palette's code
-            this.exportObj.json = this.createAjsPaletteCode(this.exportObj);
-            this.code = this.exportObj.json;
+            this.code = this.createAjsPaletteCode(this.exportObj);
         } else {
             // Init return string
             var themeCodeString = '';
@@ -44,17 +43,45 @@ mcgApp.service('AngularJsInterpreter', function () {
 
     // Function to make an exportable json array for themes.
     this.createAjsPaletteJson = function (colors) {
+        exportable = this.createAjsPaletteJsonObject(colors);
+        return angular.toJson(exportable, 2).replace(/"/g, "'");
+    };
+
+    this.createAjsPaletteJsonObject = function(colors){
         var exportable = {};
         var darkColors = [];
+        var lightColors = [];
         angular.forEach(colors, function (value, key) {
-            exportable[value.name] = value.hex;
+            exportable[value.name] = value.hex.replace('#', '');
             if (value.darkContrast) {
                 darkColors.push(value.name);
+            }else{
+                lightColors.push(value.name);
             }
         });
         exportable.contrastDefaultColor = 'light';
-        exportable.contrastDarkColors = darkColors.join(' ');
-        return angular.toJson(exportable, 2).replace(/"/g, "'");
+        exportable.contrastDarkColors = darkColors;
+        exportable.contrastLightColors = lightColors;
+        return exportable;
+    };
+
+    this.createAjsPaletteForUse = function (colors) {
+        var exportable = {};
+        var darkContrast = [0, 0, 0, 0.87];
+        var lightContrast = [255, 255, 255, 0.87];
+        angular.forEach(colors, function (value, key) {
+            if(value.darkContrast){
+                contrastArray = darkContrast;
+            }else{
+                contrastArray = lightContrast;
+            }
+            var rgb = tinycolor(value.hex).toRgb();
+            exportable[value.name] = {
+                contrast: contrastArray,
+                value: [rgb.r, rgb.g, rgb.b]
+            };
+        });
+        return exportable;
     };
 
 });
