@@ -9,6 +9,7 @@ function DialogExportCtrl($scope, $mdDialog, $timeout, exportObj, single, theme,
 		{ name: "Ember Paper", key: 'ember'},
 		{ name: "Material Design Lite (SCSS)", key: 'md-lite'},
 		{ name: "Material UI (React)", key: 'materialui'},
+		{ name: "Material UI Next (React)", key: 'materialuinext'},
 		{ name: "MCG Reimport", key: 'mcg'},
 		{ name: "Vue.js Material Design", key: 'vue'}
 	];
