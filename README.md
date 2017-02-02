@@ -3,6 +3,7 @@ A tool for generating a color palette for Material Design.
 ###<a href="http://mcg.mbitson.com/">Click here to view the tool!</a>
 
 # What's New?
+* 2/2/17 - Added support for Material UI's "Next" branch (React)
 * 2/1/17 - Let the user select which color calculation algorithm they'd like to use. (constantin/traditional[mcg])
 * 2/1/17 - Added the ability to link to a particular theme. URLs are now updated live as the theme is altered. Individual color alterations will not work with the URL method- use export/import.
 * 2/1/17 - Added a "Demo" option that opens some basic AngularJS Material Design elements in the dynamic theme.
