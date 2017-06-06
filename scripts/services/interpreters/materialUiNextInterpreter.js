@@ -44,7 +44,7 @@ mcgApp.service('MaterialUiNextInterpreter', function () {
         }
 
         // Generate the contrast variables
-        code += '    \'constrastDefaultColor\': \'' + contrast + '\',\n';
+        code += '    \'contrastDefaultColor\': \'' + contrast + '\',\n';
 
         code += '};\n\n';
 
