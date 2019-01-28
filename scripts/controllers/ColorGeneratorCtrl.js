@@ -252,10 +252,10 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette, $mdSiden
 				getColorObject(tinycolor.mix(baseDark, hex, 70), '700'),
 				getColorObject(tinycolor.mix(baseDark, hex, 54), '800'),
 				getColorObject(tinycolor.mix(baseDark, hex, 25), '900'),
-				getColorObject(tinycolor.mix(baseDark, baseTriad[4], 15).saturate(80).lighten(65), 'A100'),
-				getColorObject(tinycolor.mix(baseDark, baseTriad[4], 15).saturate(80).lighten(55), 'A200'),
-				getColorObject(tinycolor.mix(baseDark, baseTriad[4], 15).saturate(100).lighten(45), 'A400'),
-				getColorObject(tinycolor.mix(baseDark, baseTriad[4], 15).saturate(100).lighten(40), 'A700')
+				getColorObject(tinycolor.mix(baseDark, baseTriad[3], 15).saturate(80).lighten(48), 'A100'),
+				getColorObject(tinycolor.mix(baseDark, baseTriad[3], 15).saturate(80).lighten(36), 'A200'),
+				getColorObject(tinycolor.mix(baseDark, baseTriad[3], 15).saturate(100).lighten(31), 'A400'),
+				getColorObject(tinycolor.mix(baseDark, baseTriad[3], 15).saturate(100).lighten(28), 'A700')
 			];
 		}else{
 			return [
