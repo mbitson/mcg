@@ -3,6 +3,7 @@ A tool for generating a color palette for Material Design.
 ###<a href="http://mcg.mbitson.com/">Click here to view the tool!</a>
 
 # What's New?
+* 1/28/19 - Added slight variation on "Constantin" algorithm.
 * 2/2/17 - Added support for Material UI's "Next" branch (React)
 * 2/1/17 - Let the user select which color calculation algorithm they'd like to use. (constantin/traditional[mcg])
 * 2/1/17 - Added the ability to link to a particular theme. URLs are now updated live as the theme is altered. Individual color alterations will not work with the URL method- use export/import.
@@ -36,3 +37,4 @@ A tool for generating a color palette for Material Design.
 * tkh44 - Optimizations/fixes
 * simon04 - Contrast detection, bug fixes.
 * Constantin - Color algorithm logic per stack overflow answer [here](http://stackoverflow.com/a/36229022/3525315).
+* [tabuckner](https://github.com/tabuckner) - Slight variation in 'Constantin' focusing on the A100 - A700 values.
