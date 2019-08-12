@@ -43,7 +43,12 @@ mcgApp.service('FlutterInterpreter', function () {
         angular.forEach(palette.colors, function (value, key) {
             // Extract main color (500)
             if (value.name === "500") {
-                code = escapeHtml('// Standart Colors\nMaterialColor(0xff' + value.hex.substring(1) + ', <int, Color>{\n' + code);
+                codeBeginning = '';
+                
+                codeBeginning += '// Standart Colors\n';
+                codeBeginning += 'MaterialColor(0xff' + value.hex.substring(1) + ', <int, Color>{\n';
+                
+                code = escapeHtml(codeBeginning + code);
             }
 
             // Skip Accent Colors
@@ -64,7 +69,12 @@ mcgApp.service('FlutterInterpreter', function () {
         angular.forEach(palette.colors, function (value, key) {
             // Extract main color (500)
             if (value.name === "500") {
-                code = escapeHtml('// Accent Colors\nMaterialColor(0xff' + value.hex.substring(1) + ', <int, Color>{\n' + code);
+                codeBeginning = '';
+                
+                codeBeginning += '// Accent Colors\n';
+                codeBeginning += 'MaterialColor(0xff' + value.hex.substring(1) + ', <int, Color>{\n';
+                
+                code = escapeHtml(codeBeginning + code);
             }
             // Skip Non-Accent Colors
             if (!value.name.startsWith("A")) {
