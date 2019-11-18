@@ -1,6 +1,5 @@
 mcgApp.service('FlutterInterpreter', function () {
-    this.export = function(exportObj, theme, single)
-    {
+    this.export = function (exportObj, theme, single) {
         this.code = '';
         this.exportObj = exportObj;
         this.theme = theme;
@@ -9,83 +8,71 @@ mcgApp.service('FlutterInterpreter', function () {
         return this.code;
     };
 
-    /*
-     * Flutter formatting functions
-     */
     this.buildExport = function () {
-        if (this.single === true) {
+        if (this.single) {
             // Generate palette's code
-            themeCodeString = this.createFlutterPaletteCode(this.exportObj);
-        } else {
-            // Init return string
-            var themeCodeString = '';
+            this.code = this.generateFlutterPaletteCode(this.exportObj);
+            return;
+        }
 
-            // For each palette, add it's declaration
-            for (var i = 0; i < this.exportObj.length; i++) {
-                themeCodeString = themeCodeString + this.createFlutterPaletteCode(this.exportObj[i]) + '\n\n';
+        // Generate code for each palette
+        this.code = this.exportObj.map(
+            obj => this.generateFlutterPaletteCode(obj)
+        ).join('\n\n');
+    };
+
+    this.generateFlutterPaletteCode = function (palette) {
+        function hexValue(value) {
+            return `0xFF${value.hex.substring(1).toUpperCase()}`;
+        }
+
+        const varMap = {
+            primary: {
+                code: [],
+                mainColorShade: '500',
+                mainColor: '',
+                varName: palette.name,
+                privateVarName: `_${palette.name}PrimaryValue`
+            },
+            accent: {
+                code: [],
+                mainColorShade: '200',
+                mainColor: '',
+                varName: `${palette.name}Accent`,
+                privateVarName: `_${palette.name}AccentValue`
+            },
+            codeString: function () {
+                return escapeHtml([
+                    this.primary.code.join('\n'),
+                    this.accent.code.join('\n')
+                ].join('\n\n'));
             }
         }
 
-        this.code = themeCodeString;
-    };
+        palette.colors.forEach(value => {
+            let isAccent = value.name.startsWith('A');
 
-    this.createFlutterPaletteCode = function (palette) {
-        code = this.createStandartPaletteCode(palette);
-        code += '\n\n';
-        code += this.createAccentPaletteCode(palette);
+            let vars = varMap[isAccent ? 'accent' : 'primary'];
+            let valueName = isAccent ? value.name.substring(1) : value.name;
 
-        return code;
-    };
-
-    this.createStandartPaletteCode = function (palette) {
-        code = '';
-
-        angular.forEach(palette.colors, function (value, key) {
-            // Extract main color (500)
-            if (value.name === "500") {
-                codeBeginning = '';
-                
-                codeBeginning += '// Standart Colors\n';
-                codeBeginning += 'MaterialColor(0xff' + value.hex.substring(1) + ', <int, Color>{\n';
-                
-                code = escapeHtml(codeBeginning + code);
-            }
-
-            // Skip Accent Colors
-            if (value.name.startsWith("A")) {
+            // Extract code for the main color
+            if (valueName == vars.mainColorShade) {
+                vars.mainColor = hexValue(value);
+                vars.code.unshift(`static const MaterialColor ${vars.varName} = MaterialColor(${vars.privateVarName}, <int, Color>{`);
+                vars.code.push(`  ${valueName}: Color(${vars.privateVarName}),`);
                 return;
             }
 
-            code += '  ' + value.name + ': Color(0xff' + value.hex.substring(1) + '),\n';
+            vars.code.push(`  ${valueName}: Color(${hexValue(value)}),`);
         });
 
-        code += '}';
-        return code;
-    };
+        varMap.primary.code.push('});');
+        varMap.primary.code.push(`static const int ${varMap.primary.privateVarName} = ${varMap.primary.mainColor};`);
 
-    this.createAccentPaletteCode = function (palette) {
-        code = '';
+        varMap.accent.code.push('});');
+        varMap.accent.code.push(`static const int ${varMap.accent.privateVarName} = ${varMap.accent.mainColor};`);
 
-        angular.forEach(palette.colors, function (value, key) {
-            // Extract main color (500)
-            if (value.name === "500") {
-                codeBeginning = '';
-                
-                codeBeginning += '// Accent Colors\n';
-                codeBeginning += 'MaterialColor(0xff' + value.hex.substring(1) + ', <int, Color>{\n';
-                
-                code = escapeHtml(codeBeginning + code);
-            }
-            // Skip Non-Accent Colors
-            if (!value.name.startsWith("A")) {
-                return;
-            }
-
-            code += '  ' + value.name.substring(1) + ': Color(0xff' + value.hex.substring(1) + '),\n';
-        });
-
-        code += '}';
-        return code;
+        return varMap.codeString();
     };
 
 });
