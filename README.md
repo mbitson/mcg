@@ -1,9 +1,19 @@
 # Material Design Color Generator
+![GitHub Last Commit](https://img.shields.io/github/last-commit/mbitson/mcg?style=flat-square)
+![GitHub license](https://img.shields.io/github/license/mbitson/mcg?style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/mbitson/mcg?style=flat-square)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mbitson/mcg?style=flat-square)
+![GitHub top language](https://img.shields.io/github/languages/top/mbitson/mcg?style=flat-square)
+
 A tool for generating a color palette for Material Design.
-###<a href="http://mcg.mbitson.com/">Click here to view the tool!</a>
+
+[Click here to use the generator!](http://mcg.mbitson.com/)
+
+![Material Color Design Palette Website Screenshot](preview.png)
 
 # What's New?
-* 1/28/19 - Added slight variation on "Constantin" algorithm.
+* 4/28/20 - Added in support for the Flutter UI Toolkit
+* 4/28/20 - Added slight variation on "Constantin" algorithm.
 * 2/2/17 - Added support for Material UI's "Next" branch (React)
 * 2/1/17 - Let the user select which color calculation algorithm they'd like to use. (constantin/traditional[mcg])
 * 2/1/17 - Added the ability to link to a particular theme. URLs are now updated live as the theme is altered. Individual color alterations will not work with the URL method- use export/import.
@@ -33,8 +43,10 @@ A tool for generating a color palette for Material Design.
 * Should you encounter a bug/problem or have a question about the tool please report it using GitHub's "Issues" feature [here](https://github.com/mbitson/mcg/issues).
 
 # Contributions
-* fireflight1 - Initial concept, starting code base.
-* tkh44 - Optimizations/fixes
-* simon04 - Contrast detection, bug fixes.
-* Constantin - Color algorithm logic per stack overflow answer [here](http://stackoverflow.com/a/36229022/3525315).
+* [fireflight1](https://github.com/fireflight1) - Initial concept, starting code base.
+* [tkh44](https://github.com/tkh44) - Optimizations/fixes
+* [simon04](https://github.com/simon04) - Contrast detection, bug fixes.
+* [Constantin](https://stackoverflow.com/users/6115563/constantin) - Color algorithm logic per stack overflow answer [here](http://stackoverflow.com/a/36229022/3525315).
 * [tabuckner](https://github.com/tabuckner) - Slight variation in 'Constantin' focusing on the A100 - A700 values.
+* [vstollen](https://github.com/vstollen) - Added generators necessary to support Flutter 
+* [berryp](https://github.com/berryp) - Bugfixes on Flutter support
