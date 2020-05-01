@@ -19,8 +19,18 @@ mcgApp.service('EmberInterpreter', function () {
         return themeCodeString;
     };
 
+    /**
+     * Attempts to generate a Palettes object that MCG will recognize from a string of Ember Paper code.
+     * @param code
+     * @returns {[]}
+     */
     this.import = function(code) {
-        // @TODO - Implement a method which generates the MCG standard object from the code string passed in.
+        let palettes = [];
+        for (const paletteData of [...code.matchAll(/\$color-(.*): ?([\n:a-zA-z0-9 ('#,)]*) ?!default;/g)]) {
+            let palette = this.buildPalette(paletteData);
+            palettes.push(palette);
+        }
+        return palettes;
     };
 
     /**
@@ -34,6 +44,11 @@ mcgApp.service('EmberInterpreter', function () {
         return !!(code.match(/\$color-(.*): ?\(/g) && code.match(/'contrast': ?#[a-zA-z0-9]{3,6}/g));
     };
 
+    /**
+     * Generate a string of code for use in Ember Paper from the MCG palette
+     * @param palette
+     * @returns {string}
+     */
     this.createEmberPaletteCode = function (palette) {
         let code = '';
         code += '$color-' + palette.name + ': (\n';
@@ -50,5 +65,32 @@ mcgApp.service('EmberInterpreter', function () {
 
         return code;
     };
+
+    /**
+     * Builds a palette object for MCG from regex-extracted data
+     * @param paletteData
+     * @returns {{orig: [], name: *, json: string, colors: [], base: string}}
+     */
+    this.buildPalette = function (paletteData) {
+        let palette = {"colors": [], "orig": [], "base": "", "json": "", "name": paletteData[1]}
+
+        for (const color of [...paletteData[2].matchAll(/'(A?[0-9]{1,3})' ?: ?'?#([a-zA-Z0-9]{3,6})'?,/g)]) {
+            let colorName = color[1];
+            let colorHex = color[2];
+
+            let colorObj = {
+                "name": colorName,
+                "hex": '#' + colorHex,
+                "darkContrast": true
+            };
+            palette.colors.push(colorObj);
+            palette.orig.push(colorObj);
+
+            if (colorName === "500") {
+                palette.base = '#' + colorHex;
+            }
+        }
+        return palette;
+    }
 
 });

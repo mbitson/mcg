@@ -32,13 +32,15 @@ Once you generate your palette(s), you may export the colors to the proper forma
 7) Material UI Next (React)
 8) Vue.js Material Design
 9) Flutter UI
-10) MCG Reimport (Proprietary, required to import back into this tool later)
+10) MCG Reimport (Proprietary)
 
 # Palette Imports
-Currently, there is only one option for importing a palette or set of palettes. This requires that the palette was exported using this same MCG tool. To access this export, go to the export section and use the "MCG Reimport" option.
-![MCG Reimport Option](preview-reimport.jpg)
-
-A new feature to be able to import any format that this tool has exported is in the works. You may track this effort [here](https://github.com/mbitson/mcg/issues/102).
+This tool supports reimporting most palettes and themes that it has exported. Full support is still in development, but the following exports can now be reimported:
+1) Android XML
+2) AngularJS (Material)
+3) AngularJS 2 (Material 2)
+4) Ember Paper
+5) MCG Reimport (Proprietary)
 
 # Color Generation
 By default, we've chosen an Algorithm that seems to do a decent job at picking colors in most situations. However, if you find your palette doesn't look quite how you'd expect, you may change the algorithm that is used. Options are:
@@ -51,7 +53,7 @@ By default, we've chosen an Algorithm that seems to do a decent job at picking c
 ![MCG Color Algorithm Choice](preview-algorithm-choice.jpg)
 
 # What's New?
-* Added the ability to import any palette this tool has exported. TODO: Update this readme about this functionality.
+* 5/1/20 - Added the ability to reimport Android XML, AngularJS (Material), AngularJS 2 (Material 2), Ember Paper and MCG code
 * 4/28/20 - [vstollen](https://github.com/vstollen) added in support for the Flutter UI Toolkit, with bugfixes from [berryp](https://github.com/berryp)
 * 4/28/20 - [tabuckner](https://github.com/tabuckner) added slight variation on "Constantin" algorithm.
 * 2/2/17 - Added support for Material UI's "Next" branch (React)
@@ -72,7 +74,6 @@ By default, we've chosen an Algorithm that seems to do a decent job at picking c
 * 4/14/15 - Export your color choices to the AngularJS Material Design theme declaration code.
 
 # Planned Enhancements
-* (TOP) Allow imports of any palette that was exported with this tool. You may track this effort [here](https://github.com/mbitson/mcg/issues/102).
 * (TOP) Determine which palette is primary, secondary, and so on. Drag and drop palettes.
 * (MED) Remove individual color's hex details and create tooltip styled with all color details. (Hoverintent, populated only once it's opening, includes hex, rgb, cmyk, saturation, brightness. Possibly obtained using tinycolor)
 * (MED) Improve performance by dynamically creating and destroying the color picker button and UI instead of loading a ton of Divs into the DOM for each color on the screen and hiding them.
