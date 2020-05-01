@@ -9,6 +9,23 @@ mcgApp.service('MaterialUiNextInterpreter', function () {
         return this.code;
     };
 
+    this.import = function(code)
+    {
+        // @TODO - Implement a method which generates the MCG standard object from the code string passed in.
+    }
+
+    /**
+     * Checks for the presence of a string that is only found in this interpreter.
+     * @param code string
+     * @returns {boolean}
+     */
+    this.isApplicable = function(code)
+    {
+        // Checks for line: `export const <PALETTENAME> = {`
+        // Checks for line: `'contrastDefaultColor': '<PALETTECONTRAST>',`
+        return !!(code.match(/export const(.*)= ?{/g) && code.match(/'contrastDefaultColor': ?'(.*)',/g));
+    };
+
     /*
      * AngularJS 2
      * Material 2 Formatting Functions

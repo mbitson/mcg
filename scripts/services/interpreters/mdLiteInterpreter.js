@@ -9,6 +9,23 @@ mcgApp.service('MdLiteInterpreter', function () {
         return this.code;
     };
 
+    this.import = function(code)
+    {
+        // @TODO - Implement a method which generates the MCG standard object from the code string passed in.
+    }
+
+    /**
+     * Checks for the presence of a string that is only found in this interpreter.
+     * @param code string
+     * @returns {boolean}
+     */
+    this.isApplicable = function(code)
+    {
+        // Checks for line: `$palette-<PALETTENAME>:`
+        // Checks for line: `$palette-<PALETTENAME>: nth($palette-<PALETTENAME>, <PALETTENUMBER>);`
+        return !!(code.match(/\$palette-(.*): ?\n/g) && code.match(/\$palette-(.*): ?nth\(\$palette-(.*)\);/g));
+    };
+
     /*
      * Material Design Lite (SCSS)
      */

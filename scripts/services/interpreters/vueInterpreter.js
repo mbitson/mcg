@@ -9,6 +9,22 @@ mcgApp.service('VueInterpreter', function () {
         return this.code;
     };
 
+    this.import = function(code)
+    {
+        // @TODO - Implement a method which generates the MCG standard object from the code string passed in.
+    }
+
+    /**
+     * Checks for the presence of a string that is only found in this interpreter.
+     * @param code string
+     * @returns {boolean}
+     */
+    this.isApplicable = function(code)
+    {
+        // Checks for line: `darkText: [<PALETTEDARKNODES>]`
+        return !!(code.match(/darkText: ?\[(.*)]/g));
+    };
+
     /*
      * Material Design Lite (SCSS)
      */

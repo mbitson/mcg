@@ -8,6 +8,22 @@ mcgApp.service('FlutterInterpreter', function () {
         return this.code;
     };
 
+    this.import = function(code)
+    {
+        // @TODO - Implement a method which generates the MCG standard object from the code string passed in.
+    }
+
+    /**
+     * Checks for the presence of a string that is only found in this interpreter.
+     * @param code string
+     * @returns {boolean}
+     */
+    this.isApplicable = function(code)
+    {
+        // Checks for line: `static const MaterialColor <PALETTENAME> = MaterialColor(_<PALETTENAME>PrimaryValue, <int, Color>{`
+        return !!(code.match(/static const MaterialColor(.*)= ?MaterialColor\(_(.*)PrimaryValue, ?<int, ?Color>{/g));
+    };
+
     this.buildExport = function () {
         if (this.single) {
             // Generate palette's code
