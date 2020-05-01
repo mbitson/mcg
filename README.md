@@ -12,6 +12,7 @@
 
 A tool for generating a color palette for Material Design.
 
+ - [Screenshot](#screenshot)
  - [Palette Exports](#palette-exports)
  - [Palette Imports](#palette-imports)
  - [Color Generation](#color-generation)
@@ -19,7 +20,9 @@ A tool for generating a color palette for Material Design.
  - [Planned Enhancements](#planned-enhancements)
  - [Bugs & Questions](#bugs--questions)
  - [Contributions](#contributions)
- - [Screenshot](#screenshot)
+ 
+ # Screenshot
+ ![Material Color Design Palette Website Screenshot](preview.jpg)
 
 # Palette Exports
 Once you generate your palette(s), you may export the colors to the proper format for any of the following frameworks/toolkits:
@@ -91,6 +94,3 @@ By default, we've chosen an Algorithm that seems to do a decent job at picking c
 * [tabuckner](https://github.com/tabuckner) - Slight variation in 'Constantin' focusing on the A100 - A700 values.
 * [vstollen](https://github.com/vstollen) - Added generators necessary to support Flutter 
 * [berryp](https://github.com/berryp) - Bugfixes on Flutter support
-
-# Screenshot
-![Material Color Design Palette Website Screenshot](preview.jpg)
