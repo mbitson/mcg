@@ -8,17 +8,20 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/mbitson/mcg?style=flat-square)
 ![GitHub license](https://img.shields.io/github/license/mbitson/mcg?style=flat-square)
 
-A tool for generating a color palette for Material Design. [Click here](http://mcg.mbitson.com/)  to use the generator!
+[http://mcg.mbitson.com/](http://mcg.mbitson.com/)
 
- - [Palette Export Options](#palette-export-options)
- - [Color Generation Options](#color-generation-options)
+A tool for generating a color palette for Material Design.
+
+ - [Palette Exports](#palette-exports)
+ - [Palette Imports](#palette-imports)
+ - [Color Generation](#color-generation)
  - [What's New?](#whats-new)
- - [Planned Future Enhancements](#planned-future-enhancements)
- - [Bugs and Questions](#bugs-and-questions)
+ - [Planned Enhancements](#planned-enhancements)
+ - [Bugs & Questions](#bugs--questions)
  - [Contributions](#contributions)
  - [Screenshot](#screenshot)
 
-# Palette Export Options
+# Palette Exports
 Once you generate your palette(s), you may export the colors to the proper format for any of the following frameworks/toolkits:
 1) Android XML
 2) AngularJS (Material)
@@ -29,17 +32,26 @@ Once you generate your palette(s), you may export the colors to the proper forma
 7) Material UI Next (React)
 8) Vue.js Material Design
 9) Flutter UI
-10) MCG Reimport (Proprietary)
+10) MCG Reimport (Proprietary, required to import back into this tool later)
 
-# Color Generation Options
+# Palette Imports
+Currently, there is only one option for importing a palette or set of palettes. This requires that the palette was exported using this same MCG tool. To access this export, go to the export section and use the "MCG Reimport" option.
+![MCG Reimport Option](preview-reimport.jpg)
+
+A new feature to be able to import any format that this tool has exported is in the works. You may track this effort [here](https://github.com/mbitson/mcg/issues/102).
+
+# Color Generation
 By default, we've chosen an Algorithm that seems to do a decent job at picking colors in most situations. However, if you find your palette doesn't look quite how you'd expect, you may change the algorithm that is used. Options are:
 <ul>
-    <li>"Traditional" is the original MCG logic. It creates a lower contrast palette.</li>
+    <li>"Traditional" is the original MCG logic. It is currently the default. It creates a lower contrast palette.</li>
     <li>"Constantin" is the logic that was developed based on the outline from <a href="http://stackoverflow.com/questions/28503998/how-to-create-custom-palette-with-custom-color-for-material-design-app/36229022#36229022">here</a>. It creates a higher contrast palette.</li>
     <li>"Buckner" is a slight variation in "Constantin" focusing on the A100 - A700 hues.</li>
 </ul>
 
+![MCG Color Algorithm Choice](preview-algorithm-choice.jpg)
+
 # What's New?
+* Added the ability to import any palette this tool has exported. TODO: Update this readme about this functionality.
 * 4/28/20 - [vstollen](https://github.com/vstollen) added in support for the Flutter UI Toolkit, with bugfixes from [berryp](https://github.com/berryp)
 * 4/28/20 - [tabuckner](https://github.com/tabuckner) added slight variation on "Constantin" algorithm.
 * 2/2/17 - Added support for Material UI's "Next" branch (React)
@@ -56,18 +68,18 @@ By default, we've chosen an Algorithm that seems to do a decent job at picking c
 * 10/9/15 - Import from AngularJS Material Design default palettes or from your own AngularJS Material Design Color Palette definition code!
 * 10/9/15 - Added support for tinycolor.js instead of manual color manipulation.
 * 7/22/15 - Improved Performance with more than 2 palettes.
-* 7/14/15 - Support for <a href="http://www.COLOURlovers.com">COLOURlovers.com</a> palettes. You may now select a top palette and instantly have a material design theme!
 * 4/16/15 - Modify any one palette color.
 * 4/14/15 - Export your color choices to the AngularJS Material Design theme declaration code.
 
-# Planned Future Enhancements
+# Planned Enhancements
+* (TOP) Allow imports of any palette that was exported with this tool. You may track this effort [here](https://github.com/mbitson/mcg/issues/102).
 * (TOP) Determine which palette is primary, secondary, and so on. Drag and drop palettes.
 * (MED) Remove individual color's hex details and create tooltip styled with all color details. (Hoverintent, populated only once it's opening, includes hex, rgb, cmyk, saturation, brightness. Possibly obtained using tinycolor)
 * (MED) Improve performance by dynamically creating and destroying the color picker button and UI instead of loading a ton of Divs into the DOM for each color on the screen and hiding them.
 * (LOW) Add reset buttons for each individual color in a palette (based on main palette color)
 * (LOW) Create UI for more than 5 palettes (and/or alert user about dangers of using this many palettes)
 
-# Bugs and Questions
+# Bugs & Questions
 * Should you encounter a bug/problem or have a question about the tool please report it using GitHub's "Issues" feature [here](https://github.com/mbitson/mcg/issues).
 
 # Contributions
@@ -80,4 +92,4 @@ By default, we've chosen an Algorithm that seems to do a decent job at picking c
 * [berryp](https://github.com/berryp) - Bugfixes on Flutter support
 
 # Screenshot
-![Material Color Design Palette Website Screenshot](preview.png)
+![Material Color Design Palette Website Screenshot](preview.jpg)
