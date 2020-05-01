@@ -2,7 +2,7 @@
 
 // Define our default color generator controller!
 mcgApp.controller('ColorGeneratorCtrl',
-function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette, $mdSidenav, $cookies, $location )
+function ($scope, $mdDialog, $rootScope, $mdColorPalette, $mdSidenav, $cookies, $location, TopInterpreter )
 {
 	// Init function.
 	// This is placed into a function
@@ -43,7 +43,6 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette, $mdSiden
 
 		// Define palettes
 		$scope.palettes = [];
-		$scope.colourlovers = [];
 
 		// Toolbar is hidden by default.
 		$scope.initSpeedDial();
@@ -417,15 +416,44 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette, $mdSiden
 			{
 				// ...add the palette!
 				if(typeof code === "string"){
-					$scope.palettes = JSON.parse(code);
-				}else if(typeof code === "object"){
-					$scope.addPaletteFromObject(code);
+					var palettesObject = $scope.parseImportString(code);
+					if(palettesObject === false){
+						alert('Error importing your provided code. Code should be originally exported from this tool and unmodified.');
+						return;
+					}
+					$scope.palettes = palettesObject;
 				}
 			}, function () { } );
 
 		// Google Analytics Event Track
 		ga( 'send', 'event', 'mcg', 'import_code' );
     };
+
+	/**
+	 * Takes input code and attempts to determine the appropriate interpreter and generate the palettes object.
+	 * @param code string
+	 * @returns {boolean|*}
+	 */
+	$scope.parseImportString = function(code)
+	{
+    	var interpreters = TopInterpreter.getInterpreters();
+		for (var name in interpreters) {
+			if (interpreters.hasOwnProperty(name)) {
+				var interpreter = interpreters[name];
+				if(
+					typeof interpreter.isApplicable === "function" &&
+					typeof interpreter.import === "function" &&
+					interpreter.isApplicable(code) === true
+				) {
+					var returnObj = interpreter.import(code);
+					if(returnObj){
+						return returnObj;
+					}
+				}
+			}
+		}
+		return false;
+	};
 
 	// Function to show export json for loading carts later
 	$scope.showDemo = function ()
@@ -492,53 +520,6 @@ function ($scope, $mdDialog, ColourLovers, $rootScope, $mdColorPalette, $mdSiden
 
 		// Google Analytics Event Track
 		ga('send', 'event', 'mcg', 'copy_code');
-	};
-
-	// Function to show generic clipboard alert dialog
-	$scope.showColourLovers = function ()
-	{
-		$mdDialog.show( {
-			templateUrl: 'templates/dialogs/colourlovers.html',
-			controller: ColourLoversDialogController
-		} );
-
-		// Google Analytics Event Track
-		ga( 'send', 'event', 'mcg', 'view_colourlovers' );
-
-		function ColourLoversDialogController( $scope, $mdDialog, ColourLovers )
-		{
-			$scope.init = function(){
-				$scope.colourlovers = [];
-				$scope.setColors = $rootScope.setPalettesByColors;
-				$scope.getTop();
-			};
-
-			// Get top colourlover palettes.
-			$scope.getTop = function(){
-				ColourLovers.getTop();
-			};
-
-			// Get new colourlover palettes.
-			$scope.getNew = function () {
-				ColourLovers.getNew();
-			};
-
-			// Get random colourlover palettes.
-			$scope.getRandom = function () {
-				ColourLovers.getRandom();
-			};
-
-			// Function to close dialog
-			$scope.closeDialog = function () {
-				$mdDialog.hide();
-			};
-
-			var CLGetSuccess = function (data) {
-				$scope.colourlovers = data;
-			};
-
-			$scope.init();
-		}
 	};
 
 	$scope.makeSafe = function(s){
