@@ -49,7 +49,7 @@ By default, we've chosen an Algorithm that seems to do a decent job at picking c
 ![MCG Color Algorithm Choice](preview-algorithm-choice.jpg)
 
 # What's New?
-Please see the [CHANGELOG](https://github.com/mbitson/mcg/blob/master/README.md).
+Please see the [CHANGELOG](https://github.com/mbitson/mcg/blob/master/CHANGELOG.md).
 
 # Bugs & Questions
 Should you encounter a bug/problem or have a question about the tool please report it using GitHub's "Issues" feature [here](https://github.com/mbitson/mcg/issues).
