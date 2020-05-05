@@ -64,16 +64,13 @@ function ($scope, $mdDialog, $rootScope, $mdColorPalette, $mdSidenav, $cookies, 
 	// Watch necessary attributes and build $location.search string.
 	$scope.$watch(function(){ return $scope.palettes; }, function () { $scope.parseLocationString(); }, true);
 	$scope.$watch(function () { return $scope.theme.name; }, function () { $scope.parseLocationString(); }, true);
-	$scope.parseLocationString = function()
-	{
+	$scope.parseLocationString = function() {
 		$scope.addNames();
 		var searchObj = {};
 		angular.forEach($scope.palettes, function (palette) {
-			searchObj[palette.name] = palette.colors[5].hex;
+			if(5 in palette.colors) searchObj[palette.name] = palette.colors[5].hex;
 		});
-		if ($scope.theme.name !== '') {
-			searchObj.themename = $scope.theme.name;
-		}
+		if ($scope.theme.name !== '') searchObj.themename = $scope.theme.name;
 		$location.search(searchObj);
 	};
 
@@ -422,6 +419,8 @@ function ($scope, $mdDialog, $rootScope, $mdColorPalette, $mdSidenav, $cookies, 
 						return;
 					}
 					$scope.palettes = palettesObject;
+				}else if(typeof code === "object"){
+					$scope.addPaletteFromObject(code);
 				}
 			}, function () { } );
 
