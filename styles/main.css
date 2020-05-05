@@ -235,6 +235,12 @@ md-dialog.export-dialog .md-actions {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
 	display: none !important;
 }
+
+.md-sidenav-left {
+	overflow-x: hidden;
+	box-shadow: none;
+}
+
 md-input-container {
 	position: relative;
 	margin: 0;
