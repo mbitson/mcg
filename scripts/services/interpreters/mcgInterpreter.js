@@ -5,7 +5,7 @@ mcgApp.service('McgInterpreter', function () {
      * @param exportObj
      * @returns {string}
      */
-    this.export = function(exportObj) {
+    this.export = function (exportObj) {
         return JSON.stringify(angular.copy(exportObj), null, 2);
     };
 
@@ -14,8 +14,8 @@ mcgApp.service('McgInterpreter', function () {
      * @param code
      * @returns {boolean|{}}
      */
-    this.import = function(code) {
-        try{
+    this.import = function (code) {
+        try {
             return JSON.parse(code);
         } catch (e) {
             return false;
@@ -27,8 +27,7 @@ mcgApp.service('McgInterpreter', function () {
      * @param code string
      * @returns {boolean}
      */
-    this.isApplicable = function(code)
-    {
+    this.isApplicable = function (code) {
         // Checks for the following nodes:
         // - `colors` key with an array
         // - `orig` key with an array

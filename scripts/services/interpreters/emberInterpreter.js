@@ -7,7 +7,7 @@ mcgApp.service('EmberInterpreter', function () {
      * @param single
      * @returns {*}
      */
-    this.export = function(exportObj, theme, single) {
+    this.export = function (exportObj, theme, single) {
         let themeCodeString = '/* For use in app/styles/color-palette.scss */\n';
         if (single === true) {
             themeCodeString += this.createEmberPaletteCode(exportObj);
@@ -24,7 +24,7 @@ mcgApp.service('EmberInterpreter', function () {
      * @param code
      * @returns {[]}
      */
-    this.import = function(code) {
+    this.import = function (code) {
         let palettes = [];
         for (const paletteData of [...code.matchAll(/\$color-(.*): ?([\n:a-zA-z0-9 ('#,)]*) ?!default;/g)]) {
             let palette = this.buildPalette(paletteData);
@@ -38,7 +38,7 @@ mcgApp.service('EmberInterpreter', function () {
      * @param code string
      * @returns {boolean}
      */
-    this.isApplicable = function(code) {
+    this.isApplicable = function (code) {
         // Checks for line: `$color-<PALETTENAME>: (`
         // Checks for line: `'contrast': #<PALETTECONTRASTHEX>`
         return !!(code.match(/\$color-(.*): ?\(/g) && code.match(/'contrast': ?#[a-zA-z0-9]{3,6}/g));
@@ -76,18 +76,18 @@ mcgApp.service('EmberInterpreter', function () {
 
         for (const color of [...paletteData[2].matchAll(/'(A?[0-9]{1,3})' ?: ?'?#([a-zA-Z0-9]{3,6})'?,/g)]) {
             let colorName = color[1];
-            let colorHex = color[2];
-
+            let colorHex = '#' + color[2];
+            let c = tinycolor(colorHex);
             let colorObj = {
                 "name": colorName,
-                "hex": '#' + colorHex,
-                "darkContrast": true
+                "hex": colorHex,
+                "darkContrast": c.isLight()
             };
             palette.colors.push(colorObj);
             palette.orig.push(colorObj);
 
             if (colorName === "500") {
-                palette.base = '#' + colorHex;
+                palette.base = colorHex;
             }
         }
         return palette;

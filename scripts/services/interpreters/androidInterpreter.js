@@ -26,7 +26,7 @@ mcgApp.service('AndroidInterpreter', function () {
      */
     this.import = function (code) {
         let colors = this.determineColors(code);
-        return this.determinePalettes(colors);
+        return this.buildPalettes(colors);
     }
 
     /**
@@ -79,15 +79,16 @@ mcgApp.service('AndroidInterpreter', function () {
      * @param colors {{}}
      * @returns {[]}
      */
-    this.determinePalettes = function (colors) {
+    this.buildPalettes = function (colors) {
         let palettes = [];
         angular.forEach(colors, function (paletteColors, paletteName) {
             let palette = {"colors": [], "orig": [], "base": "", "json": "", "name": paletteName}
             angular.forEach(paletteColors, function (colorValue, colorName) {
+                let c = tinycolor('#' + colorValue);
                 let color = {
                     "name": colorName,
                     "hex": '#' + colorValue,
-                    "darkContrast": true
+                    "darkContrast": c.isLight()
                 };
                 palette.colors.push(color);
                 palette.orig.push(color);
