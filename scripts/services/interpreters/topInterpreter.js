@@ -10,7 +10,7 @@ mcgApp.service('TopInterpreter',
         'EmberInterpreter',
         'McgInterpreter',
         'VueInterpreter',
-        function(
+        function (
             AngularJsInterpreter,
             AngularJs2Interpreter,
             FlutterInterpreter,
@@ -21,35 +21,49 @@ mcgApp.service('TopInterpreter',
             EmberInterpreter,
             McgInterpreter,
             VueInterpreter
-        ){
-            this.getInterpreter = function (name)
-            {
-                // Depending on the format desired, fire the appropriate formater or return false
-                switch (name) {
-                    case "angularjs":
-                        return AngularJsInterpreter;
-                    case "angularjs2":
-                        return AngularJs2Interpreter;
-                    case "flutter":
-                        return FlutterInterpreter;
-                    case "materialui":
-                        return MaterialUiInterpreter;
-                    case "materialuinext":
-                        return MaterialUiNextInterpreter;
-                    case "android":
-                        return AndroidInterpreter;
-                    case "md-lite":
-                        return MdLiteInterpreter;
-                    case "ember":
-                        return EmberInterpreter;
-                    case "mcg":
-                        return McgInterpreter;
-                    case "vue":
-                        return VueInterpreter;
-                    default:
-                        return false;
-                }
+        ) {
+
+            /**
+             * This object houses each supported language type for imports and exports.
+             * To add a new type, please see https://github.com/mbitson/mcg/pull/90/files
+             * Please note that in addition to the above changes, you'll need to support the following two methods:
+             * - isApplicable
+             * - import
+             * For examples of these methods and the proper code style, see the `scripts/services/interpreters` folder.
+             * @type {{}}
+             */
+            this.interpreters = {
+                "angularjs": AngularJsInterpreter,
+                "angularjs2": AngularJs2Interpreter,
+                "flutter": FlutterInterpreter,
+                "materialui": MaterialUiInterpreter,
+                "materialuinext": MaterialUiNextInterpreter,
+                "android": AndroidInterpreter,
+                "md-lite": MdLiteInterpreter,
+                "ember": EmberInterpreter,
+                "mcg": McgInterpreter,
+                "vue": VueInterpreter,
             };
+
+            /**
+             * Takes the interpreter name and returns the appropriate object.
+             * @param name
+             * @returns {boolean|*}
+             */
+            this.getInterpreter = function (name) {
+                if (name in this.interpreters) {
+                    return this.interpreters[name];
+                }
+                return false;
+            };
+
+            /**
+             * Returns all available interpreters
+             * @returns {*}
+             */
+            this.getInterpreters = function () {
+                return this.interpreters;
+            }
         }
     ]
 );

@@ -25,8 +25,7 @@ mcgApp.config(function ($routeProvider, $mdThemingProvider, $sceDelegateProvider
         });
 
         $sceDelegateProvider.resourceUrlWhitelist([
-            'self',
-            'http://www.colourlovers.com/api/**'
+            'self'
         ]);
 
         // Watch for theme updates to dynamically change the theme.
